@@ -1,0 +1,421 @@
+{
+  "topProducts": [
+    {
+      "id": 1,
+      "title": "MS Office 2024 Pro Plus & Windows 11 Pro Combo",
+      "price": 39.99,
+      "originalPrice": 89.99,
+      "currency": "GBP",
+      "badge": "Hot Sale",
+      "badgeColor": "red",
+      "image": "/images/products/office-windows-combo.jpg",
+      "stock": 1,
+      "stockLabel": "1 Last Items"
+    },
+    {
+      "id": 2,
+      "title": "PUBG Mobile 60 UC Official Website Key Global",
+      "price": 1.84,
+      "originalPrice": 2.99,
+      "currency": "GBP",
+      "badge": "Under 10 Dollar",
+      "badgeColor": "green",
+      "image": "/images/products/pubg-mobile.jpg",
+      "stock": 100,
+      "stockLabel": "In stock"
+    },
+    {
+      "id": 3,
+      "title": "Apple iTunes Gift Card $40 USD Key UNITED STATES",
+      "price": 37.74,
+      "originalPrice": 40.00,
+      "currency": "GBP",
+      "badge": "Best Seller",
+      "badgeColor": "orange",
+      "image": "/images/products/itunes-gift-card.jpg",
+      "stock": 100,
+      "stockLabel": "In stock"
+    },
+    {
+      "id": 4,
+      "title": "Age of Empires II: Definitive Edition Dynasties of India Global Key",
+      "price": 9.48,
+      "originalPrice": 14.99,
+      "currency": "GBP",
+      "badge": "Games",
+      "badgeColor": "blue",
+      "image": "/images/products/age-of-empires.jpg",
+      "stock": 1,
+      "stockLabel": "1 Last Items"
+    },
+    {
+      "id": 5,
+      "title": "Adobe Creative Cloud All Apps 100GB for 1 year Personal Upgrade",
+      "price": 80.99,
+      "originalPrice": 129.99,
+      "currency": "GBP",
+      "badge": "Adobe Software",
+      "badgeColor": "purple",
+      "image": "/images/products/adobe-cc.jpg",
+      "stock": 100,
+      "stockLabel": "In stock"
+    },
+    {
+      "id": 6,
+      "title": "EA SPORTS FC 26 1050 FC Points Key - Xbox One / Xbox Series X|S Global",
+      "price": 7.70,
+      "originalPrice": 9.99,
+      "currency": "GBP",
+      "badge": "Under 10 Dollar",
+      "badgeColor": "green",
+      "image": "/images/products/fc-points.jpg",
+      "stock": 1,
+      "stockLabel": "1 Last Items"
+    },
+    {
+      "id": 7,
+      "title": "ARC Raiders Steam key Instant Delivery",
+      "price": 23.10,
+      "originalPrice": 34.99,
+      "currency": "GBP",
+      "badge": "Games",
+      "badgeColor": "blue",
+      "image": "/images/products/arc-raiders.jpg",
+      "stock": 1,
+      "stockLabel": "1 Last Items"
+    },
+    {
+      "id": 8,
+      "title": "Amazon Gift Card 10 USD Key - UNITED STATES",
+      "price": 8.99,
+      "originalPrice": 10.00,
+      "currency": "GBP",
+      "badge": "Amazon",
+      "badgeColor": "yellow",
+      "image": "/images/products/amazon-gift-card.jpg",
+      "stock": 1,
+      "stockLabel": "1 Last Items"
+    },
+    {
+      "id": 9,
+      "title": "Microsoft Project Professional 2021 for PC Original License",
+      "price": 299.99,
+      "originalPrice": 399.99,
+      "currency": "GBP",
+      "badge": "Project & Visio",
+      "badgeColor": "teal",
+      "image": "/images/products/ms-project.jpg",
+      "stock": 100,
+      "stockLabel": "In stock"
+    },
+    {
+      "id": 10,
+      "title": "Internet Download Manager (PC) (1 PC, 1 Year) - IDM Key - GLOBAL",
+      "price": 11.66,
+      "originalPrice": 19.99,
+      "currency": "GBP",
+      "badge": "Clearance Sale",
+      "badgeColor": "pink",
+      "image": "/images/products/idm.jpg",
+      "stock": 100,
+      "stockLabel": "In stock"
+    }
+  ],
+  "newProducts": [
+    {
+      "id": 11,
+      "title": "YouTube Premium 12 Months Subscription",
+      "price": 29.99,
+      "originalPrice": 40.99,
+      "currency": "GBP",
+      "discount": 26,
+      "image": "/images/products/youtube-premium.jpg"
+    },
+    {
+      "id": 12,
+      "title": "Xbox Game Pass Ultimate - 1 Month Non-Stackable",
+      "price": 8.99,
+      "originalPrice": 13.99,
+      "currency": "GBP",
+      "discount": 35,
+      "image": "/images/products/xbox-gamepass.jpg"
+    },
+    {
+      "id": 13,
+      "title": "Microsoft Office 2024 Pro Plus LTSC",
+      "price": 34.99,
+      "originalPrice": 79.99,
+      "currency": "GBP",
+      "badge": "Best Seller",
+      "image": "/images/products/office-2024.jpg"
+    },
+    {
+      "id": 14,
+      "title": "Xbox Game Pass Core (Essential) 3 Months",
+      "price": 14.99,
+      "originalPrice": 19.99,
+      "currency": "GBP",
+      "discount": 25,
+      "image": "/images/products/gamepass-core.jpg"
+    },
+    {
+      "id": 15,
+      "title": "Spotify Premium 12 Months ACCOUNT",
+      "price": 24.99,
+      "originalPrice": 26.99,
+      "currency": "GBP",
+      "discount": 5,
+      "image": "/images/products/spotify.jpg"
+    },
+    {
+      "id": 16,
+      "title": "Microsoft Windows 11 Pro 1 pc Key",
+      "price": 12.99,
+      "originalPrice": 99.99,
+      "currency": "GBP",
+      "discount": 87,
+      "image": "/images/products/windows-11.jpg"
+    },
+    {
+      "id": 17,
+      "title": "EA SPORTS FC 26 - 5900 FC Points (Xbox One / Xbox Series X|S)",
+      "price": 39.99,
+      "originalPrice": 42.99,
+      "currency": "GBP",
+      "discount": 5,
+      "badge": "Xbox Live",
+      "image": "/images/products/fc-points-5900.jpg"
+    },
+    {
+      "id": 18,
+      "title": "Old School RuneScape 1 Month Membership (PC)",
+      "price": 6.99,
+      "originalPrice": 10.99,
+      "currency": "GBP",
+      "badge": "Mega Sale",
+      "image": "/images/products/runescape.jpg"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Steam Keys",
+      "icon": "steam",
+      "image": "/images/categories/steam.jpg",
+      "slug": "steam-keys"
+    },
+    {
+      "id": 2,
+      "name": "Xbox Live Keys",
+      "icon": "xbox",
+      "image": "/images/categories/xbox.jpg",
+      "slug": "xbox-keys"
+    },
+    {
+      "id": 3,
+      "name": "Gaming Gift Cards",
+      "icon": "gift-card",
+      "image": "/images/categories/gift-cards.jpg",
+      "slug": "gift-cards"
+    },
+    {
+      "id": 4,
+      "name": "PlayStation Keys",
+      "icon": "playstation",
+      "image": "/images/categories/playstation.jpg",
+      "slug": "playstation-keys"
+    },
+    {
+      "id": 5,
+      "name": "UPlay",
+      "icon": "uplay",
+      "image": "/images/categories/uplay.jpg",
+      "slug": "uplay"
+    },
+    {
+      "id": 6,
+      "name": "Epic Games",
+      "icon": "epic",
+      "image": "/images/categories/epic.jpg",
+      "slug": "epic-games"
+    },
+    {
+      "id": 7,
+      "name": "Nintendo",
+      "icon": "nintendo",
+      "image": "/images/categories/nintendo.jpg",
+      "slug": "nintendo"
+    }
+  ],
+  "brands": [
+    { "id": 1, "name": "Microsoft", "logo": "/images/brands/microsoft.png", "slug": "microsoft" },
+    { "id": 2, "name": "Steam", "logo": "/images/brands/steam.png", "slug": "steam" },
+    { "id": 3, "name": "Xbox", "logo": "/images/brands/xbox.png", "slug": "xbox" },
+    { "id": 4, "name": "PlayStation", "logo": "/images/brands/playstation.png", "slug": "playstation" },
+    { "id": 5, "name": "Nintendo", "logo": "/images/brands/nintendo.png", "slug": "nintendo" },
+    { "id": 6, "name": "EA Sports", "logo": "/images/brands/ea-sports.png", "slug": "ea-sports" },
+    { "id": 7, "name": "Adobe", "logo": "/images/brands/adobe.png", "slug": "adobe" },
+    { "id": 8, "name": "Epic Games", "logo": "/images/brands/epic-games.png", "slug": "epic-games" },
+    { "id": 9, "name": "Ubisoft", "logo": "/images/brands/ubisoft.png", "slug": "ubisoft" },
+    { "id": 10, "name": "Apple", "logo": "/images/brands/apple.png", "slug": "apple" }
+  ],
+  "navCategories": {
+    "games": [
+      { "name": "Steam Keys", "slug": "steam-keys" },
+      { "name": "Xbox Live Keys", "slug": "xbox-keys" },
+      { "name": "PlayStation Keys", "slug": "playstation-keys" },
+      { "name": "Nintendo Keys", "slug": "nintendo-keys" },
+      { "name": "Epic Games Keys", "slug": "epic-games" },
+      { "name": "UPlay Keys", "slug": "uplay" },
+      { "name": "Origin Keys", "slug": "origin" },
+      { "name": "Battle.net Keys", "slug": "battle-net" }
+    ],
+    "software": [
+      { "name": "Windows", "slug": "windows" },
+      { "name": "Microsoft Office", "slug": "microsoft-office" },
+      { "name": "Adobe Software", "slug": "adobe" },
+      { "name": "Antivirus", "slug": "antivirus" },
+      { "name": "VPN", "slug": "vpn" }
+    ],
+    "giftCards": [
+      { "name": "Steam Wallet", "slug": "steam-wallet" },
+      { "name": "PlayStation Store", "slug": "psn-cards" },
+      { "name": "Xbox Gift Cards", "slug": "xbox-gift-cards" },
+      { "name": "Nintendo eShop", "slug": "nintendo-eshop" },
+      { "name": "iTunes", "slug": "itunes" },
+      { "name": "Google Play", "slug": "google-play" },
+      { "name": "Amazon", "slug": "amazon" },
+      { "name": "Spotify", "slug": "spotify" }
+    ]
+  },
+  "trendingProducts": [
+    {
+      "id": 201,
+      "title": "Microsoft Office 2024 Pro Plus - Lifetime License",
+      "category": "Office Keys",
+      "price": 34.99,
+      "originalPrice": 249.99,
+      "currency": "USD",
+      "badge": "Best Seller",
+      "badgeColor": "orange",
+      "discount": 86,
+      "image": "/images/products/office-2024.jpg",
+      "stock": 100,
+      "stockLabel": "In Stock",
+      "rating": 4.9,
+      "soldCount": 15234
+    },
+    {
+      "id": 202,
+      "title": "Call of Duty: Black Ops 6 - Steam Key",
+      "category": "Games",
+      "price": 19.99,
+      "originalPrice": 69.99,
+      "currency": "USD",
+      "badge": "Hot Sale",
+      "badgeColor": "red",
+      "discount": 71,
+      "image": "/images/products/cod-bo6.jpg",
+      "stock": 15,
+      "stockLabel": "In Stock",
+      "rating": 4.8,
+      "soldCount": 8921
+    },
+    {
+      "id": 203,
+      "title": "Windows 11 Pro - Digital License Key",
+      "category": "Software",
+      "price": 29.99,
+      "originalPrice": 199.99,
+      "currency": "USD",
+      "badge": "New",
+      "badgeColor": "green",
+      "discount": 85,
+      "image": "/images/products/windows-11.jpg",
+      "stock": 100,
+      "stockLabel": "In Stock",
+      "rating": 4.8,
+      "soldCount": 12456
+    },
+    {
+      "id": 204,
+      "title": "Adobe Creative Cloud All Apps - 1 Year",
+      "category": "Software",
+      "price": 299.99,
+      "originalPrice": 599.99,
+      "currency": "USD",
+      "badge": "Limited",
+      "badgeColor": "purple",
+      "discount": 50,
+      "image": "/images/products/adobe-cc.jpg",
+      "stock": 5,
+      "stockLabel": "5 Left",
+      "rating": 4.6,
+      "soldCount": 3456
+    },
+    {
+      "id": 205,
+      "title": "Xbox Game Pass Ultimate - 3 Months",
+      "category": "Gaming",
+      "price": 24.99,
+      "originalPrice": 44.99,
+      "currency": "USD",
+      "badge": "Popular",
+      "badgeColor": "blue",
+      "discount": 44,
+      "image": "/images/products/xbox-gamepass.jpg",
+      "stock": 100,
+      "stockLabel": "In Stock",
+      "rating": 4.7,
+      "soldCount": 9876
+    },
+    {
+      "id": 206,
+      "title": "PlayStation Plus Premium - 12 Months",
+      "category": "Gaming",
+      "price": 49.99,
+      "originalPrice": 119.99,
+      "currency": "USD",
+      "badge": "Sale",
+      "badgeColor": "cyan",
+      "discount": 58,
+      "image": "/images/products/ps-plus.jpg",
+      "stock": 100,
+      "stockLabel": "In Stock",
+      "rating": 4.5,
+      "soldCount": 6543
+    },
+    {
+      "id": 207,
+      "title": "Steam Wallet Gift Card $100",
+      "category": "Gift Cards",
+      "price": 89.99,
+      "originalPrice": 100.00,
+      "currency": "USD",
+      "badge": "New Releases",
+      "badgeColor": "teal",
+      "discount": 10,
+      "image": "/images/products/steam-gift-card.jpg",
+      "stock": 100,
+      "stockLabel": "In Stock",
+      "rating": 4.9,
+      "soldCount": 7890
+    },
+    {
+      "id": 208,
+      "title": "NVIDIA GeForce NOW Ultimate - 6 Months",
+      "category": "Gaming",
+      "price": 49.99,
+      "originalPrice": 99.99,
+      "currency": "USD",
+      "badge": "Trending",
+      "badgeColor": "green",
+      "discount": 50,
+      "image": "/images/products/nvidia-gfn.jpg",
+      "stock": 25,
+      "stockLabel": "In Stock",
+      "rating": 4.4,
+      "soldCount": 4321
+    }
+  ]
+}
