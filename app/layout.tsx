@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import Header from '@/components/header/Header'
+import Footer from '@/components/Footer'
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -28,8 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className="font-sans antialiased bg-white text-[#1a1a1a]" suppressHydrationWarning>
-        <div className="min-h-screen bg-white">
-          {children}
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
         </div>
         <Analytics />
       </body>

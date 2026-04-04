@@ -1,0 +1,125 @@
+"use client";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+
+const giftCardsItems = [
+  { name: "Steam Gift Cards", href: "/gift-cards/steam" },
+  { name: "PlayStation Gift Cards", href: "/gift-cards/playstation" }, 
+  { name: "Xbox Gift Cards", href: "/gift-cards/xbox" },
+  { name: "Nintendo Gift Cards", href: "/gift-cards/nintendo" },
+  { name: "Google Play", href: "/gift-cards/google-play" },
+  { name: "Netflix", href: "/gift-cards/netflix" },
+  { name: "Spotify", href: "/gift-cards/spotify" },
+  { name: "Amazon", href: "/gift-cards/amazon" },
+  { name: "iTunes / Apple", href: "/gift-cards/apple" }
+];
+
+interface GiftCardsDropdownProps {
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}
+
+export default function GiftCardsDropdown({ isOpen, onToggle, onClose }: GiftCardsDropdownProps) {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Handle outside click detection
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    // Handle escape key press
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isOpen, onClose]);
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    onToggle();
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      onClose();
+    }, 100); // Small delay for better UX
+  };
+
+  return (
+    <div 
+      ref={dropdownRef} 
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Trigger */}
+      <div className="flex items-center gap-1 cursor-pointer group py-2">
+        <span className="text-[14.5px] font-semibold text-[#1a1a1a] group-hover:text-indigo-600 transition-colors">
+          Gift Cards
+        </span>
+        <ChevronDown 
+          className={`w-3.5 h-3.5 text-gray-400 group-hover:text-indigo-600 transition-transform duration-200 ${
+            isOpen ? 'rotate-180' : ''
+          }`} 
+        />
+      </div>
+
+      {/* Dropdown */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50"
+            onMouseEnter={() => {
+              if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+              }
+            }}
+            onMouseLeave={onClose}
+          >
+            {giftCardsItems.map((item, index) => (
+              <motion.div
+                key={item.name}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.1, delay: index * 0.02 }}
+              >
+                <Link 
+                  href={item.href}
+                  className="block px-4 py-2.5 text-sm text-[#1a1a1a] hover:bg-gray-100 cursor-pointer transition-colors duration-150 font-medium"
+                  onClick={onClose}
+                >
+                  {item.name}
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

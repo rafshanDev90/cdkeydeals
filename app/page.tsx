@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Header from "@/components/Header";
-import Navbar from "@/components/header/Navbar";
 import HeroSlider from "@/components/HeroSlider";
 import CategoryTile from "@/components/CategoryTile";
 import NewProductsSection from "@/components/NewProductsSection";
@@ -17,7 +15,6 @@ import MostPopular from "@/components/MostPopular";
 import ServicesSection from "@/components/ServicesSection";
 import CustomerAssistanceFAQ from "@/components/CustomerAssistanceFAQ";
 import Newsletter from "@/components/Newsletter";
-import Footer from "@/components/Footer";
 
 // Static data for the UI
 const categories = [
@@ -245,13 +242,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-[1320px] mx-auto bg-white">
-        <Header />
-        <Navbar 
-          isDarkMode={isDarkMode}
-          onDarkModeToggle={handleDarkModeToggle}
-          navCategories={navCategories}
-        />
-
         <main>
           {/* Hero Slider */}
           <HeroSlider />
@@ -301,7 +291,6 @@ export default function Home() {
           <Newsletter />
         </main>
 
-        <Footer />
       </div>
     </div>
   );

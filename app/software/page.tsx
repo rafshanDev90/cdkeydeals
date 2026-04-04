@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { Monitor, Filter, ChevronDown } from "lucide-react";
 import Link from "next/link";
@@ -197,7 +196,6 @@ export default function SoftwarePage() {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 }

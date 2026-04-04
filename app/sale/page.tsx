@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { Flame, Filter, ChevronDown } from "lucide-react";
 
@@ -165,7 +164,6 @@ export default function SalePage() {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 }

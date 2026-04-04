@@ -1,43 +1,111 @@
-import { MapPin, Moon, TrendingUp, HelpCircle, BookOpen, MoreHorizontal, Flame, ChevronDown } from "lucide-react";
-import { NavItem } from "./Dropdown";
+"use client";
+
+import { MapPin, Moon, Flame, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import Link from "next/link";
+import MegaMenu from "./MegaMenu";
+import BestDealsMegaMenu from "./BestDealsMegaMenu";
+import GiftCardsDropdown from "./GiftCardsDropdown";
+import BlogDropdown from "./BlogDropdown";
+import GamesMegaMenu from "./GamesMegaMenu";
+import MoreDropdown from "./MoreDropdown";
+import FAQDropdown from "./FAQDropdown";
 
 interface NavbarProps {
   isDarkMode: boolean;
   onDarkModeToggle: () => void;
-  navCategories: {
-    games: NavItem[];
-    software: NavItem[];
-    giftCards: NavItem[];
-    bestDeals: NavItem[];
-    more: NavItem[];
+  // navCategories prop রাখা হয়েছে আপনার ইন্টারফেস অনুযায়ী, যদিও নিচে সরাসরি ব্যবহার হয়নি
+  navCategories?: {
+    games: any[];
+    software: any[];
+    giftCards: any[];
+    bestDeals: any[];
+    more: any[];
   };
 }
 
-export default function Navbar({ isDarkMode, onDarkModeToggle, navCategories }: NavbarProps) {
+export default function Navbar({ isDarkMode, onDarkModeToggle }: NavbarProps) {
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+  const [isGiftCardsDropdownOpen, setIsGiftCardsDropdownOpen] = useState(false);
+  const [isBestDealsMegaMenuOpen, setIsBestDealsMegaMenuOpen] = useState(false);
+  const [isBlogDropdownOpen, setIsBlogDropdownOpen] = useState(false);
+  const [isGamesMegaMenuOpen, setIsGamesMegaMenuOpen] = useState(false);
+  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
+  const [isFAQDropdownOpen, setIsFAQDropdownOpen] = useState(false);
+
   return (
     <div className="hidden lg:block w-full border-b border-gray-200 bg-white">
-      {/* Container e max-w না দিয়ে w-full এবং px-6 ব্যবহার করা হয়েছে মেনুগুলোকে দুই সাইডে সরানোর জন্য */}
-      <div className="w-full px-6">
+      {/* Main Container: 
+          - max-w-[1280px]: মেনুগুলোকে একটি নির্দিষ্ট সীমানার মধ্যে রাখবে।
+          - mx-auto: কন্টেইনারটিকে স্ক্রিনের মাঝখানে রাখবে।
+          - px-4: ছোট স্ক্রিনে সাইডে গ্যাপ রাখবে।
+      */}
+      <div className="max-w-[1280px] mx-auto px-4 relative">
         <div className="flex items-center justify-between h-[52px]">
           
           {/* LEFT SIDE: Navigation Links */}
           <nav className="flex items-center gap-6">
-            {/* Sale Badge - স্ক্রিনশটের মতো হলুদ ব্যাকগ্রাউন্ড */}
+            {/* Sale Badge */}
             <div className="flex items-center bg-[#FFD700] px-3 py-1.5 rounded-md cursor-pointer hover:bg-[#f2cc00] transition-colors group">
               <Flame className="w-4 h-4 mr-1.5 fill-black" />
               <span className="text-[14px] font-bold text-black tracking-tight">Sale</span>
             </div>
 
-            {/* Menu Items with Arrows */}
+            {/* Menu Items */}
             <div className="flex items-center gap-5">
-              <NavItem title="Games" hasDropdown />
-              <NavItem title="Software" hasDropdown />
-              <NavItem title="Gift Cards" hasDropdown />
-              <NavItem title="Best Deals" hasDropdown />
-              <NavItem title="Best Seller" />
-              <NavItem title="FAQ" hasDropdown />
-              <NavItem title="Blog" hasDropdown />
-              <NavItem title="More" hasDropdown />
+              <NavItem 
+                title="Games" 
+                hasDropdown 
+                onMouseEnter={() => setIsGamesMegaMenuOpen(true)}
+                onMouseLeave={() => setIsGamesMegaMenuOpen(false)}
+              />
+              <NavItem 
+                title="Software" 
+                hasDropdown 
+                onMouseEnter={() => setIsMegaMenuOpen(true)}
+                onMouseLeave={() => setIsMegaMenuOpen(false)}
+              />
+              <div 
+                onMouseEnter={() => setIsGiftCardsDropdownOpen(true)}
+                onMouseLeave={() => setIsGiftCardsDropdownOpen(false)}
+              >
+                <GiftCardsDropdown 
+                  isOpen={isGiftCardsDropdownOpen}
+                  onToggle={() => setIsGiftCardsDropdownOpen(true)}
+                  onClose={() => setIsGiftCardsDropdownOpen(false)}
+                />
+              </div>
+              <NavItem 
+                title="Best Deals" 
+                hasDropdown 
+                onMouseEnter={() => setIsBestDealsMegaMenuOpen(true)}
+                onMouseLeave={() => setIsBestDealsMegaMenuOpen(false)}
+              />
+              <Link href="/best-seller" className="flex items-center gap-1 cursor-pointer group py-2">
+                <span className="text-[14.5px] font-semibold text-[#1a1a1a] transition-colors group-hover:text-indigo-600">
+                  Best Seller
+                </span>
+              </Link>
+              <div 
+                onMouseEnter={() => setIsFAQDropdownOpen(true)}
+                onMouseLeave={() => setIsFAQDropdownOpen(false)}
+              >
+                <FAQDropdown 
+                  isOpen={isFAQDropdownOpen}
+                  onToggle={() => setIsFAQDropdownOpen(true)}
+                  onClose={() => setIsFAQDropdownOpen(false)}
+                />
+              </div>
+              <BlogDropdown 
+                isOpen={isBlogDropdownOpen}
+                onHover={() => setIsBlogDropdownOpen(true)}
+                onLeave={() => setIsBlogDropdownOpen(false)}
+              />
+              <MoreDropdown 
+                isOpen={isMoreDropdownOpen}
+                onHover={() => setIsMoreDropdownOpen(true)}
+                onLeave={() => setIsMoreDropdownOpen(false)}
+              />
             </div>
           </nav>
 
@@ -54,27 +122,56 @@ export default function Navbar({ isDarkMode, onDarkModeToggle, navCategories }: 
               onClick={onDarkModeToggle}
               className="flex items-center gap-2 text-[14px] font-medium text-gray-700 hover:text-indigo-600 transition-colors"
             >
-              <span>Dark Mode</span>
-              <Moon className="w-4 h-4 text-gray-500" />
+              <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
+              <Moon className={`w-4 h-4 ${isDarkMode ? "fill-indigo-600 text-indigo-600" : "text-gray-500"}`} />
             </button>
           </div>
         </div>
+
+        {/* Games Mega Menu */}
+        <GamesMegaMenu isOpen={isGamesMegaMenuOpen} onClose={() => setIsGamesMegaMenuOpen(false)} />
+
+        {/* Mega Menu */}
+        <MegaMenu isOpen={isMegaMenuOpen} onClose={() => setIsMegaMenuOpen(false)} />
+
+        {/* Best Deals Mega Menu */}
+        <BestDealsMegaMenu isOpen={isBestDealsMegaMenuOpen} onClose={() => setIsBestDealsMegaMenuOpen(false)} />
       </div>
     </div>
   );
 }
 
 /**
- * Reusable NavItem component to keep the code clean
+ * Reusable NavItem component
  */
-function NavItem({ title, hasDropdown }: { title: string; hasDropdown?: boolean }) {
+function NavItem({ 
+  title, 
+  hasDropdown, 
+  onMouseEnter, 
+  onMouseLeave 
+}: { 
+  title: string; 
+  hasDropdown?: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}) {
+  const isGames = title === "Games";
+  
   return (
-    <div className="flex items-center gap-1 cursor-pointer group">
-      <span className="text-[14.5px] font-semibold text-[#1a1a1a] group-hover:text-indigo-600 transition-colors">
+    <div 
+      className="flex items-center gap-1 cursor-pointer group py-2"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <span className={`text-[14.5px] font-semibold text-[#1a1a1a] transition-colors ${
+        isGames ? 'group-hover:text-purple-600' : 'group-hover:text-indigo-600'
+      }`}>
         {title}
       </span>
       {hasDropdown && (
-        <ChevronDown className="w-3.5 h-3.5 text-gray-400 group-hover:text-indigo-600 transition-transform group-hover:rotate-180" />
+        <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 group-hover:rotate-180 ${
+          isGames ? 'group-hover:text-purple-600' : 'group-hover:text-indigo-600'
+        }`} />
       )}
     </div>
   );
