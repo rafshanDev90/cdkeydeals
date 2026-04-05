@@ -4,7 +4,7 @@ import { useState } from "react";
 import HeroSlider from "@/components/HeroSlider";
 import CategoryTile from "@/components/CategoryTile";
 import NewProductsSection from "@/components/NewProductsSection";
-import ProductGrid from "@/components/ProductGrid";
+import TopProducts from "@/components/TopProducts";
 import PromoBanner from "@/components/PromoBanner";
 import DealsSection from "@/components/DealsSection";
 import SaleBanner from "@/components/SaleBanner";
@@ -15,6 +15,7 @@ import MostPopular from "@/components/MostPopular";
 import ServicesSection from "@/components/ServicesSection";
 import CustomerAssistanceFAQ from "@/components/CustomerAssistanceFAQ";
 import Newsletter from "@/components/Newsletter";
+import { mockTopProducts } from "@/data/mockProducts";
 
 // Static data for the UI
 const categories = [
@@ -95,97 +96,6 @@ const newProducts = [
   },
 ];
 
-const topProducts = [
-  {
-    id: 1,
-    title: "MS Office 2024 Pro Plus & Windows 11 Pro Combo",
-    price: 39.99,
-    originalPrice: 89.99,
-    currency: "GBP",
-    badge: "Hot Sale",
-    badgeColor: "red",
-    stock: 1,
-    stockLabel: "1 Last Items",
-  },
-  {
-    id: 2,
-    title: "PUBG Mobile 60 UC Official Website Key Global",
-    price: 1.84,
-    originalPrice: 2.99,
-    currency: "GBP",
-    badge: "Under 10 Dollar",
-    badgeColor: "green",
-    stock: 100,
-    stockLabel: "In stock",
-  },
-  {
-    id: 3,
-    title: "Apple iTunes Gift Card $40 USD Key UNITED STATES",
-    price: 37.74,
-    originalPrice: 40.0,
-    currency: "GBP",
-    badge: "Best Seller",
-    badgeColor: "orange",
-    stock: 100,
-    stockLabel: "In stock",
-  },
-  {
-    id: 4,
-    title: "Age of Empires II: Definitive Edition Dynasties of India Global Key",
-    price: 9.48,
-    originalPrice: 14.99,
-    currency: "GBP",
-    badge: "Games",
-    badgeColor: "blue",
-    stock: 1,
-    stockLabel: "1 Last Items",
-  },
-  {
-    id: 5,
-    title: "Adobe Creative Cloud All Apps 100GB for 1 year Personal Upgrade",
-    price: 80.99,
-    originalPrice: 129.99,
-    currency: "GBP",
-    badge: "Adobe Software",
-    badgeColor: "purple",
-    stock: 100,
-    stockLabel: "In stock",
-  },
-  {
-    id: 6,
-    title: "EA SPORTS FC 26 1050 FC Points Key - Xbox One / Xbox Series X|S Global",
-    price: 7.7,
-    originalPrice: 9.99,
-    currency: "GBP",
-    badge: "Under 10 Dollar",
-    badgeColor: "green",
-    stock: 1,
-    stockLabel: "1 Last Items",
-  },
-  {
-    id: 7,
-    title: "ARC Raiders Steam key Instant Delivery",
-    price: 23.1,
-    originalPrice: 34.99,
-    currency: "GBP",
-    badge: "Games",
-    badgeColor: "blue",
-    stock: 1,
-    stockLabel: "1 Last Items",
-  },
-  {
-    id: 8,
-    title: "Amazon Gift Card 10 USD Key - UNITED STATES",
-    price: 8.99,
-    originalPrice: 10.0,
-    currency: "GBP",
-    badge: "Amazon",
-    badgeColor: "yellow",
-    stock: 1,
-    stockLabel: "1 Last Items",
-  },
-];
-
 const brands = [
   { id: 1, name: "Microsoft", slug: "microsoft" },
   { id: 2, name: "Steam", slug: "steam" },
@@ -253,11 +163,10 @@ export default function Home() {
           <NewProductsSection products={newProducts} />
 
           {/* Top Products Grid */}
-          <ProductGrid
+          <TopProducts
             title="Top Products"
-            products={topProducts}
+            products={mockTopProducts}
             viewAllLink="/best-selling"
-            columns={4}
           />
 
           {/* Promo Banners */}

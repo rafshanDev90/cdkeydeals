@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
@@ -15,27 +16,48 @@ const menuItems = [
   { name: "Games", href: "/games" }, 
   { name: "Software", href: "/software" },
   { name: "Gift Cards", href: "/gift-cards" },
-  { name: "Tech News & Updates", href: "/blog/tech-news" }
+  { name: "Tech News & Updates", href: "/tech-news-updates" }
 ];
 
 export default function BlogDropdown({ isOpen, onHover, onLeave }: BlogDropdownProps) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLinkClick = () => {
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div 
       className="relative"
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+      onMouseEnter={() => {
+        onHover();
+        setIsDropdownOpen(true);
+      }}
+      onMouseLeave={() => {
+        onLeave();
+        setIsDropdownOpen(false);
+      }}
     >
       {/* Blog Menu Item */}
-      <div className="flex items-center gap-1 cursor-pointer group py-2">
+      <div 
+        className="flex items-center gap-1 cursor-pointer group py-2"
+        onClick={handleToggle}
+      >
         <span className="text-[14.5px] font-semibold text-[#1a1a1a] group-hover:text-indigo-600 transition-colors">
           Blog
         </span>
-        <ChevronDown className="w-3.5 h-3.5 text-gray-400 group-hover:text-indigo-600 transition-transform duration-200 group-hover:rotate-180" />
+        <ChevronDown className={`w-3.5 h-3.5 text-gray-400 group-hover:text-indigo-600 transition-transform duration-200 ${
+          isDropdownOpen || isOpen ? "rotate-180" : ""
+        }`} />
       </div>
 
       {/* Dropdown Menu */}
       <AnimatePresence>
-        {isOpen && (
+        {(isDropdownOpen || isOpen) && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -45,7 +67,7 @@ export default function BlogDropdown({ isOpen, onHover, onLeave }: BlogDropdownP
           >
             <div className="py-2">
               {menuItems.map((item, index) => (
-                <Link key={index} href={item.href}>
+                <Link key={index} href={item.href} onClick={handleLinkClick}>
                   <motion.div
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}

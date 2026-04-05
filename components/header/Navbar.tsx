@@ -4,7 +4,6 @@ import { MapPin, Moon, Flame, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import MegaMenu from "./MegaMenu";
-import BestDealsMegaMenu from "./BestDealsMegaMenu";
 import GiftCardsDropdown from "./GiftCardsDropdown";
 import BlogDropdown from "./BlogDropdown";
 import GamesMegaMenu from "./GamesMegaMenu";
@@ -27,7 +26,6 @@ interface NavbarProps {
 export default function Navbar({ isDarkMode, onDarkModeToggle }: NavbarProps) {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isGiftCardsDropdownOpen, setIsGiftCardsDropdownOpen] = useState(false);
-  const [isBestDealsMegaMenuOpen, setIsBestDealsMegaMenuOpen] = useState(false);
   const [isBlogDropdownOpen, setIsBlogDropdownOpen] = useState(false);
   const [isGamesMegaMenuOpen, setIsGamesMegaMenuOpen] = useState(false);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
@@ -75,12 +73,11 @@ export default function Navbar({ isDarkMode, onDarkModeToggle }: NavbarProps) {
                   onClose={() => setIsGiftCardsDropdownOpen(false)}
                 />
               </div>
-              <NavItem 
-                title="Best Deals" 
-                hasDropdown 
-                onMouseEnter={() => setIsBestDealsMegaMenuOpen(true)}
-                onMouseLeave={() => setIsBestDealsMegaMenuOpen(false)}
-              />
+              <Link href="/best-deals" className="flex items-center gap-1 cursor-pointer group py-2">
+                  <span className="text-[14.5px] font-semibold text-[#1a1a1a] transition-colors group-hover:text-indigo-600">
+                    Best Deals
+                  </span>
+                </Link>
               <Link href="/best-seller" className="flex items-center gap-1 cursor-pointer group py-2">
                 <span className="text-[14.5px] font-semibold text-[#1a1a1a] transition-colors group-hover:text-indigo-600">
                   Best Seller
@@ -133,9 +130,6 @@ export default function Navbar({ isDarkMode, onDarkModeToggle }: NavbarProps) {
 
         {/* Mega Menu */}
         <MegaMenu isOpen={isMegaMenuOpen} onClose={() => setIsMegaMenuOpen(false)} />
-
-        {/* Best Deals Mega Menu */}
-        <BestDealsMegaMenu isOpen={isBestDealsMegaMenuOpen} onClose={() => setIsBestDealsMegaMenuOpen(false)} />
       </div>
     </div>
   );

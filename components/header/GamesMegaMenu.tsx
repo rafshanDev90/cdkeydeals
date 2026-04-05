@@ -18,7 +18,7 @@ import {
   MapPin,
   Package
 } from "lucide-react";
-import MegaMenuWrapper from "./MegaMenuWrapper";
+import DropdownWrapper from "./DropdownWrapper";
 
 interface GamesMegaMenuProps {
   isOpen: boolean;
@@ -131,7 +131,7 @@ export default function GamesMegaMenu({ isOpen, onClose }: GamesMegaMenuProps) {
   };
 
   return (
-    <MegaMenuWrapper isOpen={isOpen} onClose={onClose}>
+    <DropdownWrapper isOpen={isOpen} onClose={onClose}>
       <div className="rounded-xl overflow-hidden">
         <div className="flex h-[450px]">
           {/* Left Column - Menu Items */}
@@ -209,6 +209,6 @@ export default function GamesMegaMenu({ isOpen, onClose }: GamesMegaMenuProps) {
           </div>
         </div>
       </div>
-    </MegaMenuWrapper>
+    </DropdownWrapper>
   );
 }

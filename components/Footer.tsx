@@ -35,15 +35,15 @@ const footerLinks = {
     { name: "Help & Support", href: "/support" },
     { name: "Terms and Conditions", href: "/terms" },
     { name: "Privacy Policy", href: "/privacy" },
-    { name: "Instant Digital Delivery", href: "/delivery" },
-    { name: "Safe & Secure Checkout", href: "/secure" },
+    { name: "Instant Digital Delivery", href: "/instant-delivery" },
+    { name: "Safe & Secure Checkout", href: "/safe-secure-checkout" },
   ],
   letUsHelpYou: [
     { name: "FAQs", href: "/faq" },
     { name: "Your Account", href: "/account" },
     { name: "Your Orders", href: "/orders" },
-    { name: "Shipping Policy", href: "/shipping" },
-    { name: "Returns Policy", href: "/returns" },
+    { name: "Shipping Policy", href: "/shipping-policy" },
+    { name: "Refund Policy", href: "/refund-policy" },
   ],
 };
 
@@ -157,9 +157,9 @@ export default function Footer() {
           
           <div className="flex gap-6 text-[#666666] text-[13px]">
             <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
-            <Link href="/refund" className="hover:underline">Refund Policy</Link>
+            <Link href="/refund-policy" className="hover:underline">Refund Policy</Link>
             <Link href="/terms" className="hover:underline">Terms Of Service</Link>
-            <Link href="/shipping" className="hover:underline">Shipping Policy</Link>
+            <Link href="/shipping-policy" className="hover:underline">Shipping Policy</Link>
             <Link href="/contact" className="hover:underline">Contact Information</Link>
           </div>
         </div>

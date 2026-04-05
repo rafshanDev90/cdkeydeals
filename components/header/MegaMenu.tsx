@@ -8,7 +8,7 @@ import {
   Download, 
   ChevronRight 
 } from "lucide-react";
-import MegaMenuWrapper from "./MegaMenuWrapper";
+import DropdownWrapper from "./DropdownWrapper";
 
 interface MegaMenuProps {
   isOpen: boolean;
@@ -62,7 +62,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
   };
 
   return (
-    <MegaMenuWrapper isOpen={isOpen} onClose={onClose}>
+    <DropdownWrapper isOpen={isOpen} onClose={onClose}>
       <div className="rounded-xl overflow-hidden">
         <div className="flex h-[400px]">
           {/* Left Sidebar - Category List */}
@@ -137,6 +137,6 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
           </div>
         </div>
       </div>
-    </MegaMenuWrapper>
+    </DropdownWrapper>
   );
 }
