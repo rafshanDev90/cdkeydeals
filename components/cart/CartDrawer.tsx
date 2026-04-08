@@ -41,10 +41,9 @@ export default function CartDrawer() {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-screen flex flex-col bg-white shadow-2xl z-50 transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-screen w-full sm:w-[400px] flex flex-col bg-white shadow-2xl z-50 transition-transform duration-300 ease-in-out ${
           state.isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
-        style={{ width: '100%', maxWidth: '400px' }}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white sticky top-0 z-10">

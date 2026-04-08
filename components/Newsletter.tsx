@@ -17,7 +17,7 @@ export default function Newsletter() {
 
   return (
     <section className="py-16 bg-gradient-to-r from-[#00d4aa]/10 to-[#00d4aa]/5">
-      <div className="px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center">
           <div className="w-16 h-16 bg-[#00d4aa]/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <Mail className="w-8 h-8 text-[#00d4aa]" />
@@ -33,12 +33,12 @@ export default function Newsletter() {
 
           {isSubmitted ? (
             <div className="bg-[#00d4aa]/20 border border-[#00d4aa]/30 rounded-lg p-4">
-              <p className="text-[#00d4aa] font-medium">
+              <p className="text-[#00d4aa] font-medium text-sm sm:text-base">
                 Thanks for subscribing! Check your email for exclusive deals.
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex gap-3 max-w-md mx-auto">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto px-4 sm:px-0">
               <input
                 type="email"
                 placeholder="Enter your email"
@@ -49,7 +49,7 @@ export default function Newsletter() {
               />
               <button
                 type="submit"
-                className="flex items-center gap-2 px-6 py-3 bg-[#00d4aa] hover:bg-[#00b894] text-white font-semibold rounded-lg transition-colors shrink-0"
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-[#00d4aa] hover:bg-[#00b894] text-white font-semibold rounded-lg transition-colors shrink-0"
               >
                 Subscribe
                 <ArrowRight className="w-4 h-4" />

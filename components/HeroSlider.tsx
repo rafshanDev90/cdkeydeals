@@ -123,8 +123,8 @@ export default function HeroSlider() {
       <div className="absolute bottom-0 left-0 w-full h-6 bg-red-600 opacity-70" />
 
       {/* 🎯 Content */}
-      <div className="relative z-10 h-full flex items-center px-6 lg:px-16">
-        <div className="max-w-xl space-y-4">
+      <div className="relative z-10 h-full flex items-center px-4 sm:px-6 lg:px-8">
+        <div className="max-w-xl space-y-3 sm:space-y-4">
 
           <CountdownTimer />
 
@@ -137,11 +137,11 @@ export default function HeroSlider() {
             </div>
           )}
 
-          <h1 className="text-3xl lg:text-5xl font-bold text-white">
+          <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-white">
             {slide.title}
           </h1>
 
-          <p className="text-gray-300">{slide.subtitle}</p>
+          <p className="text-sm sm:text-base text-gray-300">{slide.subtitle}</p>
 
           <ShopNowButton
             slug={slide.productSlug}
@@ -155,9 +155,9 @@ export default function HeroSlider() {
 
       {/* 💡 Floating Discount Circle */}
       {slide.discount && (
-        <div className="absolute top-6 right-6 bg-yellow-400 text-black rounded-full w-24 h-24 flex flex-col items-center justify-center font-bold shadow-lg">
-          <span className="text-xs">{slide.badge}</span>
-          <span className="text-2xl">{slide.discount}</span>
+        <div className="absolute top-3 right-3 sm:top-6 sm:right-6 bg-yellow-400 text-black rounded-full w-16 h-16 sm:w-24 sm:h-24 flex flex-col items-center justify-center font-bold shadow-lg">
+          <span className="text-[10px] sm:text-xs">{slide.badge}</span>
+          <span className="text-lg sm:text-2xl">{slide.discount}</span>
         </div>
       )}
 
@@ -166,16 +166,16 @@ export default function HeroSlider() {
         onClick={() =>
           setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
         }
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-2 rounded-full"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-1.5 sm:p-2 rounded-full"
       >
-        <ChevronLeft />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       <button
         onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-2 rounded-full"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-1.5 sm:p-2 rounded-full"
       >
-        <ChevronRight />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       {/* 🔘 Dots */}

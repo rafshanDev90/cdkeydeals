@@ -3,6 +3,85 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================
+   GLOBAL UI SCALING (125% - looks like browser zoom)
+   ============================================
+   
+   APPROACH COMPARISON:
+   
+   1. CSS 'zoom' property:
+      ✓ Simple: zoom: 1.25;
+      ✓ Proportional scaling (rems, px, %, everything)
+      ✓ No overflow issues
+      ✓ Sharp rendering
+      ✗ Non-standard CSS
+      ✗ NOT supported in Firefox (ignored silently)
+      ✓ Works: Chrome, Edge, Safari, Opera
+   
+   2. CSS 'transform: scale()':
+      ✓ Standard CSS (all browsers)
+      ✓ Works in Firefox
+      ✗ Requires width compensation (scale reduces effective width)
+      ✗ Can cause overflow/horizontal scroll
+      ✗ Transform origin issues if not set correctly
+      ✗ May cause slight blurriness on some elements
+   
+   SOLUTION: Hybrid approach
+   - Use 'zoom' for Chrome/Edge/Safari (cleaner rendering)
+   - Use 'transform: scale()' for Firefox
+   - Both produce identical visual results
+   ============================================ */
+
+/* Chrome, Edge, Safari, Opera - Use zoom (cleaner) */
+html {
+  zoom: 1.25;
+}
+
+/* Firefox - Use transform scale */
+@supports not (zoom: 1) {
+  html {
+    zoom: 1;
+    transform: scale(1.25);
+    transform-origin: top left;
+    width: 80%; /* Compensate: 100% / 1.25 = 80% */
+    min-height: 80vh;
+  }
+}
+
+/* Alternative: Use @-moz-document for Firefox-specific targeting */
+@-moz-document url-prefix() {
+  html {
+    zoom: 1 !important;
+    transform: scale(1.25);
+    transform-origin: top left;
+    width: 80%;
+    min-height: 80vh;
+  }
+}
+
+/* Fix any potential overflow issues after scaling */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Ensure body takes full width after transform scaling in Firefox */
+body {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ============================================
+   FIREFOX: FIX FOR FIXED/MODAL ELEMENTS
+   ============================================
+   With transform scale, fixed elements position relative to the 
+   transformed ancestor, not the viewport. For modals and overlays,
+   this is actually fine since they have their own backdrop.
+   
+   If you have a sticky header/footer that needs to span full width,
+   you may need to adjust their positioning. The zoom property in
+   Chrome/Edge/Safari handles this automatically.
+   ============================================ */
+
 :root {
   /* CDKeyDeals Color Palette - Light theme with white header */
   --background: #ffffff;
@@ -203,4 +282,15 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ============================================
+   OPTIONAL: DISABLE SCALING FOR PRINTING
+   ============================================ */
+@media print {
+  html {
+    zoom: 1;
+    transform: none;
+    width: 100%;
+  }
 }

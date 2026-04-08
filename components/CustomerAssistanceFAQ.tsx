@@ -77,8 +77,8 @@ const CustomerAssistanceFAQ: React.FC = () => {
   const returnsFAQs = faqData.filter(item => item.category === "returns");
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-[1320px] mx-auto">
+    <section className="py-16 bg-gray-50">
+      <div>
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -90,11 +90,11 @@ const CustomerAssistanceFAQ: React.FC = () => {
         </div>
 
         {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
           
           {/* Left Column - Assistance */}
           <div className="flex flex-col justify-center">
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100">
               {/* Icon */}
               <div className="mb-6">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
@@ -103,12 +103,12 @@ const CustomerAssistanceFAQ: React.FC = () => {
               </div>
 
               {/* Heading */}
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
                 24/7 Assistance, Whenever You Need It
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 mb-8 leading-relaxed text-lg">
+              <p className="text-gray-600 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg">
                 Get round-the-clock support for all your game keys and digital products. 
                 Our expert team is always ready to help with activation issues, product questions, 
                 or any concerns you might have. We're committed to ensuring your digital experience 
@@ -116,14 +116,14 @@ const CustomerAssistanceFAQ: React.FC = () => {
               </p>
 
               {/* CTA Button */}
-              <button className="inline-flex items-center justify-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
+              <button className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm sm:text-base">
                 Contact Support
-                <Headphones className="w-5 h-5 ml-2" />
+                <Headphones className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
               </button>
 
               {/* Additional Info */}
-              <div className="mt-8 pt-8 border-t border-gray-100">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-100">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="flex items-center space-x-3">
                     <Package className="w-5 h-5 text-purple-600" />
                     <span className="text-sm text-gray-600">Instant Digital Delivery</span>
@@ -192,19 +192,19 @@ const CustomerAssistanceFAQ: React.FC = () => {
         </div>
 
         {/* Bottom CTA Section */}
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">
+        <div className="mt-12 sm:mt-16 text-center">
+          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-6 sm:p-8 text-white">
+            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
               Still have questions?
             </h3>
-            <p className="text-lg mb-6 opacity-90">
+            <p className="text-base sm:text-lg mb-5 sm:mb-6 opacity-90">
               Our support team is here to help you 24/7
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <button className="px-6 sm:px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200 text-sm sm:text-base">
                 Browse Help Center
               </button>
-              <button className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-purple-600 transition-colors duration-200">
+              <button className="px-6 sm:px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-purple-600 transition-colors duration-200 text-sm sm:text-base">
                 Live Chat Support
               </button>
             </div>

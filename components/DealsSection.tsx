@@ -132,16 +132,16 @@ export default function DealsSection() {
           {/* Navigation Buttons (Floating) */}
           <button 
             onClick={() => scroll("left")}
-            className="absolute left-[-20px] top-1/2 -translate-y-1/2 bg-white shadow-xl rounded-full p-3 border border-gray-100 hover:bg-gray-50 z-20 transition-all opacity-0 group-hover:opacity-100"
+            className="absolute left-0 sm:left-[-20px] top-1/2 -translate-y-1/2 bg-white shadow-xl rounded-full p-2 sm:p-3 border border-gray-100 hover:bg-gray-50 z-20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
-            <ChevronLeft className="w-6 h-6 text-gray-800" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" />
           </button>
           
           <button 
             onClick={() => scroll("right")}
-            className="absolute right-[-20px] top-1/2 -translate-y-1/2 bg-white shadow-xl rounded-full p-3 border border-gray-100 hover:bg-gray-50 z-20 transition-all opacity-0 group-hover:opacity-100"
+            className="absolute right-0 sm:right-[-20px] top-1/2 -translate-y-1/2 bg-white shadow-xl rounded-full p-2 sm:p-3 border border-gray-100 hover:bg-gray-50 z-20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
-            <ChevronRight className="w-6 h-6 text-gray-800" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" />
           </button>
         </div>
 

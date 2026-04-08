@@ -291,7 +291,7 @@ export default function PromoCarouselSection({
 
   return (
     <section className="py-12 bg-gray-50/50">
-      <div className="px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
+      <div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           {/* Left Side - Promo Banner */}
           <div className="lg:col-span-4">

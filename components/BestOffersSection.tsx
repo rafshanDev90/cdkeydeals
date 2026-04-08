@@ -72,7 +72,7 @@ export default function BestOffersSection() {
 
   return (
     <section className="py-12 bg-white">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div>
         {/* Section Title */}
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Best Offers</h2>
 

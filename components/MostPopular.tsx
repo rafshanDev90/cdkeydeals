@@ -37,7 +37,7 @@ export default function MostPopular({
   if (loading) {
     return (
       <section className="py-12">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
+        <div>
           {/* Header Skeleton */}
           <div className="flex items-center justify-between mb-8">
             <div className="h-8 w-48 bg-gray-200 rounded-lg animate-pulse"></div>
@@ -69,7 +69,7 @@ export default function MostPopular({
   if (!products || products.length === 0) {
     return (
       <section className="py-12">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
+        <div>
           <EmptyState 
             title="No popular products available"
             description="Check back later for trending products."
@@ -86,7 +86,7 @@ export default function MostPopular({
 
   return (
     <section className="py-12 bg-white">
-      <div className="px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
+      <div>
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>

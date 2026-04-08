@@ -56,29 +56,29 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-6 text-white">
-        <h1 className="text-2xl font-bold mb-2">
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-4 sm:p-6 text-white">
+        <h1 className="text-xl sm:text-2xl font-bold mb-2">
           Welcome back, {user?.name?.split(' ')[0] || 'User'}!
         </h1>
-        <p className="text-purple-100">
+        <p className="text-purple-100 text-sm sm:text-base">
           Here&apos;s what&apos;s happening with your account today.
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
             <Card key={stat.label}>
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">{stat.label}</p>
-                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-xs sm:text-sm text-gray-500 mb-1">{stat.label}</p>
+                    <p className="text-xl sm:text-2xl font-bold text-gray-900">{stat.value}</p>
                   </div>
-                  <div className={`p-3 rounded-full ${stat.bgColor}`}>
-                    <Icon className={`w-6 h-6 ${stat.color}`} />
+                  <div className={`p-2 sm:p-3 rounded-full ${stat.bgColor}`}>
+                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${stat.color}`} />
                   </div>
                 </div>
               </CardContent>
@@ -104,19 +104,21 @@ export default function DashboardPage() {
               {recentOrders.map((order) => (
                 <div
                   key={order.id}
-                  className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Package className="w-6 h-6 text-gray-400" />
+                  <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Package className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-gray-900 text-sm sm:text-base truncate">
+                        {order.productName}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-500">Order ID: {order.id}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 truncate">
-                      {order.productName}
-                    </p>
-                    <p className="text-sm text-gray-500">Order ID: {order.id}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-gray-900">
+                  <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 sm:gap-0 sm:text-right">
+                    <p className="font-semibold text-gray-900 text-sm sm:text-base">
                       ${order.price.toFixed(2)}
                     </p>
                     <p
@@ -149,19 +151,19 @@ export default function DashboardPage() {
       </Card>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         <Card className="hover:shadow-md transition-shadow">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-full bg-purple-50">
-                <ShoppingBag className="w-6 h-6 text-purple-600" />
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-2.5 sm:p-3 rounded-full bg-purple-50">
+                <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
               </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-900">Continue Shopping</h3>
-                <p className="text-sm text-gray-500">Browse our latest deals</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-gray-900 text-sm sm:text-base">Continue Shopping</h3>
+                <p className="text-xs sm:text-sm text-gray-500">Browse our latest deals</p>
               </div>
               <Link href="/collections">
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" className="shrink-0">
                   Browse
                 </Button>
               </Link>
@@ -170,17 +172,17 @@ export default function DashboardPage() {
         </Card>
 
         <Card className="hover:shadow-md transition-shadow">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-full bg-blue-50">
-                <Package className="w-6 h-6 text-blue-600" />
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-2.5 sm:p-3 rounded-full bg-blue-50">
+                <Package className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-900">Track Your Orders</h3>
-                <p className="text-sm text-gray-500">View order status and history</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-gray-900 text-sm sm:text-base">Track Your Orders</h3>
+                <p className="text-xs sm:text-sm text-gray-500">View order status and history</p>
               </div>
               <Link href="/account/orders">
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" className="shrink-0">
                   View
                 </Button>
               </Link>

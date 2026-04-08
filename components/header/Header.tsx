@@ -40,7 +40,7 @@ function HeaderContent() {
     <>
       {/* Main Header — NOT sticky */}
       <header className="w-full bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
 
             {/* Left Side: Logo + Hamburger Menu Button */}
@@ -92,7 +92,7 @@ function HeaderContent() {
 
       {/* Navigation Bar */}
       <div className="hidden lg:block w-full border-b border-gray-200 bg-white relative">
-        <div className="max-w-[1280px] mx-auto px-4 relative">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-[52px]">
 
             {/* LEFT SIDE: Navigation Links */}

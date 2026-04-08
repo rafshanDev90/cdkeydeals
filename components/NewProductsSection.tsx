@@ -38,7 +38,7 @@ export default function NewProductsSection({ products }: NewProductsSectionProps
 
   return (
     <section className="py-12 bg-gray-50">
-      <div className="px-4 sm:px-6 lg:px-8">
+      <div>
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-[#1a1a1a]">

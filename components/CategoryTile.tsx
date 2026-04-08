@@ -85,8 +85,7 @@ const iconMap: Record<string, React.ComponentType> = {
 export default function CategoryTile({ categories }: CategoryTileProps) {
   return (
     <section className="py-12 bg-white">
-      <div className="px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+      {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-[#1a1a1a]">Shop by Category</h2>
           <Link
@@ -123,7 +122,6 @@ export default function CategoryTile({ categories }: CategoryTileProps) {
             );
           })}
         </div>
-      </div>
     </section>
   );
 }
