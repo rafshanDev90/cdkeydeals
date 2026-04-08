@@ -5,6 +5,8 @@ import './globals.css'
 import Header from '@/components/header/Header'
 import Footer from '@/components/Footer'
 import { CartProvider } from '@/context/CartContext'
+import { AuthProvider } from '@/context/AuthContext'
+import { WishlistProvider } from '@/context/WishlistContext'
 import CartDrawer from '@/components/cart/CartDrawer'
 import { ThemeProvider } from '@/components/theme-provider'
 import { themeInitScript } from '@/lib/theme-init'
@@ -42,17 +44,21 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-background text-foreground transition-colors duration-300" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <CartProvider>
-            <div className="min-h-screen flex flex-col">
-              <Header />
-              <main className="flex-1">
-                {children}
-              </main>
-              <Footer />
-            </div>
-            <CartDrawer />
-            <Analytics />
-          </CartProvider>
+          <AuthProvider>
+            <WishlistProvider>
+              <CartProvider>
+                <div className="min-h-screen flex flex-col">
+                  <Header />
+                  <main className="flex-1">
+                    {children}
+                  </main>
+                  <Footer />
+                </div>
+                <CartDrawer />
+                <Analytics />
+              </CartProvider>
+            </WishlistProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

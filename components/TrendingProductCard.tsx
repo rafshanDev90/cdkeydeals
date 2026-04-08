@@ -3,14 +3,14 @@ import Image from "next/image";
 
 interface ProductProps {
   title: string;
-  category: string;
+  category?: string;
   price: number;
-  image: string;
+  image?: string;
   stockLabel?: string;
   badge?: string;
 }
 
-export default function TrendingProductCard({ title, category, price, stockLabel, image, badge }: ProductProps) {
+export default function TrendingProductCard({ title, category = "General", price, stockLabel, image = "/placeholder.jpg", badge }: ProductProps) {
   return (
     <div className="flex flex-col h-full bg-card dark:bg-muted group">
       {/* Product Image */}

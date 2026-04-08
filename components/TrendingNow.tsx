@@ -3,8 +3,27 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import TrendingProductCard from "./TrendingProductCard";
 import Image from "next/image";
 
+// Product type for the component
+interface TrendingProduct {
+  id: number;
+  category?: string;
+  title: string;
+  price: number;
+  image?: string;
+  stockLabel?: string;
+  badge?: string;
+  originalPrice?: number;
+  currency?: string;
+}
+
+interface TrendingNowProps {
+  title?: string;
+  products?: TrendingProduct[];
+  viewAllLink?: string;
+}
+
 // Mock Data matching your screenshot
-const products = [
+const defaultProducts = [
   { id: 1, category: "Office Keys", title: "MS Office 2024 Pro Plus & Windows 10 Pro", price: 4400, image: "/o1.png", stockLabel: "In Stock" },
   { id: 2, category: "Hot Sale", title: "Microsoft Windows 11 Professional", price: 1900, image: "/w1.png", stockLabel: "In Stock" },
   { id: 3, category: "Office Keys", title: "Microsoft Office 365 Family - 6 Months", price: 10100, image: "/o365.png", stockLabel: "In Stock" },
@@ -13,12 +32,15 @@ const products = [
   { id: 6, category: "Office Keys", title: "Buy Windows 11 Pro & MS Office 2021", price: 5200, image: "/bundle.png", stockLabel: "In Stock" },
 ];
 
-export default function TrendingNow() {
+export default function TrendingNow({ title = "Trending Now", products: externalProducts, viewAllLink }: TrendingNowProps) {
+  // Use external products if provided, otherwise use default products
+  const products = externalProducts || defaultProducts;
+  
   return (
     <section className="max-w-[1200px] mx-auto px-4 py-10 font-sans bg-background">
       {/* Header */}
       <div className="mb-8 border-b border-border pb-4">
-        <h2 className="text-2xl font-bold text-foreground">Trending Now</h2>
+        <h2 className="text-2xl font-bold text-foreground">{title}</h2>
       </div>
 
       {/* Main Grid */}

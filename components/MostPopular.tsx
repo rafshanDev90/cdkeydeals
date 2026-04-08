@@ -2,6 +2,25 @@
 
 import MostPopularProductCard from "./MostPopularProductCard";
 
+// Product type for the component
+interface MostPopularProduct {
+  id: number;
+  title: string;
+  category?: string;
+  price: number;
+  currency?: string;
+  image?: string;
+  badge?: string;
+  stockLabel?: string;
+  originalPrice?: number;
+}
+
+interface MostPopularProps {
+  title?: string;
+  products?: MostPopularProduct[];
+  viewAllLink?: string;
+}
+
 // প্রোডাক্ট ডাটাগুলো এখানেই ডিফাইন করে দিচ্ছি যেন এরর না আসে
 const mostPopularProducts = [
   {
@@ -61,20 +80,23 @@ const mostPopularProducts = [
   },
 ];
 
-export default function MostPopular() {
+export default function MostPopular({ title = "Most Popular", products: externalProducts, viewAllLink }: MostPopularProps) {
+  // Use external products if provided, otherwise use default products
+  const products = externalProducts || mostPopularProducts;
+  
   return (
     <section className="py-12 bg-background">
       <div className="max-w-[1320px] mx-auto px-4">
         {/* Section Title */}
         <div className="mb-10">
           <h2 className="text-2xl font-extrabold text-foreground">
-            Most Popular
+            {title}
           </h2>
         </div>
 
         {/* Clean Grid Setup */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-10">
-          {mostPopularProducts.map((product) => (
+          {products.map((product) => (
             <MostPopularProductCard key={product.id} {...product} />
           ))}
         </div>

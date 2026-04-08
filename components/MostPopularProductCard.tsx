@@ -5,7 +5,7 @@ import Link from "next/link";
 interface Props {
   id: number;
   title: string;
-  category: string;
+  category?: string;
   price: number;
   currency?: string;
   image?: string;
@@ -16,7 +16,7 @@ interface Props {
 export default function MostPopularProductCard({
   id,
   title,
-  category,
+  category = "General",
   price,
   currency = "Tk",
   image,
