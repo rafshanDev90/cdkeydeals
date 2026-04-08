@@ -77,38 +77,38 @@ const CustomerAssistanceFAQ: React.FC = () => {
   const returnsFAQs = faqData.filter(item => item.category === "returns");
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div>
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/30 dark:bg-muted/20">
+      <div className="max-w-[1320px] mx-auto">
         {/* Section Title */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Customer Assistance & FAQ
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground dark:text-gray-400 max-w-2xl mx-auto">
             Everything you need to know about our digital products and support services
           </p>
         </div>
 
         {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           
           {/* Left Column - Assistance */}
           <div className="flex flex-col justify-center">
-            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100">
+            <div className="bg-card dark:bg-muted rounded-2xl p-8 shadow-lg border border-border">
               {/* Icon */}
               <div className="mb-6">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Headphones className="w-8 h-8 text-purple-600" />
+                <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                  <Headphones className="w-8 h-8 text-purple-600 dark:text-purple-400" />
                 </div>
               </div>
 
               {/* Heading */}
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
                 24/7 Assistance, Whenever You Need It
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg">
+              <p className="text-muted-foreground dark:text-gray-400 mb-8 leading-relaxed text-lg">
                 Get round-the-clock support for all your game keys and digital products. 
                 Our expert team is always ready to help with activation issues, product questions, 
                 or any concerns you might have. We're committed to ensuring your digital experience 
@@ -116,21 +116,21 @@ const CustomerAssistanceFAQ: React.FC = () => {
               </p>
 
               {/* CTA Button */}
-              <button className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm sm:text-base">
+              <button className="inline-flex items-center justify-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
                 Contact Support
-                <Headphones className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+                <Headphones className="w-5 h-5 ml-2" />
               </button>
 
               {/* Additional Info */}
-              <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-100">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="mt-8 pt-8 border-t border-border">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex items-center space-x-3">
-                    <Package className="w-5 h-5 text-purple-600" />
-                    <span className="text-sm text-gray-600">Instant Digital Delivery</span>
+                    <Package className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    <span className="text-sm text-muted-foreground dark:text-gray-400">Instant Digital Delivery</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <CreditCard className="w-5 h-5 text-purple-600" />
-                    <span className="text-sm text-gray-600">Secure Payment Processing</span>
+                    <CreditCard className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    <span className="text-sm text-muted-foreground dark:text-gray-400">Secure Payment Processing</span>
                   </div>
                 </div>
               </div>
@@ -140,9 +140,9 @@ const CustomerAssistanceFAQ: React.FC = () => {
           {/* Right Column - FAQ Accordion */}
           <div className="space-y-8">
             {/* Shipping Section */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-              <h4 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                <Package className="w-6 h-6 mr-3 text-blue-600" />
+            <div className="bg-card dark:bg-muted rounded-2xl p-6 shadow-lg border border-border">
+              <h4 className="text-xl font-bold text-foreground mb-6 flex items-center">
+                <Package className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
                 SHIPPING
               </h4>
               
@@ -165,9 +165,9 @@ const CustomerAssistanceFAQ: React.FC = () => {
             </div>
 
             {/* Returns & Refund Section */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-              <h4 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                <CreditCard className="w-6 h-6 mr-3 text-green-600" />
+            <div className="bg-card dark:bg-muted rounded-2xl p-6 shadow-lg border border-border">
+              <h4 className="text-xl font-bold text-foreground mb-6 flex items-center">
+                <CreditCard className="w-6 h-6 mr-3 text-green-600 dark:text-green-400" />
                 RETURNS & REFUND
               </h4>
               
@@ -176,12 +176,12 @@ const CustomerAssistanceFAQ: React.FC = () => {
                   <AccordionItem 
                     key={faq.id} 
                     value={faq.id}
-                    className="border border-gray-200 rounded-lg px-4 hover:bg-gray-50 transition-colors"
+                    className="border border-border rounded-lg px-4 hover:bg-muted/50 dark:hover:bg-muted transition-colors"
                   >
-                    <AccordionTrigger className="text-left font-medium text-gray-900 hover:text-purple-600 transition-colors">
+                    <AccordionTrigger className="text-left font-medium text-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 leading-relaxed">
+                    <AccordionContent className="text-muted-foreground dark:text-gray-400 leading-relaxed">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -192,19 +192,19 @@ const CustomerAssistanceFAQ: React.FC = () => {
         </div>
 
         {/* Bottom CTA Section */}
-        <div className="mt-12 sm:mt-16 text-center">
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-6 sm:p-8 text-white">
-            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+        <div className="mt-16 text-center">
+          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white">
+            <h3 className="text-2xl font-bold mb-4">
               Still have questions?
             </h3>
-            <p className="text-base sm:text-lg mb-5 sm:mb-6 opacity-90">
+            <p className="text-lg mb-6 opacity-90">
               Our support team is here to help you 24/7
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <button className="px-6 sm:px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200 text-sm sm:text-base">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200">
                 Browse Help Center
               </button>
-              <button className="px-6 sm:px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-purple-600 transition-colors duration-200 text-sm sm:text-base">
+              <button className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-purple-600 transition-colors duration-200">
                 Live Chat Support
               </button>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import HeroSection from "@/components/HeroSection";
+import HeroSlider from "@/components/HeroSlider";
 import CategoryTile from "@/components/CategoryTile";
 import NewProductsSection from "@/components/NewProductsSection";
 import TopProducts from "@/components/TopProducts";
@@ -151,65 +151,68 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <main className="max-w-[1320px] mx-auto bg-white px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <HeroSection />
+    <div className="min-h-screen bg-background">
+      <div className="max-w-[1320px] mx-auto bg-background">
+        <main>
+          {/* Hero Slider */}
+          <HeroSlider />
 
-        {/* Shop by Category */}
-        <CategoryTile categories={categories} />
+          {/* Shop by Category */}
+          <CategoryTile categories={categories} />
 
-        {/* New Products Section (Horizontal Scroll) */}
-        <NewProductsSection products={newProducts} />
+          {/* New Products Section (Horizontal Scroll) */}
+          <NewProductsSection products={newProducts} />
 
-        {/* Top Products Grid */}
-        <TopProducts
-          title="Top Products"
-          products={mockTopProducts}
-          viewAllLink="/best-selling"
-        />
+          {/* Top Products Grid */}
+          <TopProducts
+            title="Top Products"
+            products={mockTopProducts}
+            viewAllLink="/best-selling"
+          />
 
-        {/* Promo Banners */}
-        <PromoBanner />
+          {/* Promo Banners */}
+          <PromoBanner />
 
-        {/* Hot Deals Section */}
-        <DealsSection />
+          {/* Hot Deals Section */}
+          <DealsSection />
 
-        {/* Sale Marquee Banner */}
-        <SaleBanner />
+          {/* Sale Marquee Banner */}
+          <SaleBanner />
 
-        {/* Shop by Brand */}
-        <BrandCarousel brands={brands} />
+          {/* Shop by Brand */}
+          <BrandCarousel brands={brands} />
 
-        {/* Best Offers Section */}
-        <BestOffersSection />
+          {/* Best Offers Section */}
+          <BestOffersSection />
 
-        {/* Trending Now Section */}
-        <TrendingNow
-          title="Trending Now"
-          products={mockTrendingProducts}
-          viewAllLink="/trending"
-        />
+          {/* Trending Now Section */}
+          <TrendingNow
+            title="Trending Now"
+            products={mockTrendingProducts}
+            viewAllLink="/trending"
+          />
 
-        {/* Promo Banner + Product Carousel Section */}
-        <PromoCarouselSection />
+          {/* Promo Banner + Product Carousel Section */}
+          <PromoCarouselSection />
 
-        {/* Most Popular Section */}
-        <MostPopular
-          title="Most Popular"
-          products={mockMostPopularProducts}
-          viewAllLink="/best-selling"
-        />
+          {/* Most Popular Section */}
+          <MostPopular
+            title="Most Popular"
+            products={mockMostPopularProducts}
+            viewAllLink="/best-selling"
+          />
 
-        {/* Services Section */}
-        <ServicesSection />
+          {/* Services Section */}
+          <ServicesSection />
 
-        {/* Customer Assistance & FAQ Section */}
-        <CustomerAssistanceFAQ />
-      </main>
+          {/* Customer Assistance & FAQ Section */}
+          <CustomerAssistanceFAQ />
 
-      {/* Newsletter - Full width background, contained content */}
-      <Newsletter />
+          {/* Newsletter */}
+          <Newsletter />
+        </main>
+
+      </div>
     </div>
   );
 }
