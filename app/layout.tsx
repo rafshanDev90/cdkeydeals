@@ -52,25 +52,10 @@ export default function RootLayout({
                   <Footer />
                 </div>
                 <CartDrawer />
+                <Toaster position="top-right" richColors />
                 <Analytics />
               </CartProvider>
             </WishlistProvider>
-          </AuthProvider>
-          <AuthProvider>
-            <CartProvider>
-              <WishlistProvider>
-                <div className="min-h-screen flex flex-col">
-                  <Header />
-                  <main className="flex-1">
-                    {children}
-                  </main>
-                  <Footer />
-                </div>
-                <CartDrawer />
-                <Toaster position="top-right" richColors />
-                <Analytics />
-              </WishlistProvider>
-            </CartProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

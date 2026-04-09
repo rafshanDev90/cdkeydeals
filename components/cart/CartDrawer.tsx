@@ -101,7 +101,7 @@ export default function CartDrawer() {
 
           {/* Cart Footer */}
           {state.items.length > 0 && (
-            <div className="border-t border-gray-200 bg-white p-4 space-y-4">
+            <div className="border-t border-gray-200 mb-45 bg-white p-4 space-y-4">
               {/* Cart Summary */}
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
