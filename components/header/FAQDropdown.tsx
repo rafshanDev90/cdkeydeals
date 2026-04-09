@@ -2,6 +2,7 @@
 
 import { ChevronDown, HelpCircle, FileText, MessageSquare, Shield, Truck } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 
 const faqItems = [
   {
@@ -89,13 +90,13 @@ export default function FAQDropdown({ isOpen, onToggle, onClose }: FAQDropdownPr
     >
       {/* Trigger */}
       <div className="flex items-center gap-1 cursor-pointer group py-2">
-        <span className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+        <Link href="/faq" className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
           FAQ
-        </span>
+        </Link>
         <ChevronDown
           className={`w-3.5 h-3.5 text-gray-400 dark:text-gray-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
-          }`} 
+          }`}
         />
       </div>
 

@@ -51,18 +51,28 @@ export default function Navbar({ isDarkMode, onDarkModeToggle }: NavbarProps) {
 
             {/* Menu Items */}
             <div className="flex items-center gap-5">
-              <NavItem 
-                title="Games" 
-                hasDropdown 
+              <div
                 onMouseEnter={() => setIsGamesMegaMenuOpen(true)}
                 onMouseLeave={() => setIsGamesMegaMenuOpen(false)}
-              />
-              <NavItem 
-                title="Software" 
-                hasDropdown 
+              >
+                <div className="flex items-center gap-1 cursor-pointer group py-2">
+                  <Link href="/games" className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 transition-colors group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                    Games
+                  </Link>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 transition-transform duration-200 group-hover:rotate-180 group-hover:text-purple-600 dark:group-hover:text-purple-400" />
+                </div>
+              </div>
+              <div
                 onMouseEnter={() => setIsMegaMenuOpen(true)}
                 onMouseLeave={() => setIsMegaMenuOpen(false)}
-              />
+              >
+                <div className="flex items-center gap-1 cursor-pointer group py-2">
+                  <Link href="/software" className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 transition-colors group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                    Software
+                  </Link>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 transition-transform duration-200 group-hover:rotate-180 group-hover:text-indigo-600 dark:group-hover:text-indigo-400" />
+                </div>
+              </div>
               <div 
                 onMouseEnter={() => setIsGiftCardsDropdownOpen(true)}
                 onMouseLeave={() => setIsGiftCardsDropdownOpen(false)}

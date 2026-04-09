@@ -42,21 +42,6 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
-            <WishlistProvider>
-              <CartProvider>
-                <div className="min-h-screen flex flex-col">
-                  <Header />
-                  <main className="flex-1">
-                    {children}
-                  </main>
-                  <Footer />
-                </div>
-                <CartDrawer />
-                <Analytics />
-              </CartProvider>
-            </WishlistProvider>
-          </AuthProvider>
-          <AuthProvider>
             <CartProvider>
               <WishlistProvider>
                 <div className="min-h-screen flex flex-col">

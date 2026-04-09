@@ -25,16 +25,16 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
   };
 
   return (
-    <div className="flex gap-3 p-3 sm:p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors">
+    <div className="flex gap-4 py-4 border-b border-gray-100 last:border-b-0">
       {/* Product Image */}
-      <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+      <div className="relative w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
         {item.image ? (
           <Image
             src={item.image}
             alt={item.title}
             fill
             className="object-cover"
-            sizes="64px"
+            sizes="80px"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
@@ -44,65 +44,50 @@ export default function CartItemComponent({ item }: CartItemComponentProps) {
       </div>
 
       {/* Product Details */}
-      <div className="flex-1 min-w-0">
-        {/* Title */}
-        <h4 className="text-sm sm:text-base font-medium text-gray-900 line-clamp-2 leading-tight mb-1">
-          {item.title}
-        </h4>
+      <div className="flex-1 min-w-0 flex flex-col justify-between">
+        <div>
+          {/* Title */}
+          <h4 className="text-sm font-semibold text-gray-900 line-clamp-2 leading-snug mb-1">
+            {item.title}
+          </h4>
 
-        {/* Price */}
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-sm sm:text-base font-bold text-gray-900">
-            {currencySymbol}
-            {item.price.toFixed(2)}
-          </span>
-          {item.originalPrice && item.originalPrice > item.price && (
-            <span className="text-xs sm:text-sm text-gray-400 line-through">
-              {currencySymbol}
-              {item.originalPrice.toFixed(2)}
-            </span>
-          )}
+          {/* Price */}
+          <p className="text-sm font-bold text-gray-900">
+            {currencySymbol}{item.price.toFixed(2)}
+          </p>
         </div>
 
-        {/* Quantity Controls */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+        {/* Quantity Controls & Remove */}
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center border border-gray-200 rounded-md">
             <button
               onClick={() => handleQuantityChange(item.quantity - 1)}
-              className="p-2 sm:p-1 hover:bg-gray-100 transition-colors touch-manipulation"
+              className="p-1.5 hover:bg-gray-100 transition-colors"
               aria-label="Decrease quantity"
             >
-              <Minus className="w-4 h-4 sm:w-3 sm:h-3 text-gray-600" />
+              <Minus className="w-3.5 h-3.5 text-gray-600" />
             </button>
-            <span className="px-3 sm:px-2 py-1 text-sm sm:text-base font-medium text-gray-900 min-w-[48px] sm:min-w-[40px] text-center">
+            <span className="px-3 py-1 text-sm font-medium text-gray-900 min-w-[36px] text-center">
               {item.quantity}
             </span>
             <button
               onClick={() => handleQuantityChange(item.quantity + 1)}
-              className="p-2 sm:p-1 hover:bg-gray-100 transition-colors touch-manipulation"
+              className="p-1.5 hover:bg-gray-100 transition-colors"
               aria-label="Increase quantity"
             >
-              <Plus className="w-4 h-4 sm:w-3 sm:h-3 text-gray-600" />
+              <Plus className="w-3.5 h-3.5 text-gray-600" />
             </button>
           </div>
 
-          {/* Remove Button */}
+          {/* Remove Link */}
           <button
             onClick={handleRemove}
-            className="p-2 sm:p-1 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation"
+            className="text-xs text-gray-500 hover:text-red-500 underline underline-offset-2 transition-colors"
             aria-label="Remove item"
           >
-            <X className="w-5 h-5 sm:w-4 sm:h-4" />
+            Remove
           </button>
         </div>
-      </div>
-
-      {/* Item Total */}
-      <div className="text-right flex-shrink-0 hidden sm:block">
-        <p className="text-sm sm:text-base font-bold text-gray-900">
-          {currencySymbol}
-          {(item.price * item.quantity).toFixed(2)}
-        </p>
       </div>
     </div>
   );

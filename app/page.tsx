@@ -10,11 +10,9 @@ import DealsSection from "@/components/DealsSection";
 import SaleBanner from "@/components/SaleBanner";
 import BrandCarousel from "@/components/BrandCarousel";
 import BestOffersSection from "@/components/BestOffersSection";
-import TrendingNow from "@/components/TrendingNow";
 import PromoCarouselSection from "@/components/home/PromoCarouselSection";
 import MostPopular from "@/components/MostPopular";
 import ServicesSection from "@/components/ServicesSection";
-import CustomerAssistanceFAQ from "@/components/CustomerAssistanceFAQ";
 import Newsletter from "@/components/Newsletter";
 import { mockTopProducts } from "@/data/mockProducts";
 
@@ -185,9 +183,6 @@ export default function Home() {
           {/* Best Offers Section */}
           <BestOffersSection />
 
-          {/* Trending Now Section */}
-          <TrendingNow />
-
           {/* Promo Banner + Product Carousel Section */}
           <PromoCarouselSection />
 
@@ -196,9 +191,6 @@ export default function Home() {
 
           {/* Services Section */}
           <ServicesSection />
-
-          {/* Customer Assistance & FAQ Section */}
-          <CustomerAssistanceFAQ />
 
           {/* Newsletter */}
           <Newsletter />
