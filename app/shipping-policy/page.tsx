@@ -6,7 +6,7 @@ const ShippingPolicy = () => {
       
       {/* Header */}
       <div className="border-b pb-8 mb-8">
-        <h1 className="text-4xl font-extrabold mb-4 text-gray-900">
+        <h1 className="text-4xl font-extrabold mb-4 text-gray-900 dark:text-foreground">
           Shipping Policy
         </h1>
         <p className="text-lg font-semibold text-blue-600">
@@ -105,15 +105,15 @@ const ShippingPolicy = () => {
       </section>
 
       {/* Section 3 */}
-      <section className="mb-10 bg-gray-50 p-6 rounded-xl border">
+      <section className="mb-10 bg-gray-50 dark:bg-muted p-6 rounded-xl border">
         <h2 className="text-2xl font-bold mb-4">
           3) Shipping Fees (Digital Delivery Is Free)
         </h2>
 
         <ul className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-          <li className="bg-white p-3 rounded shadow">No shipping fees</li>
-          <li className="bg-white p-3 rounded shadow">No handling fees</li>
-          <li className="bg-white p-3 rounded shadow">No extra charges</li>
+          <li className="bg-white dark:bg-card p-3 rounded shadow">No shipping fees</li>
+          <li className="bg-white dark:bg-card p-3 rounded shadow">No handling fees</li>
+          <li className="bg-white dark:bg-card p-3 rounded shadow">No extra charges</li>
         </ul>
 
         <p className="mt-4">

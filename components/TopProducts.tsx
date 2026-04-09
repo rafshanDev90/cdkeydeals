@@ -8,22 +8,16 @@ import ProductSkeleton from './products/ProductSkeleton';
 import EmptyState from './products/EmptyState';
 import { TopProductsProps } from '@/types/product';
 
-export default function TopProducts({ 
-  title = "Top Products", 
-  products, 
+export default function TopProducts({
+  title = "Top Products",
+  products,
   viewAllLink,
-  loading = false 
+  loading = false
 }: TopProductsProps) {
   if (loading) {
     return (
-      <section className="py-12">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
-          {/* Header Skeleton */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="h-8 w-48 bg-gray-200 rounded-lg animate-pulse"></div>
-            <div className="h-6 w-20 bg-gray-200 rounded-lg animate-pulse"></div>
-          </div>
-          
+      <section>
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           {/* Grid Skeleton - Desktop */}
           <div className="hidden lg:grid grid-cols-6 gap-3 overflow-hidden">
             {Array.from({ length: 6 }).map((_, index) => (
@@ -35,7 +29,7 @@ export default function TopProducts({
           <div className="lg:hidden overflow-x-auto">
             <div className="flex gap-3 pb-4" style={{ minWidth: 'max-content' }}>
               {Array.from({ length: 6 }).map((_, index) => (
-                <div key={index} className="w-72 flex-shrink-0">
+                <div key={index} className="w-72 shrink-0">
                   <ProductSkeleton />
                 </div>
               ))}
@@ -49,8 +43,8 @@ export default function TopProducts({
   if (!products || products.length === 0) {
     return (
       <section className="py-12">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
-          <EmptyState 
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <EmptyState
             title="No products available"
             description="Check back later for new products."
             actionLabel="Browse All Products"
@@ -66,7 +60,7 @@ export default function TopProducts({
 
   return (
     <section className="py-12 bg-muted/30 dark:bg-muted/20">
-      <div className="px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -88,10 +82,10 @@ export default function TopProducts({
         </div>
 
         {/* Product Grid - Exactly 6 columns on desktop, horizontal scroll on smaller screens */}
-        <div className="hidden lg:grid grid-cols-6 gap-3 overflow-hidden">
+        <div className="mb-10 hidden lg:grid grid-cols-6 gap-3">
           {displayProducts.map((product) => (
-            <ProductCard 
-              key={product.id} 
+            <ProductCard
+              key={product.id}
               {...product}
             />
           ))}
@@ -101,11 +95,11 @@ export default function TopProducts({
         <div className="lg:hidden overflow-x-auto">
           <div className="flex gap-3 pb-4" style={{ minWidth: 'max-content' }}>
             {displayProducts.map((product) => (
-              <div 
-                key={product.id} 
-                className="w-72 flex-shrink-0"
+              <div
+                key={product.id}
+                className="w-72 shrink-0"
               >
-                <ProductCard 
+                <ProductCard
                   {...product}
                 />
               </div>

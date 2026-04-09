@@ -19,7 +19,9 @@ interface NewProductsSectionProps {
   products: Product[];
 }
 
-export default function NewProductsSection({ products }: NewProductsSectionProps) {
+export default function NewProductsSection({
+  products,
+}: NewProductsSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -44,18 +46,18 @@ export default function NewProductsSection({ products }: NewProductsSectionProps
           <h2 className="text-2xl font-bold text-foreground">
             New Products and Current Offers
           </h2>
+
           <div className="flex items-center gap-2">
             <button
               onClick={() => scroll("left")}
               className="w-10 h-10 bg-card dark:bg-muted hover:bg-gray-100 dark:hover:bg-gray-700 text-foreground rounded-full flex items-center justify-center transition-colors shadow-sm border border-border"
-              aria-label="Scroll left"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
+
             <button
               onClick={() => scroll("right")}
               className="w-10 h-10 bg-card dark:bg-muted hover:bg-gray-100 dark:hover:bg-gray-700 text-foreground rounded-full flex items-center justify-center transition-colors shadow-sm border border-border"
-              aria-label="Scroll right"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -65,7 +67,7 @@ export default function NewProductsSection({ products }: NewProductsSectionProps
         {/* Scrollable Products */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory"
+          className="flex gap-4 overflow-x-auto pt-10 pb-6 px-2 scrollbar-hide snap-x snap-mandatory"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {products.map((product) => (
@@ -74,7 +76,18 @@ export default function NewProductsSection({ products }: NewProductsSectionProps
               href={`/product/${product.id}`}
               className="shrink-0 w-[200px] snap-start group"
             >
-              <div className="relative bg-card dark:bg-muted rounded-xl overflow-hidden border border-border hover:border-[#00d4aa]/50 hover:shadow-md transition-all">
+              <div
+                className="
+                relative bg-card dark:bg-muted rounded-xl overflow-hidden
+                border border-border hover:border
+
+                hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]
+                dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)]
+
+                hover:-translate-y-1.5
+                transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]
+              "
+              >
                 {/* Badge */}
                 {(product.discount || product.badge) && (
                   <div className="absolute top-2 left-2 z-10">
@@ -102,17 +115,20 @@ export default function NewProductsSection({ products }: NewProductsSectionProps
                   <h3 className="text-xs font-medium text-foreground line-clamp-2 min-h-[32px] group-hover:text-[#00d4aa] transition-colors">
                     {product.title}
                   </h3>
+
                   <div className="mt-2 flex items-center gap-2">
                     <span className="text-sm font-bold text-[#00d4aa]">
                       {currencySymbol(product.currency || "GBP")}
                       {product.price.toFixed(2)}
                     </span>
-                    {product.originalPrice && product.originalPrice > product.price && (
-                      <span className="text-xs text-gray-400 dark:text-gray-500 line-through">
-                        {currencySymbol(product.currency || "GBP")}
-                        {product.originalPrice.toFixed(2)}
-                      </span>
-                    )}
+
+                    {product.originalPrice &&
+                      product.originalPrice > product.price && (
+                        <span className="text-xs text-gray-400 dark:text-gray-500 line-through">
+                          {currencySymbol(product.currency || "GBP")}
+                          {product.originalPrice.toFixed(2)}
+                        </span>
+                      )}
                   </div>
                 </div>
               </div>

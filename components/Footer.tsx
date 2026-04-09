@@ -49,7 +49,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-gray-900 pt-12 pb-6 font-sans border-t border-gray-100 dark:border-gray-800 relative">
+    <footer className="bg-white dark:bg-[#1E1E1E] pt-12 pb-6 font-sans border-t border-gray-100 dark:border-gray-800 relative">
       {/* 1. Social Media Bar (Top Center) */}
       <div className="flex justify-center gap-3 mb-12">
         {[
@@ -169,7 +169,7 @@ export default function Footer() {
       <div className="fixed bottom-6 right-6 z-50">
         <button className="bg-[#6343D8] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform relative">
           <MessageCircle size={28} />
-          <span className="absolute -top-1 -right-1 bg-red-600 text-[10px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-white dark:border-gray-900">1</span>
+          <span className="absolute -top-1 -right-1 bg-red-600 text-[10px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-white dark:border-[#1E1E1E]">1</span>
         </button>
       </div>
     </footer>

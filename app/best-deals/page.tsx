@@ -47,15 +47,15 @@ export default function BestDealsPage() {
   const hasMore = displayedCategories.length < categories.length;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-card">
       {/* Page Header */}
-      <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-gray-100">
+      <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-gray-100 dark:border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-foreground mb-4">
               Best Deals
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-muted-foreground max-w-2xl mx-auto">
               Discover amazing deals on games, software, and gift cards. Save big on your favorite digital products.
             </p>
           </div>
@@ -82,10 +82,10 @@ export default function BestDealsPage() {
               onClick={handleLoadMore}
               disabled={isLoading}
               className={`
-                px-8 py-3 text-base font-medium text-gray-700 
+                px-8 py-3 text-base font-medium text-gray-700 dark:text-muted-foreground 
                 border border-gray-300 rounded-lg
-                hover:border-gray-400 hover:text-gray-900
-                hover:bg-gray-50
+                hover:border-gray-400 hover:text-gray-900 dark:text-foreground
+                hover:bg-gray-50 dark:bg-muted
                 transition-all duration-200
                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
                 disabled:opacity-50 disabled:cursor-not-allowed
@@ -107,7 +107,7 @@ export default function BestDealsPage() {
         {/* No more categories message */}
         {!hasMore && displayedCategories.length > 0 && (
           <div className="text-center mt-12">
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 dark:text-muted-foreground text-sm">
               You've reached the end of our categories. Check back soon for new deals!
             </p>
           </div>

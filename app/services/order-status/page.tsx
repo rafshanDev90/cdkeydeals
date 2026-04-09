@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function OrderStatusPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-muted">
       {/* Hero Section */}
       <PageHeader
         title="Check Your Order Status"
@@ -24,7 +24,7 @@ export default function OrderStatusPage() {
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* How to Track Order */}
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-foreground mb-6 text-center">
               How to Track Your Order
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -55,8 +55,8 @@ export default function OrderStatusPage() {
                     <Key className="w-5 h-5 text-[#00d4aa]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Instant Delivery</h4>
-                    <p className="text-sm text-gray-600">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Instant Delivery</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">
                       Most product keys are delivered instantly after payment confirmation. Check your email or account dashboard to access your key.
                     </p>
                   </div>
@@ -66,8 +66,8 @@ export default function OrderStatusPage() {
                     <Download className="w-5 h-5 text-[#00d4aa]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Download Instructions</h4>
-                    <p className="text-sm text-gray-600">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Download Instructions</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">
                       Along with your product key, you will receive detailed instructions on how to download and activate your software or game.
                     </p>
                   </div>
@@ -77,32 +77,32 @@ export default function OrderStatusPage() {
 
             <InfoSection title="Order Status Guide" variant="default">
               <div className="space-y-4">
-                <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-gray-100">
+                <div className="flex items-center gap-4 p-3 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
                   <div className="w-3 h-3 rounded-full bg-yellow-400" />
                   <div>
-                    <span className="font-medium text-gray-900">Pending</span>
-                    <p className="text-sm text-gray-500">Payment is being processed</p>
+                    <span className="font-medium text-gray-900 dark:text-foreground">Pending</span>
+                    <p className="text-sm text-gray-500 dark:text-muted-foreground">Payment is being processed</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-gray-100">
+                <div className="flex items-center gap-4 p-3 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
                   <div className="w-3 h-3 rounded-full bg-[#00d4aa]" />
                   <div>
-                    <span className="font-medium text-gray-900">Completed</span>
-                    <p className="text-sm text-gray-500">Order confirmed, key delivered</p>
+                    <span className="font-medium text-gray-900 dark:text-foreground">Completed</span>
+                    <p className="text-sm text-gray-500 dark:text-muted-foreground">Order confirmed, key delivered</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-gray-100">
+                <div className="flex items-center gap-4 p-3 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
                   <div className="w-3 h-3 rounded-full bg-blue-500" />
                   <div>
-                    <span className="font-medium text-gray-900">Processing</span>
-                    <p className="text-sm text-gray-500">Key is being generated</p>
+                    <span className="font-medium text-gray-900 dark:text-foreground">Processing</span>
+                    <p className="text-sm text-gray-500 dark:text-muted-foreground">Key is being generated</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-3 bg-white rounded-lg border border-gray-100">
+                <div className="flex items-center gap-4 p-3 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
                   <div className="w-3 h-3 rounded-full bg-red-500" />
                   <div>
-                    <span className="font-medium text-gray-900">Failed</span>
-                    <p className="text-sm text-gray-500">Payment failed or cancelled</p>
+                    <span className="font-medium text-gray-900 dark:text-foreground">Failed</span>
+                    <p className="text-sm text-gray-500 dark:text-muted-foreground">Payment failed or cancelled</p>
                   </div>
                 </div>
               </div>
@@ -110,8 +110,8 @@ export default function OrderStatusPage() {
           </div>
 
           {/* Account Dashboard Instructions */}
-          <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">
+          <div className="bg-white dark:bg-card rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-border mb-8">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-foreground mb-6">
               Account Dashboard Instructions
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -119,8 +119,8 @@ export default function OrderStatusPage() {
                 <div className="w-12 h-12 rounded-full bg-[#00d4aa] text-white flex items-center justify-center text-xl font-bold mx-auto mb-3">
                   1
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Sign In</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-semibold text-gray-900 dark:text-foreground mb-2">Sign In</h4>
+                <p className="text-sm text-gray-600 dark:text-muted-foreground">
                   Log into your CDKeyDeals account using your email and password
                 </p>
               </div>
@@ -128,8 +128,8 @@ export default function OrderStatusPage() {
                 <div className="w-12 h-12 rounded-full bg-[#00d4aa] text-white flex items-center justify-center text-xl font-bold mx-auto mb-3">
                   2
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-2">My Orders</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-semibold text-gray-900 dark:text-foreground mb-2">My Orders</h4>
+                <p className="text-sm text-gray-600 dark:text-muted-foreground">
                   Click on "My Orders" in the account menu to view all purchases
                 </p>
               </div>
@@ -137,8 +137,8 @@ export default function OrderStatusPage() {
                 <div className="w-12 h-12 rounded-full bg-[#00d4aa] text-white flex items-center justify-center text-xl font-bold mx-auto mb-3">
                   3
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-2">View Details</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-semibold text-gray-900 dark:text-foreground mb-2">View Details</h4>
+                <p className="text-sm text-gray-600 dark:text-muted-foreground">
                   Click on any order to see full details including product keys
                 </p>
               </div>
@@ -146,8 +146,8 @@ export default function OrderStatusPage() {
                 <div className="w-12 h-12 rounded-full bg-[#00d4aa] text-white flex items-center justify-center text-xl font-bold mx-auto mb-3">
                   4
                 </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Download</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-semibold text-gray-900 dark:text-foreground mb-2">Download</h4>
+                <p className="text-sm text-gray-600 dark:text-muted-foreground">
                   Copy your key and follow the activation instructions provided
                 </p>
               </div>

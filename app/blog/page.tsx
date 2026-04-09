@@ -23,7 +23,7 @@ export default function BlogPage() {
   const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-card">
       <Navbar isDarkMode={isDarkMode} onDarkModeToggle={toggleDarkMode} />
       
       <BlogHero />

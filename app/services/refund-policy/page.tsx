@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RefundPolicyPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-muted">
       {/* Hero Section */}
       <PageHeader
         title="Returns & Refunds"
@@ -95,10 +95,10 @@ export default function RefundPolicyPage() {
           <div className="bg-gradient-to-r from-[#00d4aa]/10 to-[#00b894]/10 rounded-xl p-6 md:p-8 border border-[#00d4aa]/20">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-foreground mb-2">
                   Need Help with a Refund?
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-muted-foreground">
                   Our support team is available 24/7 to assist you with any refund or replacement requests.
                 </p>
               </div>
@@ -111,7 +111,7 @@ export default function RefundPolicyPage() {
                 </a>
                 <a
                   href="/faq"
-                  className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-border text-gray-700 dark:text-muted-foreground font-medium rounded-lg hover:bg-gray-50 dark:bg-muted transition-colors duration-200"
                 >
                   View FAQ
                 </a>

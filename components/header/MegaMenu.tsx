@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  Monitor, 
-  Palette, 
-  Shield, 
-  Download, 
-  ChevronRight 
+import {
+  Monitor,
+  Palette,
+  Shield,
+  Download,
+  ChevronRight
 } from "lucide-react";
 import DropdownWrapper from "./DropdownWrapper";
 
@@ -62,11 +62,14 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
   };
 
   return (
-    <DropdownWrapper isOpen={isOpen} onClose={onClose}>
-      <div className="rounded-xl overflow-hidden">
-        <div className="flex h-[400px]">
+    <DropdownWrapper
+      isOpen={isOpen}
+      onClose={onClose}
+    >
+      <div className="w-full bg-[#1E1E1E]">
+        <div className="flex h-[400px] max-w-7xl mx-auto">
           {/* Left Sidebar - Category List */}
-          <div className="w-1/3 bg-slate-50 p-4 border-r border-gray-100">
+          <div className="w-1/3 bg-[#1E1E1E] p-4 border-r border-gray-700">
             <div className="space-y-1">
               {softwareCategories.map((category) => (
                 <div
@@ -74,23 +77,23 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   className="group"
                   onMouseEnter={() => handleCategoryHover(category.id)}
                 >
-                  <div 
+                  <div
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 ${
-                      activeCategory === category.id 
-                        ? 'bg-white text-blue-600 shadow-sm' 
-                        : 'hover:bg-white hover:text-blue-600 text-slate-700'
+                      activeCategory === category.id
+                        ? 'bg-[#2A2A2A] text-blue-400 shadow-sm'
+                        : 'hover:bg-[#2A2A2A] hover:text-blue-400 text-gray-300'
                     }`}
                   >
                     <category.icon className={`w-5 h-5 transition-colors duration-200 ${
-                      activeCategory === category.id ? 'text-blue-600' : 'text-slate-500 group-hover:text-blue-600'
+                      activeCategory === category.id ? 'text-blue-400' : 'text-gray-400 group-hover:text-blue-400'
                     }`} />
                     <span className={`font-medium transition-colors duration-200 text-sm ${
-                      activeCategory === category.id ? 'text-blue-600' : 'text-slate-700 group-hover:text-blue-600'
+                      activeCategory === category.id ? 'text-blue-400' : 'text-gray-300 group-hover:text-blue-400'
                     }`}>
                       {category.title}
                     </span>
                     <ChevronRight className={`w-4 h-4 ml-auto transition-colors duration-200 ${
-                      activeCategory === category.id ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-600'
+                      activeCategory === category.id ? 'text-blue-400' : 'text-gray-500 group-hover:text-blue-400'
                     }`} />
                   </div>
                 </div>
@@ -99,25 +102,25 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
           </div>
 
           {/* Right Content Area - Sub-menu */}
-          <div className="flex-1 bg-white p-6">
+          <div className="flex-1 bg-[#1E1E1E] p-6">
             {getActiveCategoryData() ? (
               <div className="h-full">
                 <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                  <h3 className="text-lg font-semibold text-gray-100 mb-2">
                     {getActiveCategoryData()?.title}
                   </h3>
                   <div className="w-12 h-1 bg-blue-600 rounded-full"></div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-2">
                   {getActiveCategoryData()?.submenu.map((submenuItem, index) => (
                     <a
                       key={submenuItem}
                       href="#"
-                      className="flex items-center px-4 py-3 text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 group"
+                      className="flex items-center px-4 py-3 text-gray-300 hover:text-blue-400 hover:bg-[#2A2A2A] rounded-lg transition-all duration-200 group"
                       onClick={onClose}
                     >
-                      <ChevronRight className="w-4 h-4 mr-2 text-slate-400 group-hover:text-blue-600 transition-colors duration-200" />
+                      <ChevronRight className="w-4 h-4 mr-2 text-gray-500 group-hover:text-blue-400 transition-colors duration-200" />
                       <span className="text-sm font-medium">{submenuItem}</span>
                     </a>
                   ))}
@@ -126,11 +129,11 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             ) : (
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Monitor className="w-10 h-10 text-slate-400" />
+                  <div className="w-20 h-20 bg-[#2A2A2A] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Monitor className="w-10 h-10 text-gray-500" />
                   </div>
-                  <p className="text-slate-500 text-sm font-medium">Hover over a category to explore software options</p>
-                  <p className="text-slate-400 text-xs mt-2">Choose from Microsoft, Creative tools, Security, and Utilities</p>
+                  <p className="text-gray-400 text-sm font-medium">Hover over a category to explore software options</p>
+                  <p className="text-gray-500 text-xs mt-2">Choose from Microsoft, Creative tools, Security, and Utilities</p>
                 </div>
               </div>
             )}

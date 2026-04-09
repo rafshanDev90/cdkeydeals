@@ -2,20 +2,21 @@ import ProductCard, { Product } from "./ProductCard";
 
 interface ProductGridProps {
   products: Product[];
-  columns?: 1 | 2 | 3 | 4;
+  columns?: 1 | 2 | 3 | 4 | 5;
   loading?: boolean;
 }
 
-export default function ProductGrid({ 
-  products, 
+export default function ProductGrid({
+  products,
   columns = 4,
-  loading = false 
+  loading = false
 }: ProductGridProps) {
   const gridCols = {
     1: "grid-cols-1",
-    2: "grid-cols-1 md:grid-cols-2", 
+    2: "grid-cols-1 md:grid-cols-2",
     3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-    4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+    4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+    5: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
   };
 
   if (loading) {

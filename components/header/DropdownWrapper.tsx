@@ -30,7 +30,14 @@ export default function DropdownWrapper({
   // Handle escape key and outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      const header = document.querySelector('header');
+      if (
+        wrapperRef.current && 
+        !wrapperRef.current.contains(target) &&
+        header && 
+        !header.contains(target)
+      ) {
         onClose();
       }
     };
@@ -57,22 +64,13 @@ export default function DropdownWrapper({
       {isOpen && (
         <motion.div
           ref={wrapperRef}
-          initial={{ opacity: 0, y: -10, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -10, scale: 0.98 }}
-          transition={{ 
-            duration: 0.2, 
-            ease: [0.4, 0, 0.2, 1],
-            scale: { type: "spring", stiffness: 300, damping: 25 }
-          }}
-          className={`absolute left-0 right-0 top-full z-50 ${className}`}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
+          className={`absolute left-0 right-0 top-full z-50 -mt-[20px] ${className}`}
         >
-          {/* Full-width dropdown content */}
-          <div className="w-full bg-white shadow-2xl border-t border-gray-100">
-            <div className="max-w-screen-2xl mx-auto">
-              {children}
-            </div>
-          </div>
+          {children}
         </motion.div>
       )}
     </AnimatePresence>

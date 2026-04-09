@@ -111,11 +111,13 @@ export default function CategoryTile({ categories }: CategoryTileProps) {
                 href={`/${category.slug}`}
                 className="group"
               >
-                <div className="bg-muted/50 dark:bg-muted rounded-xl p-4 lg:p-6 border border-border hover:border-[#00d4aa]/50 hover:shadow-md transition-all text-center">
-                  <div className="w-16 h-16 mx-auto bg-card dark:bg-muted rounded-xl flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:text-[#00d4aa] transition-colors mb-3 shadow-sm">
-                    <IconComponent />
+                <div className="flex flex-col items-center justify-center text-center">
+                  <div className="bg-muted/50 dark:bg-muted rounded-full p-6 lg:p-8 border-4 border-border hover:border-[#00d4aa]/50 hover:shadow-md transition-all aspect-square w-full max-w-[180px] mx-auto flex items-center justify-center">
+                    <div className="w-24 h-24 bg-card dark:bg-muted rounded-full flex items-center justify-center text-gray-400 dark:text-gray-500 group-hover:text-[#00d4aa] transition-colors shadow-sm">
+                      <IconComponent />
+                    </div>
                   </div>
-                  <h3 className="text-sm font-medium text-foreground group-hover:text-[#00d4aa] transition-colors">
+                  <h3 className="text-sm font-medium text-foreground group-hover:text-[#00d4aa] transition-colors mt-3">
                     {category.name}
                   </h3>
                 </div>

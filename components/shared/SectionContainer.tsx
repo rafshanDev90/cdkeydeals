@@ -19,9 +19,9 @@ export default function SectionContainer({
   maxWidth = "2xl"
 }: SectionContainerProps) {
   const backgroundStyles = {
-    white: "bg-white",
-    gray: "bg-gray-50",
-    light: "bg-[#f8fafc]"
+    white: "bg-white dark:bg-card",
+    gray: "bg-gray-50 dark:bg-muted",
+    light: "bg-[#f8fafc] dark:bg-muted"
   };
 
   const paddingStyles = {

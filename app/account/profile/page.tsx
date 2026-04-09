@@ -96,8 +96,8 @@ export default function ProfilePage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Profile Settings</h1>
-        <p className="text-gray-500 mt-1">Manage your account information</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-foreground">Profile Settings</h1>
+        <p className="text-gray-500 dark:text-muted-foreground mt-1">Manage your account information</p>
       </div>
 
       {/* Profile Card */}
@@ -162,29 +162,29 @@ export default function ProfilePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-gray-100 rounded-lg">
-                    <User className="w-5 h-5 text-gray-600" />
+                    <User className="w-5 h-5 text-gray-600 dark:text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Full Name</p>
-                    <p className="font-medium text-gray-900">{user?.name}</p>
+                    <p className="text-sm text-gray-500 dark:text-muted-foreground">Full Name</p>
+                    <p className="font-medium text-gray-900 dark:text-foreground">{user?.name}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-gray-100 rounded-lg">
-                    <Mail className="w-5 h-5 text-gray-600" />
+                    <Mail className="w-5 h-5 text-gray-600 dark:text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Email Address</p>
-                    <p className="font-medium text-gray-900">{user?.email}</p>
+                    <p className="text-sm text-gray-500 dark:text-muted-foreground">Email Address</p>
+                    <p className="font-medium text-gray-900 dark:text-foreground">{user?.email}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-gray-100 rounded-lg">
-                    <Calendar className="w-5 h-5 text-gray-600" />
+                    <Calendar className="w-5 h-5 text-gray-600 dark:text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Member Since</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-sm text-gray-500 dark:text-muted-foreground">Member Since</p>
+                    <p className="font-medium text-gray-900 dark:text-foreground">
                       {user?.createdAt ? formatDate(user.createdAt) : 'N/A'}
                     </p>
                   </div>
@@ -275,11 +275,11 @@ export default function ProfilePage() {
           ) : (
             <div className="flex items-center gap-3">
               <div className="p-2 bg-gray-100 rounded-lg">
-                <Shield className="w-5 h-5 text-gray-600" />
+                <Shield className="w-5 h-5 text-gray-600 dark:text-muted-foreground" />
               </div>
               <div>
-                <p className="font-medium text-gray-900">Password Protected</p>
-                <p className="text-sm text-gray-500">
+                <p className="font-medium text-gray-900 dark:text-foreground">Password Protected</p>
+                <p className="text-sm text-gray-500 dark:text-muted-foreground">
                   Your account is secured with a password
                 </p>
               </div>
@@ -289,22 +289,22 @@ export default function ProfilePage() {
       </Card>
 
       {/* Account Info */}
-      <Card className="bg-gray-50">
+      <Card className="bg-gray-50 dark:bg-muted">
         <CardContent className="p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Account Information</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-foreground mb-4">Account Information</h3>
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-500">Account ID</span>
-              <span className="font-mono text-gray-900">{user?.id || 'N/A'}</span>
+              <span className="text-gray-500 dark:text-muted-foreground">Account ID</span>
+              <span className="font-mono text-gray-900 dark:text-foreground">{user?.id || 'N/A'}</span>
             </div>
             <Separator />
             <div className="flex justify-between">
-              <span className="text-gray-500">Account Status</span>
+              <span className="text-gray-500 dark:text-muted-foreground">Account Status</span>
               <span className="text-green-600 font-medium">Active</span>
             </div>
             <Separator />
             <div className="flex justify-between">
-              <span className="text-gray-500">Email Verified</span>
+              <span className="text-gray-500 dark:text-muted-foreground">Email Verified</span>
               <span className="text-green-600 font-medium">Verified</span>
             </div>
           </div>

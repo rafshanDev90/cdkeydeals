@@ -1,7 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu, Heart, MapPin, Moon, Sun, Flame, ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import {
+  Menu,
+  Heart,
+  MapPin,
+  Moon,
+  Sun,
+  Flame,
+  ChevronDown,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import Logo from "./Logo";
@@ -26,8 +34,34 @@ function HeaderContent() {
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
   const [isFAQDropdownOpen, setIsFAQDropdownOpen] = useState(false);
 
+  // Sticky header state
+  const [isVisible, setIsVisible] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setMounted(true);
+
+    let lastScrollY = 0;
+    const threshold = 300;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > threshold) {
+        setIsSticky(true);
+        setIsVisible(currentScrollY < lastScrollY);
+      } else {
+        setIsSticky(false);
+        setIsVisible(false);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleMenuToggle = () => {
@@ -38,19 +72,24 @@ function HeaderContent() {
     setIsMegaMenuOpen(false);
   };
 
-  const currentTheme = theme === 'system' ? resolvedTheme : theme;
-
   const handleDarkModeToggle = () => {
-    setTheme(currentTheme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   return (
     <>
-      {/* Main Header — NOT sticky */}
-      <header className="w-full bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      {/* Main Header */}
+      <header
+        ref={headerRef}
+        className={`w-full bg-white dark:bg-[#1E1E1E] shadow-sm border-b border-gray-200 dark:border-gray-800 transition-all duration-300 z-50 ${
+          isSticky
+            ? "fixed top-0 left-0 right-0 shadow-lg animate-slide-in-header"
+            : "relative"
+        }`}
+        style={{ animationDuration: "300ms" }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-
             {/* Left Side: Logo + Hamburger Menu Button */}
             <div className="flex items-center gap-3">
               {/* Logo */}
@@ -98,50 +137,66 @@ function HeaderContent() {
         </div>
       </header>
 
-      {/* Navigation Bar */}
-      <div className="hidden lg:block w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 relative">
-        <div className="max-w-[1280px] mx-auto px-4 relative">
+      {/* Navigation Bar - Hidden when sticky is active */}
+      <div
+        ref={navRef}
+        className={`hidden lg:block w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1E1E1E] relative transition-all duration-300 ${
+          isSticky
+            ? "opacity-0 pointer-events-none h-0 overflow-hidden border-0"
+            : ""
+        }`}
+      >
+        <div className="max-w-[1280px] mx-auto px-4">
           <div className="flex items-center justify-between h-[52px]">
-
             {/* LEFT SIDE: Navigation Links */}
             <nav className="flex items-center gap-6">
               {/* Sale Badge */}
-              <div className="flex items-center bg-[#FFD700] px-3 py-1.5 rounded-md cursor-pointer hover:bg-[#f2cc00] transition-colors group">
+              <Link
+                href="/sale"
+                className="flex items-center bg-[#FFD700] px-3 py-1.5 rounded-md cursor-pointer hover:bg-[#f2cc00] transition-colors group"
+              >
                 <Flame className="w-4 h-4 mr-1.5 fill-black" />
-                <span className="text-[14px] font-bold text-black tracking-tight">Sale</span>
-              </div>
+                <span className="text-[14px] font-bold text-black tracking-tight">
+                  Sale
+                </span>
+              </Link>
 
               {/* Menu Items */}
               <div className="flex items-center gap-5">
-                <NavItem
-                  title="Games"
-                  hasDropdown
-                  onMouseEnter={() => setIsGamesMegaMenuOpen(true)}
-                  onMouseLeave={() => setIsGamesMegaMenuOpen(false)}
-                />
-                <NavItem
-                  title="Software"
-                  hasDropdown
-                  onMouseEnter={() => setIsMegaMenuOpen(true)}
-                  onMouseLeave={() => setIsMegaMenuOpen(false)}
-                />
                 <div
-                  onMouseEnter={() => setIsGiftCardsDropdownOpen(true)}
-                  onMouseLeave={() => setIsGiftCardsDropdownOpen(false)}
+                  onClick={() => setIsGamesMegaMenuOpen(!isGamesMegaMenuOpen)}
                 >
-                  <GiftCardsDropdown
-                    isOpen={isGiftCardsDropdownOpen}
-                    onToggle={() => setIsGiftCardsDropdownOpen(true)}
-                    onClose={() => setIsGiftCardsDropdownOpen(false)}
-                  />
-                </div>
-                <Link href="/best-deals" className="flex items-center gap-1 cursor-pointer group py-2">
-                  <span className="text-[14.5px] font-semibold text-[#1a1a1a] transition-colors group-hover:text-indigo-600">
-                    Best Deals
+                  <span
+                    className="flex items-center gap-1 cursor-pointer group py-2"
+                  >
+                    <span className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 transition-colors group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                      Games
+                    </span>
+                    <ChevronDown className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 transition-transform duration-200 group-hover:rotate-180 group-hover:text-purple-600 dark:group-hover:text-purple-400" />
                   </span>
-                </Link>
-                <Link href="/best-seller" className="flex items-center gap-1 cursor-pointer group py-2">
-                  <span className="text-[14.5px] font-semibold text-[#1a1a1a] transition-colors group-hover:text-indigo-600">
+                </div>
+                <div
+                  onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+                >
+                  <span
+                    className="flex items-center gap-1 cursor-pointer group py-2"
+                  >
+                    <span className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 transition-colors group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                      Software
+                    </span>
+                    <ChevronDown className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 transition-transform duration-200 group-hover:rotate-180 group-hover:text-indigo-600 dark:group-hover:text-indigo-400" />
+                  </span>
+                </div>
+                <GiftCardsDropdown
+                  isOpen={isGiftCardsDropdownOpen}
+                  onToggle={() => setIsGiftCardsDropdownOpen(true)}
+                  onClose={() => setIsGiftCardsDropdownOpen(false)}
+                />
+                <Link
+                  href="/collections/best-seller"
+                  className="flex items-center gap-1 cursor-pointer group py-2"
+                >
+                  <span className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 transition-colors group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
                     Best Seller
                   </span>
                 </Link>
@@ -181,10 +236,12 @@ function HeaderContent() {
                 <button
                   onClick={handleDarkModeToggle}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
-                  aria-label={`Switch to ${currentTheme === "dark" ? "light" : "dark"} mode`}
+                  aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
                 >
-                  <span>{currentTheme === "dark" ? "Light Mode" : "Dark Mode"}</span>
-                  {currentTheme === "dark" ? (
+                  <span>
+                    {resolvedTheme === "dark" ? "Light Mode" : "Dark Mode"}
+                  </span>
+                  {resolvedTheme === "dark" ? (
                     <Sun className="w-4 h-4 text-amber-500" />
                   ) : (
                     <Moon className="w-4 h-4 text-gray-600 dark:text-gray-300" />
@@ -195,23 +252,16 @@ function HeaderContent() {
           </div>
 
           {/* Games Mega Menu */}
-          <div
-            className="relative"
-            onMouseEnter={() => setIsGamesMegaMenuOpen(true)}
-            onMouseLeave={() => setIsGamesMegaMenuOpen(false)}
-          >
-            <GamesMegaMenu isOpen={isGamesMegaMenuOpen} onClose={() => setIsGamesMegaMenuOpen(false)} />
-          </div>
+          <GamesMegaMenu
+            isOpen={isGamesMegaMenuOpen}
+            onClose={() => setIsGamesMegaMenuOpen(false)}
+          />
 
           {/* Software Mega Menu */}
-          <div
-            className="relative"
-            onMouseEnter={() => setIsMegaMenuOpen(true)}
-            onMouseLeave={() => setIsMegaMenuOpen(false)}
-          >
-            <MegaMenu isOpen={isMegaMenuOpen} onClose={() => setIsMegaMenuOpen(false)} />
-          </div>
-
+          <MegaMenu
+            isOpen={isMegaMenuOpen}
+            onClose={() => setIsMegaMenuOpen(false)}
+          />
         </div>
       </div>
 
@@ -224,44 +274,4 @@ function HeaderContent() {
 // Main Header component
 export default function Header() {
   return <HeaderContent />;
-}
-
-/**
- * Reusable NavItem component
- */
-function NavItem({
-  title,
-  hasDropdown,
-  onMouseEnter,
-  onMouseLeave,
-}: {
-  title: string;
-  hasDropdown?: boolean;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-}) {
-  const isGames = title === "Games";
-
-  return (
-    <div
-      className="flex items-center gap-1 cursor-pointer group py-2"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <span
-        className={`text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 transition-colors ${
-          isGames ? "group-hover:text-purple-600 dark:group-hover:text-purple-400" : "group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
-        }`}
-      >
-        {title}
-      </span>
-      {hasDropdown && (
-        <ChevronDown
-          className={`w-3.5 h-3.5 text-gray-400 dark:text-gray-500 transition-transform duration-200 group-hover:rotate-180 ${
-            isGames ? "group-hover:text-purple-600 dark:group-hover:text-purple-400" : "group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
-          }`}
-        />
-      )}
-    </div>
-  );
 }

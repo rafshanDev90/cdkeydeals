@@ -119,21 +119,21 @@ export default function AIUpdatesPage() {
   const featuredArticles = mockNewsData.filter(article => article.featured);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
+        <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-muted-foreground mb-6">
           <Home className="w-4 h-4" />
           <span>/</span>
-          <span className="text-gray-900 font-medium">AI Updates</span>
+          <span className="text-gray-900 dark:text-foreground font-medium">AI Updates</span>
         </nav>
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-foreground mb-4">
             AI Updates, Latest News & Releases
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl">
+          <p className="text-lg text-gray-600 dark:text-muted-foreground max-w-3xl">
             Stay informed with the latest developments in artificial intelligence, 
             machine learning breakthroughs, and cutting-edge AI technology news from 
             around the world.

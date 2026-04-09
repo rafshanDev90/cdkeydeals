@@ -6,13 +6,13 @@ const InstantDelivery = () => {
 
       {/* Header */}
       <div className="border-b pb-8 mb-8">
-        <h1 className="text-4xl font-extrabold mb-4 text-gray-900">
+        <h1 className="text-4xl font-extrabold mb-4 text-gray-900 dark:text-foreground">
           Instant Digital Delivery
         </h1>
         <p className="text-lg font-semibold text-blue-600">
           CDKeyDeals Digital Delivery Policy
         </p>
-        <p className="text-sm text-gray-500 italic">
+        <p className="text-sm text-gray-500 dark:text-muted-foreground italic">
           Effective Date: January 10, 2026
         </p>
       </div>
@@ -76,7 +76,7 @@ const InstantDelivery = () => {
           Delivery Timeframe
         </h2>
 
-        <div className="bg-gray-50 p-6 rounded-xl border">
+        <div className="bg-gray-50 dark:bg-muted p-6 rounded-xl border">
           <h3 className="font-semibold mb-3 text-lg">
             ⚡ Immediate Delivery
           </h3>
@@ -170,7 +170,7 @@ const InstantDelivery = () => {
             on CDKeyDeals.com are digital items only. We do not ship physical products.
           </p>
 
-          <div className="bg-white p-4 rounded-lg">
+          <div className="bg-white dark:bg-card p-4 rounded-lg">
             <h3 className="font-semibold mb-2">What You Receive:</h3>
             <ul className="list-disc pl-6 space-y-1">
               <li>Digital product keys/codes via email</li>
@@ -180,7 +180,7 @@ const InstantDelivery = () => {
             </ul>
           </div>
 
-          <div className="bg-white p-4 rounded-lg">
+          <div className="bg-white dark:bg-card p-4 rounded-lg">
             <h3 className="font-semibold mb-2">What You DON'T Receive:</h3>
             <ul className="list-disc pl-6 space-y-1">
               <li>Physical boxes or packaging</li>
@@ -204,7 +204,7 @@ const InstantDelivery = () => {
           complete refund policy</a> for detailed information.
         </p>
 
-        <div className="bg-gray-50 p-4 rounded-lg">
+        <div className="bg-gray-50 dark:bg-muted p-4 rounded-lg">
           <h3 className="font-semibold mb-2">Key Points:</h3>
           <ul className="list-disc pl-6 space-y-2 text-sm">
             <li>Digital products are generally non-refundable once delivered</li>
@@ -232,13 +232,13 @@ const InstantDelivery = () => {
             <p className="text-sm mb-1">
               <span className="font-medium">support@cdkeydeals.com</span>
             </p>
-            <p className="text-xs text-gray-600">Response within 24 hours</p>
+            <p className="text-xs text-gray-600 dark:text-muted-foreground">Response within 24 hours</p>
           </div>
 
           <div className="bg-green-50 p-4 rounded-lg">
             <h3 className="font-semibold mb-2">💬 Live Chat</h3>
             <p className="text-sm mb-1">Available on our website</p>
-            <p className="text-xs text-gray-600">Instant assistance during business hours</p>
+            <p className="text-xs text-gray-600 dark:text-muted-foreground">Instant assistance during business hours</p>
           </div>
         </div>
 
@@ -254,10 +254,10 @@ const InstantDelivery = () => {
 
       {/* Footer */}
       <section className="border-t pt-8 text-center">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-muted-foreground">
           This policy is part of our Terms of Service and Privacy Policy.
         </p>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="text-xs text-gray-500 dark:text-muted-foreground mt-2">
           Last updated: January 10, 2026
         </p>
       </section>

@@ -28,16 +28,16 @@ import {
 // Breadcrumb component
 function Breadcrumb() {
   return (
-    <nav className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+    <nav className="flex items-center gap-2 text-sm text-gray-600 dark:text-muted-foreground mb-4">
       <Link
         href="/"
-        className="flex items-center gap-1 hover:text-gray-900 transition-colors"
+        className="flex items-center gap-1 hover:text-gray-900 dark:hover:text-foreground transition-colors"
       >
         <Home className="w-4 h-4" />
         Home
       </Link>
-      <ChevronRight className="w-4 h-4 text-gray-400" />
-      <span className="text-gray-900 font-medium">All Products</span>
+      <ChevronRight className="w-4 h-4 text-gray-400 dark:text-muted-foreground" />
+      <span className="text-gray-900 dark:text-foreground font-medium">All Products</span>
     </nav>
   );
 }
@@ -240,9 +240,9 @@ export default function CollectionsClient() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-muted">
       {/* Header Section */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white dark:bg-card border-b border-gray-200 dark:border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Breadcrumb />
 
@@ -252,10 +252,10 @@ export default function CollectionsClient() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground mb-4">
               All Products
             </h1>
-            <p className="text-gray-600 max-w-3xl">
+            <p className="text-gray-600 dark:text-muted-foreground max-w-3xl">
               Explore our complete collection of digital products. Find the best
               deals on game keys, software licenses, gift cards, and
               subscriptions. All products are delivered instantly to your email.
@@ -275,7 +275,7 @@ export default function CollectionsClient() {
         {/* Main Layout */}
         <div className="flex flex-col lg:flex-row gap-8 mt-8">
           {/* Sidebar - Desktop */}
-          <div className="hidden lg:block w-72 flex-shrink-0">
+          <div className="hidden lg:block w-44 flex-shrink-0">
             <CollectionsFilterSidebar
               filters={filters}
               onFiltersChange={handleFiltersChange}

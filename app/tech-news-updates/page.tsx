@@ -72,23 +72,23 @@ export default function TechNewsUpdates() {
   const regularPosts = blogPosts.filter(post => !post.featured);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-8">
+        <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-muted-foreground mb-8">
           <Link href="/" className="hover:text-indigo-600 transition-colors">
             Home
           </Link>
           <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900 font-medium">Tech News & Updates</span>
+          <span className="text-gray-900 dark:text-foreground font-medium">Tech News & Updates</span>
         </nav>
 
         {/* Header Section */}
         <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-foreground mb-4">
             Tech News & Updates, Latest Trends
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl">
+          <p className="text-lg text-gray-600 dark:text-muted-foreground max-w-3xl">
             Stay ahead of the curve with the latest technology news, software updates, and industry insights. 
             Our expert team brings you comprehensive coverage of everything shaping the digital landscape.
           </p>
@@ -101,7 +101,7 @@ export default function TechNewsUpdates() {
             <div className="space-y-6">
               {/* Featured Posts */}
               {featuredPosts.map((post) => (
-                <article key={post.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+                <article key={post.id} className="bg-white dark:bg-card rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
                   <div className="flex flex-col md:flex-row">
                     {/* Thumbnail */}
                     <div className="md:w-1/3 lg:w-2/5">
@@ -119,7 +119,7 @@ export default function TechNewsUpdates() {
                         {post.category.map((tag, index) => (
                           <span 
                             key={index}
-                            className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full"
+                            className="px-3 py-1 bg-gray-100 text-gray-700 dark:text-muted-foreground text-xs font-medium rounded-full"
                           >
                             {tag}
                           </span>
@@ -128,18 +128,18 @@ export default function TechNewsUpdates() {
 
                       {/* Title */}
                       <Link href={`/blog/${post.id}`} className="block group">
-                        <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-foreground mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
                           {post.title}
                         </h2>
                       </Link>
 
                       {/* Excerpt */}
-                      <p className="text-gray-600 mb-4 line-clamp-2">
+                      <p className="text-gray-600 dark:text-muted-foreground mb-4 line-clamp-2">
                         {post.excerpt}
                       </p>
 
                       {/* Metadata */}
-                      <div className="flex items-center text-sm text-gray-500 space-x-4">
+                      <div className="flex items-center text-sm text-gray-500 dark:text-muted-foreground space-x-4">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
                           <span>{post.date}</span>
@@ -156,7 +156,7 @@ export default function TechNewsUpdates() {
 
               {/* Regular Posts */}
               {regularPosts.map((post) => (
-                <article key={post.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+                <article key={post.id} className="bg-white dark:bg-card rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
                   <div className="flex flex-col md:flex-row">
                     {/* Thumbnail */}
                     <div className="md:w-1/3 lg:w-2/5">
@@ -174,7 +174,7 @@ export default function TechNewsUpdates() {
                         {post.category.map((tag, index) => (
                           <span 
                             key={index}
-                            className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full"
+                            className="px-3 py-1 bg-gray-100 text-gray-700 dark:text-muted-foreground text-xs font-medium rounded-full"
                           >
                             {tag}
                           </span>
@@ -183,18 +183,18 @@ export default function TechNewsUpdates() {
 
                       {/* Title */}
                       <Link href={`/blog/${post.id}`} className="block group">
-                        <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-foreground mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
                           {post.title}
                         </h2>
                       </Link>
 
                       {/* Excerpt */}
-                      <p className="text-gray-600 mb-4 line-clamp-2">
+                      <p className="text-gray-600 dark:text-muted-foreground mb-4 line-clamp-2">
                         {post.excerpt}
                       </p>
 
                       {/* Metadata */}
-                      <div className="flex items-center text-sm text-gray-500 space-x-4">
+                      <div className="flex items-center text-sm text-gray-500 dark:text-muted-foreground space-x-4">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
                           <span>{post.date}</span>
@@ -222,20 +222,20 @@ export default function TechNewsUpdates() {
           <div className="lg:w-1/4">
             <div className="sticky top-24">
               {/* Featured Section */}
-              <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+              <div className="bg-white dark:bg-card rounded-xl shadow-sm p-6 mb-6">
                 <div className="flex items-center gap-2 mb-4">
                   <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                  <h3 className="text-lg font-bold text-gray-900">Featured</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-foreground">Featured</h3>
                 </div>
                 
                 <div className="space-y-4">
                   {featuredPosts.slice(0, 3).map((post) => (
-                    <div key={post.id} className="pb-4 border-b border-gray-100 last:border-0">
+                    <div key={post.id} className="pb-4 border-b border-gray-100 dark:border-border last:border-0">
                       <Link href={`/blog/${post.id}`} className="block group">
-                        <h4 className="font-semibold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                        <h4 className="font-semibold text-gray-900 dark:text-foreground mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
                           {post.title}
                         </h4>
-                        <div className="flex items-center text-xs text-gray-500 gap-3">
+                        <div className="flex items-center text-xs text-gray-500 dark:text-muted-foreground gap-3">
                           <span>{post.date}</span>
                           <span>•</span>
                           <span>{post.author}</span>
@@ -247,16 +247,16 @@ export default function TechNewsUpdates() {
               </div>
 
               {/* Categories */}
-              <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Categories</h3>
+              <div className="bg-white dark:bg-card rounded-xl shadow-sm p-6 mb-6">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-foreground mb-4">Categories</h3>
                 <div className="space-y-2">
                   {["Tech News", "Software", "PC Gaming", "AI", "Security", "Windows 11"].map((category) => (
                     <Link 
                       key={category}
                       href={`/category/${category.toLowerCase().replace(' ', '-')}`}
-                      className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors group"
+                      className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 dark:bg-muted transition-colors group"
                     >
-                      <span className="text-gray-700 group-hover:text-indigo-600 transition-colors">
+                      <span className="text-gray-700 dark:text-muted-foreground group-hover:text-indigo-600 transition-colors">
                         {category}
                       </span>
                       <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors" />
@@ -267,8 +267,8 @@ export default function TechNewsUpdates() {
 
               {/* Newsletter Signup */}
               <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Stay Updated</h3>
-                <p className="text-sm text-gray-600 mb-4">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-foreground mb-2">Stay Updated</h3>
+                <p className="text-sm text-gray-600 dark:text-muted-foreground mb-4">
                   Get the latest tech news delivered to your inbox weekly.
                 </p>
                 <button className="w-full px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">

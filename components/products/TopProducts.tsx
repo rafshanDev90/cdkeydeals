@@ -37,7 +37,7 @@ export default function TopProducts({
   };
   if (loading) {
     return (
-      <section className="py-12">
+      <section className="">
         <div className="px-4 sm:px-6 lg:px-8 max-w-[1320px] mx-auto">
           {/* Header Skeleton */}
           <div className="flex items-center justify-between mb-8">

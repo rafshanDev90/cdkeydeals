@@ -149,16 +149,16 @@ export default function CheckoutPage() {
   // If cart is empty, show empty state
   if (state.items.length === 0) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-card">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Lock className="w-10 h-10 text-gray-400" />
             </div>
-            <h1 className="text-2xl font-semibold text-gray-900 mb-4">
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-foreground mb-4">
               Your cart is empty
             </h1>
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600 dark:text-muted-foreground mb-8">
               Add some items to your cart before proceeding to checkout.
             </p>
             <Link
@@ -174,22 +174,22 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-card">
       {/* Header */}
-      <header className="border-b border-gray-200">
+      <header className="border-b border-gray-200 dark:border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link
               href="/cart"
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:text-foreground transition-colors"
             >
               <ChevronLeft className="w-5 h-5 mr-1" />
               <span className="text-sm">Back to cart</span>
             </Link>
-            <Link href="/" className="text-xl font-bold text-gray-900">
+            <Link href="/" className="text-xl font-bold text-gray-900 dark:text-foreground">
               CDKeyDeals
             </Link>
-            <div className="flex items-center text-gray-600">
+            <div className="flex items-center text-gray-600 dark:text-muted-foreground">
               <Lock className="w-4 h-4 mr-1" />
               <span className="text-sm">Secure Checkout</span>
             </div>
@@ -204,7 +204,7 @@ export default function CheckoutPage() {
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Contact Section */}
               <section>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-foreground mb-4">
                   Contact
                 </h2>
                 <div className="space-y-4">
@@ -214,8 +214,8 @@ export default function CheckoutPage() {
                       placeholder="Email"
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
-                      className={`w-full px-4 py-3 border rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
-                        errors.email ? "border-red-500" : "border-gray-300"
+                      className={`w-full px-4 py-3 border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
+                        errors.email ? "border-red-500" : "border-gray-300 dark:border-border"
                       }`}
                     />
                     {errors.email && (
@@ -228,7 +228,7 @@ export default function CheckoutPage() {
                       placeholder="Phone (optional)"
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all"
                     />
                   </div>
                 </div>
@@ -236,7 +236,7 @@ export default function CheckoutPage() {
 
               {/* Delivery Section */}
               <section>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-foreground mb-4">
                   Delivery
                 </h2>
                 <div className="space-y-4">
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
                     <select
                       value={formData.country}
                       onChange={(e) => handleInputChange("country", e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-border rounded-lg text-gray-900 dark:text-foreground bg-white dark:bg-card focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all appearance-none cursor-pointer"
                     >
                       {countries.map((country) => (
                         <option key={country.value} value={country.value}>
@@ -265,8 +265,8 @@ export default function CheckoutPage() {
                         onChange={(e) =>
                           handleInputChange("firstName", e.target.value)
                         }
-                        className={`w-full px-4 py-3 border rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
-                          errors.firstName ? "border-red-500" : "border-gray-300"
+                        className={`w-full px-4 py-3 border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
+                          errors.firstName ? "border-red-500" : "border-gray-300 dark:border-border"
                         }`}
                       />
                       {errors.firstName && (
@@ -283,8 +283,8 @@ export default function CheckoutPage() {
                         onChange={(e) =>
                           handleInputChange("lastName", e.target.value)
                         }
-                        className={`w-full px-4 py-3 border rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
-                          errors.lastName ? "border-red-500" : "border-gray-300"
+                        className={`w-full px-4 py-3 border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
+                          errors.lastName ? "border-red-500" : "border-gray-300 dark:border-border"
                         }`}
                       />
                       {errors.lastName && (
@@ -302,8 +302,8 @@ export default function CheckoutPage() {
                       placeholder="Address"
                       value={formData.address}
                       onChange={(e) => handleInputChange("address", e.target.value)}
-                      className={`w-full px-4 py-3 border rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
-                        errors.address ? "border-red-500" : "border-gray-300"
+                      className={`w-full px-4 py-3 border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
+                        errors.address ? "border-red-500" : "border-gray-300 dark:border-border"
                       }`}
                     />
                     {errors.address && (
@@ -320,7 +320,7 @@ export default function CheckoutPage() {
                       onChange={(e) =>
                         handleInputChange("apartment", e.target.value)
                       }
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all"
                     />
                   </div>
 
@@ -332,8 +332,8 @@ export default function CheckoutPage() {
                         placeholder="City"
                         value={formData.city}
                         onChange={(e) => handleInputChange("city", e.target.value)}
-                        className={`w-full px-4 py-3 border rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
-                          errors.city ? "border-red-500" : "border-gray-300"
+                        className={`w-full px-4 py-3 border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
+                          errors.city ? "border-red-500" : "border-gray-300 dark:border-border"
                         }`}
                       />
                       {errors.city && (
@@ -348,8 +348,8 @@ export default function CheckoutPage() {
                         onChange={(e) =>
                           handleInputChange("postalCode", e.target.value)
                         }
-                        className={`w-full px-4 py-3 border rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
-                          errors.postalCode ? "border-red-500" : "border-gray-300"
+                        className={`w-full px-4 py-3 border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
+                          errors.postalCode ? "border-red-500" : "border-gray-300 dark:border-border"
                         }`}
                       />
                       {errors.postalCode && (
@@ -369,8 +369,8 @@ export default function CheckoutPage() {
                       onChange={(e) =>
                         handleInputChange("deliveryPhone", e.target.value)
                       }
-                      className={`w-full px-4 py-3 border rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
-                        errors.deliveryPhone ? "border-red-500" : "border-gray-300"
+                      className={`w-full px-4 py-3 border rounded-lg text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all ${
+                        errors.deliveryPhone ? "border-red-500" : "border-gray-300 dark:border-border"
                       }`}
                     />
                     {errors.deliveryPhone && (
@@ -384,7 +384,7 @@ export default function CheckoutPage() {
 
               {/* Shipping Method Section */}
               <section>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-foreground mb-4">
                   Shipping method
                 </h2>
                 <div className="space-y-3">
@@ -394,7 +394,7 @@ export default function CheckoutPage() {
                       className={`flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-all ${
                         selectedShipping === method.id
                           ? "border-[#00d4aa] bg-[#00d4aa]/5"
-                          : "border-gray-300 hover:border-gray-400"
+                          : "border-gray-300 dark:border-border hover:border-gray-400"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -404,21 +404,21 @@ export default function CheckoutPage() {
                           value={method.id}
                           checked={selectedShipping === method.id}
                           onChange={() => setSelectedShipping(method.id)}
-                          className="w-4 h-4 text-[#00d4aa] border-gray-300 focus:ring-[#00d4aa]"
+                          className="w-4 h-4 text-[#00d4aa] border-gray-300 dark:border-border focus:ring-[#00d4aa]"
                         />
                         <div className="flex items-center gap-2">
-                          <Truck className="w-5 h-5 text-gray-500" />
+                          <Truck className="w-5 h-5 text-gray-500 dark:text-muted-foreground" />
                           <div>
-                            <p className="font-medium text-gray-900">
+                            <p className="font-medium text-gray-900 dark:text-foreground">
                               {method.name}
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-500 dark:text-muted-foreground">
                               {method.description}
                             </p>
                           </div>
                         </div>
                       </div>
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-gray-900 dark:text-foreground">
                         {method.price === 0
                           ? "Free"
                           : `৳${method.price.toLocaleString()}`}
@@ -430,7 +430,7 @@ export default function CheckoutPage() {
 
               {/* Payment Section */}
               <section>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-foreground mb-4">
                   Payment Method
                 </h2>
                 
@@ -439,12 +439,12 @@ export default function CheckoutPage() {
                   <div className="space-y-4">
                     <div className="relative bg-gradient-to-r from-[#00d4aa]/10 to-[#00b894]/10 border-2 border-[#00d4aa] rounded-xl p-4">
                       <div className="flex items-center gap-4">
-                        <div className="w-14 h-8 bg-white rounded-md flex items-center justify-center border border-gray-100 shadow-sm">
+                        <div className="w-14 h-8 bg-white dark:bg-card rounded-md flex items-center justify-center border border-gray-100 dark:border-border shadow-sm">
                           {paymentMethods.find(m => m.id === selectedPayment.id)?.logo}
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-gray-900">{selectedPayment.name}</p>
-                          <p className="text-sm text-gray-500">{selectedPayment.description}</p>
+                          <p className="font-semibold text-gray-900 dark:text-foreground">{selectedPayment.name}</p>
+                          <p className="text-sm text-gray-500 dark:text-muted-foreground">{selectedPayment.description}</p>
                         </div>
                         <div className="w-6 h-6 bg-[#00d4aa] rounded-full flex items-center justify-center">
                           <Check className="w-4 h-4 text-white" />
@@ -453,11 +453,11 @@ export default function CheckoutPage() {
                       
                       {/* Payment Benefits */}
                       <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-[#00d4aa]/20">
-                        <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                        <div className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-muted-foreground">
                           <Shield className="w-4 h-4 text-[#00d4aa]" />
                           <span>Secure Payment</span>
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                        <div className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-muted-foreground">
                           <Clock className="w-4 h-4 text-[#00d4aa]" />
                           <span>Instant Delivery</span>
                         </div>
@@ -468,7 +468,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setIsPaymentModalOpen(true)}
-                      className="w-full py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                      className="w-full py-3 px-4 border border-gray-300 dark:border-border rounded-lg text-gray-700 dark:text-muted-foreground font-medium hover:bg-gray-50 dark:bg-muted transition-colors flex items-center justify-center gap-2"
                     >
                       <CreditCard className="w-4 h-4" />
                       Change Payment Method
@@ -479,7 +479,7 @@ export default function CheckoutPage() {
                   <button
                     type="button"
                     onClick={() => setIsPaymentModalOpen(true)}
-                    className="w-full py-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 font-medium hover:border-[#00d4aa] hover:text-[#00d4aa] hover:bg-[#00d4aa]/5 transition-all flex items-center justify-center gap-2 group"
+                    className="w-full py-4 border-2 border-dashed border-gray-300 dark:border-border rounded-xl text-gray-500 dark:text-muted-foreground font-medium hover:border-[#00d4aa] hover:text-[#00d4aa] hover:bg-[#00d4aa]/5 transition-all flex items-center justify-center gap-2 group"
                   >
                     <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-[#00d4aa]/10 flex items-center justify-center transition-colors">
                       <Plus className="w-5 h-5" />
@@ -506,18 +506,18 @@ export default function CheckoutPage() {
               </div>
 
               {/* Footer Links */}
-              <footer className="pt-8 border-t border-gray-200">
-                <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-                  <Link href="/refund-policy" className="hover:text-gray-900">
+              <footer className="pt-8 border-t border-gray-200 dark:border-border">
+                <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-muted-foreground">
+                  <Link href="/refund-policy" className="hover:text-gray-900 dark:text-foreground">
                     Refund policy
                   </Link>
-                  <Link href="/shipping-policy" className="hover:text-gray-900">
+                  <Link href="/shipping-policy" className="hover:text-gray-900 dark:text-foreground">
                     Shipping policy
                   </Link>
-                  <Link href="/privacy-policy" className="hover:text-gray-900">
+                  <Link href="/privacy-policy" className="hover:text-gray-900 dark:text-foreground">
                     Privacy policy
                   </Link>
-                  <Link href="/terms-of-service" className="hover:text-gray-900">
+                  <Link href="/terms-of-service" className="hover:text-gray-900 dark:text-foreground">
                     Terms of service
                   </Link>
                 </div>
@@ -527,12 +527,12 @@ export default function CheckoutPage() {
 
           {/* Right Column - Order Summary */}
           <div className="lg:col-span-5 mt-8 lg:mt-0">
-            <div className="bg-gray-50 rounded-lg p-6 lg:sticky lg:top-8">
+            <div className="bg-gray-50 dark:bg-muted rounded-lg p-6 lg:sticky lg:top-8">
               {/* Order Items */}
               <div className="space-y-4 mb-6">
                 {state.items.map((item) => (
                   <div key={item.id} className="flex gap-4">
-                    <div className="relative w-16 h-16 bg-white rounded-lg border border-gray-200 overflow-hidden flex-shrink-0">
+                    <div className="relative w-16 h-16 bg-white dark:bg-card rounded-lg border border-gray-200 dark:border-border overflow-hidden flex-shrink-0">
                       {item.image ? (
                         <Image
                           src={item.image}
@@ -545,26 +545,26 @@ export default function CheckoutPage() {
                           <span className="text-xs text-gray-400">No image</span>
                         </div>
                       )}
-                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-gray-500 text-white text-xs rounded-full flex items-center justify-center">
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-gray-50 dark:bg-muted0 text-white text-xs rounded-full flex items-center justify-center">
                         {item.quantity}
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 line-clamp-2">
+                      <p className="text-sm font-medium text-gray-900 dark:text-foreground line-clamp-2">
                         {item.title}
                       </p>
                       {item.category && (
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <p className="text-xs text-gray-500 dark:text-muted-foreground mt-0.5">
                           {item.category}
                         </p>
                       )}
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium text-gray-900">
+                      <p className="text-sm font-medium text-gray-900 dark:text-foreground">
                         ৳{(item.price * item.quantity).toLocaleString()}
                       </p>
                       {item.quantity > 1 && (
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-muted-foreground">
                           ৳{item.price.toLocaleString()} each
                         </p>
                       )}
@@ -580,13 +580,13 @@ export default function CheckoutPage() {
                   placeholder="Discount code"
                   value={discountCode}
                   onChange={(e) => setDiscountCode(e.target.value)}
-                  className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all"
+                  className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-border rounded-lg text-sm text-gray-900 dark:text-foreground placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00d4aa] focus:border-transparent transition-all"
                 />
                 <button
                   type="button"
                   onClick={handleApplyDiscount}
                   disabled={!discountCode.trim() || isApplyingDiscount}
-                  className="px-4 py-2.5 bg-gray-200 text-gray-700 font-medium rounded-lg text-sm hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-4 py-2.5 bg-gray-200 text-gray-700 dark:text-muted-foreground font-medium rounded-lg text-sm hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Apply
                 </button>
@@ -598,32 +598,32 @@ export default function CheckoutPage() {
               )}
 
               {/* Order Summary */}
-              <div className="space-y-3 pt-6 border-t border-gray-200">
+              <div className="space-y-3 pt-6 border-t border-gray-200 dark:border-border">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium text-gray-900">
+                  <span className="text-gray-600 dark:text-muted-foreground">Subtotal</span>
+                  <span className="font-medium text-gray-900 dark:text-foreground">
                     ৳{subtotal.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Shipping</span>
-                  <span className="font-medium text-gray-900">
+                  <span className="text-gray-600 dark:text-muted-foreground">Shipping</span>
+                  <span className="font-medium text-gray-900 dark:text-foreground">
                     {shippingCost === 0 ? "Free" : `৳${shippingCost.toLocaleString()}`}
                   </span>
                 </div>
                 {appliedDiscount > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Discount</span>
+                    <span className="text-gray-600 dark:text-muted-foreground">Discount</span>
                     <span className="font-medium text-green-600">
                       -৳{appliedDiscount.toLocaleString()}
                     </span>
                   </div>
                 )}
-                <div className="flex justify-between items-center pt-3 border-t border-gray-200">
-                  <span className="text-base font-medium text-gray-900">Total</span>
+                <div className="flex justify-between items-center pt-3 border-t border-gray-200 dark:border-border">
+                  <span className="text-base font-medium text-gray-900 dark:text-foreground">Total</span>
                   <div className="text-right">
-                    <span className="text-xs text-gray-500 mr-1">BDT</span>
-                    <span className="text-xl font-bold text-gray-900">
+                    <span className="text-xs text-gray-500 dark:text-muted-foreground mr-1">BDT</span>
+                    <span className="text-xl font-bold text-gray-900 dark:text-foreground">
                       ৳{total.toLocaleString()}
                     </span>
                   </div>

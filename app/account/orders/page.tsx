@@ -28,8 +28,8 @@ export default function OrdersPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">My Orders</h1>
-        <p className="text-gray-500 mt-1">View and track your order history</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-foreground">My Orders</h1>
+        <p className="text-gray-500 dark:text-muted-foreground mt-1">View and track your order history</p>
       </div>
 
       {/* Filter */}
@@ -75,10 +75,10 @@ export default function OrdersPage() {
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Package className="w-8 h-8 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-foreground mb-2">
                 No orders found
               </h3>
-              <p className="text-gray-500 mb-6">
+              <p className="text-gray-500 dark:text-muted-foreground mb-6">
                 {filter === 'all'
                   ? "You haven't placed any orders yet."
                   : `No ${filter} orders found.`}
@@ -97,15 +97,15 @@ export default function OrdersPage() {
 
       {/* Order Summary */}
       {filteredOrders.length > 0 && (
-        <Card className="bg-gray-50">
+        <Card className="bg-gray-50 dark:bg-muted">
           <CardContent className="p-4">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
               <div className="flex items-center gap-4">
-                <span className="text-gray-500">
+                <span className="text-gray-500 dark:text-muted-foreground">
                   Showing {filteredOrders.length} of {mockOrders.length} orders
                 </span>
               </div>
-              <div className="flex items-center gap-4 text-gray-600">
+              <div className="flex items-center gap-4 text-gray-600 dark:text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <span className={`w-2 h-2 rounded-full ${getStatusColor('delivered').split(' ')[0]}`} />
                   Delivered: {mockOrders.filter((o) => o.status === 'delivered').length}

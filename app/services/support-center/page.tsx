@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function SupportCenterPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-muted">
       {/* Hero Section */}
       <PageHeader
         title="24/7 Support Center"
@@ -24,7 +24,7 @@ export default function SupportCenterPage() {
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Help Categories */}
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-foreground mb-6 text-center">
               How Can We Help You?
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -70,8 +70,8 @@ export default function SupportCenterPage() {
                     <MessageCircle className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Live Chat</h4>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Live Chat</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground mb-2">
                       Get instant help from our support agents. Available 24/7 for real-time assistance.
                     </p>
                     <span className="inline-flex items-center text-sm text-[#00d4aa] font-medium">
@@ -82,11 +82,11 @@ export default function SupportCenterPage() {
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-gray-600" />
+                    <Mail className="w-6 h-6 text-gray-600 dark:text-muted-foreground" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Email Support</h4>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Email Support</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground mb-2">
                       Send us an email and we'll respond within 24 hours.
                     </p>
                     <a href="mailto:support@cdkeydeals.com" className="text-sm text-[#00d4aa] font-medium hover:underline">
@@ -96,14 +96,14 @@ export default function SupportCenterPage() {
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-gray-600" />
+                    <Phone className="w-6 h-6 text-gray-600 dark:text-muted-foreground" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Phone Support</h4>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Phone Support</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground mb-2">
                       Speak directly with our support team during business hours.
                     </p>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-500 dark:text-muted-foreground">
                       Mon-Fri, 9AM-6PM EST
                     </span>
                   </div>
@@ -113,40 +113,40 @@ export default function SupportCenterPage() {
 
             <InfoSection title="Self-Help Resources" variant="default">
               <div className="space-y-4">
-                <a href="/faq" className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-100 hover:border-[#00d4aa]/30 hover:shadow-sm transition-all duration-200 group">
+                <a href="/faq" className="flex items-center gap-4 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border hover:border-[#00d4aa]/30 hover:shadow-sm transition-all duration-200 group">
                   <div className="w-10 h-10 rounded-lg bg-[#00d4aa]/10 flex items-center justify-center group-hover:bg-[#00d4aa]/20 transition-colors">
                     <HelpCircle className="w-5 h-5 text-[#00d4aa]" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">FAQ</h4>
-                    <p className="text-sm text-gray-600">Find answers to commonly asked questions</p>
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground">FAQ</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">Find answers to commonly asked questions</p>
                   </div>
                 </a>
-                <a href="/blog" className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-100 hover:border-[#00d4aa]/30 hover:shadow-sm transition-all duration-200 group">
+                <a href="/blog" className="flex items-center gap-4 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border hover:border-[#00d4aa]/30 hover:shadow-sm transition-all duration-200 group">
                   <div className="w-10 h-10 rounded-lg bg-[#00d4aa]/10 flex items-center justify-center group-hover:bg-[#00d4aa]/20 transition-colors">
                     <BookOpen className="w-5 h-5 text-[#00d4aa]" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">Guides & Tutorials</h4>
-                    <p className="text-sm text-gray-600">Step-by-step activation guides</p>
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground">Guides & Tutorials</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">Step-by-step activation guides</p>
                   </div>
                 </a>
-                <a href="#" className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-100 hover:border-[#00d4aa]/30 hover:shadow-sm transition-all duration-200 group">
+                <a href="#" className="flex items-center gap-4 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border hover:border-[#00d4aa]/30 hover:shadow-sm transition-all duration-200 group">
                   <div className="w-10 h-10 rounded-lg bg-[#00d4aa]/10 flex items-center justify-center group-hover:bg-[#00d4aa]/20 transition-colors">
                     <Video className="w-5 h-5 text-[#00d4aa]" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">Video Tutorials</h4>
-                    <p className="text-sm text-gray-600">Watch our video guides for visual help</p>
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground">Video Tutorials</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">Watch our video guides for visual help</p>
                   </div>
                 </a>
-                <a href="#" className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-100 hover:border-[#00d4aa]/30 hover:shadow-sm transition-all duration-200 group">
+                <a href="#" className="flex items-center gap-4 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border hover:border-[#00d4aa]/30 hover:shadow-sm transition-all duration-200 group">
                   <div className="w-10 h-10 rounded-lg bg-[#00d4aa]/10 flex items-center justify-center group-hover:bg-[#00d4aa]/20 transition-colors">
                     <Wrench className="w-5 h-5 text-[#00d4aa]" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">Troubleshooting</h4>
-                    <p className="text-sm text-gray-600">Common issues and how to fix them</p>
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground">Troubleshooting</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">Common issues and how to fix them</p>
                   </div>
                 </a>
               </div>
@@ -155,20 +155,20 @@ export default function SupportCenterPage() {
 
           {/* Quick Links */}
           <div className="bg-gradient-to-r from-[#00d4aa]/10 to-[#00b894]/10 rounded-xl p-6 md:p-8 border border-[#00d4aa]/20">
-            <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-foreground mb-4 text-center">
               Popular Support Topics
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              <a href="/services/order-status" className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-200">
+              <a href="/services/order-status" className="text-center p-4 bg-white dark:bg-card rounded-lg hover:shadow-md transition-shadow duration-200">
                 <span className="text-[#00d4aa] font-medium">Where is my order?</span>
               </a>
-              <a href="/services/refund-policy" className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-200">
+              <a href="/services/refund-policy" className="text-center p-4 bg-white dark:bg-card rounded-lg hover:shadow-md transition-shadow duration-200">
                 <span className="text-[#00d4aa] font-medium">How do I get a refund?</span>
               </a>
-              <a href="#" className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-200">
+              <a href="#" className="text-center p-4 bg-white dark:bg-card rounded-lg hover:shadow-md transition-shadow duration-200">
                 <span className="text-[#00d4aa] font-medium">Key won&apos;t activate</span>
               </a>
-              <a href="#" className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-200">
+              <a href="#" className="text-center p-4 bg-white dark:bg-card rounded-lg hover:shadow-md transition-shadow duration-200">
                 <span className="text-[#00d4aa] font-medium">Change my order</span>
               </a>
             </div>

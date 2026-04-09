@@ -22,29 +22,29 @@ export default function DashboardPage() {
       label: 'Total Orders',
       value: totalOrders,
       icon: Package,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50',
+      color: 'text-blue-600 dark:text-blue-400',
+      bgColor: 'bg-blue-50 dark:bg-blue-900/20',
     },
     {
       label: 'Pending',
       value: pendingOrders,
       icon: Clock,
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-50',
+      color: 'text-yellow-600 dark:text-yellow-400',
+      bgColor: 'bg-yellow-50 dark:bg-yellow-900/20',
     },
     {
       label: 'Delivered',
       value: deliveredOrders,
       icon: CheckCircle,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50',
+      color: 'text-green-600 dark:text-green-400',
+      bgColor: 'bg-green-50 dark:bg-green-900/20',
     },
     {
       label: 'Total Spent',
       value: `$${totalSpent.toFixed(2)}`,
       icon: TrendingUp,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50',
+      color: 'text-purple-600 dark:text-purple-400',
+      bgColor: 'bg-purple-50 dark:bg-purple-900/20',
     },
   ];
 
@@ -76,6 +76,8 @@ export default function DashboardPage() {
                   <div>
                     <p className="text-xs sm:text-sm text-gray-500 mb-1">{stat.label}</p>
                     <p className="text-xl sm:text-2xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-sm text-gray-500 dark:text-muted-foreground mb-1">{stat.label}</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-foreground">{stat.value}</p>
                   </div>
                   <div className={`p-2 sm:p-3 rounded-full ${stat.bgColor}`}>
                     <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${stat.color}`} />
@@ -124,10 +126,10 @@ export default function DashboardPage() {
                     <p
                       className={`text-xs px-2 py-0.5 rounded-full inline-block ${
                         order.status === 'delivered'
-                          ? 'bg-green-100 text-green-700'
+                          ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
                           : order.status === 'pending'
-                          ? 'bg-yellow-100 text-yellow-700'
-                          : 'bg-blue-100 text-blue-700'
+                          ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
+                          : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
                       }`}
                     >
                       {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
@@ -138,8 +140,8 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <ShoppingBag className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">No orders yet</p>
+              <ShoppingBag className="w-12 h-12 text-gray-300 dark:text-muted-foreground mx-auto mb-4" />
+              <p className="text-gray-500 dark:text-muted-foreground">No orders yet</p>
               <Link href="/collections">
                 <Button className="mt-4 bg-purple-600 hover:bg-purple-700">
                   Start Shopping

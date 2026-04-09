@@ -77,7 +77,7 @@ export default function ProductCard({
 
   return (
     <div
-      className="group relative bg-card dark:bg-muted rounded-xl overflow-hidden border border-border hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ease-out font-['Inter',system-ui,sans-serif] min-h-[340px] flex flex-col"
+      className="group relative bg-card dark:bg-muted rounded-xl hover:border overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] font-['Inter',system-ui,sans-serif] min-h-[340px] flex flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -204,7 +204,7 @@ export default function ProductCard({
             <ShoppingCart className="w-3 h-3 mr-1" />
             {isOutOfStock ? 'Out of Stock' : itemQuantity > 0 ? `In Cart (${itemQuantity})` : 'Add to Cart'}
           </Button>
-          
+
           <Button
             variant="outline"
             size="sm"

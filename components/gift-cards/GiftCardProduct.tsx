@@ -10,7 +10,7 @@ interface GiftCardProductProps {
 
 export default function GiftCardProduct({ product }: GiftCardProductProps) {
   return (
-    <div className="group relative bg-card dark:bg-muted rounded-lg overflow-hidden hover:scale-[1.02] transition-all duration-300 hover:shadow-2xl cursor-pointer border border-border hover:border-[#66c0f4]">
+    <div className="group relative bg-card dark:bg-muted rounded-lg overflow-hidden hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] cursor-pointer border border-border hover:border-[#66c0f4] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08),0_0_15px_rgba(102,192,244,0.1)]">
       {/* Card Image Container */}
       <div className="relative h-[140px] bg-gradient-to-b from-muted to-card dark:from-gray-700 dark:to-gray-800 overflow-hidden">
         {/* Country Flag - Top Right */}

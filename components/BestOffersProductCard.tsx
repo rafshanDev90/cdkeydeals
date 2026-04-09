@@ -66,7 +66,7 @@ export default function BestOffersProductCard({
 
   return (
     <div
-      className="group relative bg-card dark:bg-muted rounded-2xl border border-border overflow-hidden hover:border-[#00d4aa]/50 hover:shadow-xl hover:shadow-[#00d4aa]/10 hover:-translate-y-1 transition-all duration-300 ease-out"
+      className="group relative bg-card dark:bg-muted rounded-2xl border border-border overflow-hidden hover:border-[#00d4aa]/50 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08),0_0_20px_rgba(0,212,170,0.1)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

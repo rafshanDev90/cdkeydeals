@@ -120,7 +120,7 @@ function RelatedProductCard({ product, onClick }: RelatedProductCardProps) {
     : 0;
 
   return (
-    <div className="flex-shrink-0 w-[260px] bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-200 group">
+    <div className="flex-shrink-0 w-[260px] bg-white dark:bg-muted rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group">
       {/* Image Container */}
       <div
         className="relative h-40 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 cursor-pointer overflow-hidden"

@@ -4,14 +4,15 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import Header from '@/components/header/Header'
 import Footer from '@/components/Footer'
-import { CartProvider } from '@/context/CartContext'
 import { AuthProvider } from '@/context/AuthContext'
+import { CartProvider } from '@/context/CartContext'
 import { WishlistProvider } from '@/context/WishlistContext'
 import CartDrawer from '@/components/cart/CartDrawer'
+import { Toaster } from 'sonner'
 import { ThemeProvider } from '@/components/theme-provider'
 import { themeInitScript } from '@/lib/theme-init'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter'
 });
@@ -36,13 +37,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: themeInitScript,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="font-sans antialiased bg-background text-foreground transition-colors duration-300" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             <WishlistProvider>
@@ -58,6 +55,22 @@ export default function RootLayout({
                 <Analytics />
               </CartProvider>
             </WishlistProvider>
+          </AuthProvider>
+          <AuthProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <div className="min-h-screen flex flex-col">
+                  <Header />
+                  <main className="flex-1">
+                    {children}
+                  </main>
+                  <Footer />
+                </div>
+                <CartDrawer />
+                <Toaster position="top-right" richColors />
+                <Analytics />
+              </WishlistProvider>
+            </CartProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

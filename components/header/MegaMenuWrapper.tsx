@@ -65,24 +65,14 @@ export default function MegaMenuWrapper({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
-            onClick={onClose}
-          />
-          
           {/* Full-width dropdown container */}
           <motion.div
             ref={wrapperRef}
             initial={{ opacity: 0, y: -20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.98 }}
-            transition={{ 
-              duration: 0.2, 
+            transition={{
+              duration: 0.2,
               ease: [0.4, 0, 0.2, 1],
               scale: { type: "spring", stiffness: 300, damping: 25 }
             }}
@@ -93,7 +83,7 @@ export default function MegaMenuWrapper({
             }}
           >
             {/* Content container with proper alignment */}
-            <div className="w-full bg-white shadow-2xl border-t border-gray-100">
+            <div className="w-full bg-[#1E1E1E] shadow-2xl">
               <div className="max-w-screen-2xl mx-auto">
                 {children}
               </div>

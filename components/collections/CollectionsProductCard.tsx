@@ -150,7 +150,7 @@ export default function CollectionsProductCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group relative bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-xl transition-all duration-300 ease-out font-['Inter',system-ui,sans-serif] min-h-[320px] flex flex-col"
+      className="group relative bg-transparent dark:bg-transparent rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] font-['Inter',system-ui,sans-serif] min-h-[320px] flex flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -209,7 +209,7 @@ export default function CollectionsProductCard({
 
       {/* Product Image Container */}
       <Link href={productUrl} className="block">
-        <div className="relative h-40 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 overflow-hidden">
+        <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 overflow-hidden">
           {image && !imageError ? (
             <img
               src={image}
@@ -241,7 +241,7 @@ export default function CollectionsProductCard({
       </Link>
 
       {/* Content Area */}
-      <div className="flex-1 p-3 flex flex-col justify-between">
+      <div className="flex-1 p-4 flex flex-col justify-between">
         <div>
           {/* Platform & Category */}
           <div className="flex items-center gap-2 mb-1">

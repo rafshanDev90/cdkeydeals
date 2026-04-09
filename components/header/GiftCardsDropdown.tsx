@@ -75,11 +75,11 @@ export default function GiftCardsDropdown({ isOpen, onToggle, onClose }: GiftCar
     >
       {/* Trigger */}
       <div className="flex items-center gap-1 cursor-pointer group py-2">
-        <span className="text-[14.5px] font-semibold text-[#1a1a1a] group-hover:text-indigo-600 transition-colors">
+        <span className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
           Gift Cards
         </span>
-        <ChevronDown 
-          className={`w-3.5 h-3.5 text-gray-400 group-hover:text-indigo-600 transition-transform duration-200 ${
+        <ChevronDown
+          className={`w-3.5 h-3.5 text-gray-400 dark:text-gray-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`} 
         />
@@ -93,7 +93,7 @@ export default function GiftCardsDropdown({ isOpen, onToggle, onClose }: GiftCar
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50"
+            className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-[#1E1E1E] rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-50"
             onMouseEnter={() => {
               if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
@@ -110,7 +110,7 @@ export default function GiftCardsDropdown({ isOpen, onToggle, onClose }: GiftCar
               >
                 <Link 
                   href={item.href}
-                  className="block px-4 py-2.5 text-sm text-[#1a1a1a] hover:bg-gray-100 cursor-pointer transition-colors duration-150 font-medium"
+                  className="block px-4 py-2.5 text-sm text-[#1a1a1a] dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors duration-150 font-medium"
                   onClick={onClose}
                 >
                   {item.name}

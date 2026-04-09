@@ -6,13 +6,13 @@ const SafeSecureCheckout = () => {
 
       {/* Header */}
       <div className="border-b pb-8 mb-8">
-        <h1 className="text-4xl font-extrabold mb-4 text-gray-900">
+        <h1 className="text-4xl font-extrabold mb-4 text-gray-900 dark:text-foreground">
           Safe & Secure Checkout
         </h1>
         <p className="text-lg font-semibold text-blue-600">
           CDKeyDeals Secure Checkout Policy
         </p>
-        <p className="text-sm text-gray-500 italic">
+        <p className="text-sm text-gray-500 dark:text-muted-foreground italic">
           Effective Date: January 10, 2026
         </p>
       </div>
@@ -92,7 +92,7 @@ const SafeSecureCheckout = () => {
             <p className="text-2xl font-bold text-green-700 mb-2">
               ⚡ Instant Delivery
             </p>
-            <p className="text-lg font-semibold text-gray-700">
+            <p className="text-lg font-semibold text-gray-700 dark:text-muted-foreground">
               Typically within seconds to 2 minutes
             </p>
           </div>
@@ -151,7 +151,7 @@ const SafeSecureCheckout = () => {
               If you still haven't received your order after 30 minutes, contact our
               24/7 support team at <span className="text-blue-600">support@cdkeydeals.com</span>
             </p>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-gray-600 dark:text-muted-foreground mt-1">
               Include your order number and email used for purchase
             </p>
           </div>
@@ -164,7 +164,7 @@ const SafeSecureCheckout = () => {
           4) No Physical Shipping - Digital Only
         </h2>
 
-        <div className="bg-gray-50 p-6 rounded-xl border">
+        <div className="bg-gray-50 dark:bg-muted p-6 rounded-xl border">
           <h3 className="font-semibold mb-3 text-lg">
             🌍 100% Digital Delivery
           </h3>
@@ -175,7 +175,7 @@ const SafeSecureCheckout = () => {
           </p>
 
           <div className="grid md:grid-cols-2 gap-4 mb-4">
-            <div className="bg-white p-4 rounded border">
+            <div className="bg-white dark:bg-card p-4 rounded border">
               <h4 className="font-semibold mb-2 text-green-700">✅ What We Deliver</h4>
               <ul className="text-sm space-y-1">
                 <li>Digital product keys</li>
@@ -185,7 +185,7 @@ const SafeSecureCheckout = () => {
               </ul>
             </div>
             
-            <div className="bg-white p-4 rounded border">
+            <div className="bg-white dark:bg-card p-4 rounded border">
               <h4 className="font-semibold mb-2 text-red-700">❌ What We Don't Ship</h4>
               <ul className="text-sm space-y-1">
                 <li>Physical boxes</li>
@@ -196,7 +196,7 @@ const SafeSecureCheckout = () => {
             </div>
           </div>
 
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-muted-foreground">
             This digital-first approach ensures instant delivery, reduces environmental impact,
             and eliminates shipping costs.
           </p>
@@ -286,7 +286,7 @@ const SafeSecureCheckout = () => {
           <li><strong>Emergency Issues:</strong> Mark as "Urgent" in subject line</li>
         </ul>
 
-        <p className="mt-4 text-sm text-gray-600">
+        <p className="mt-4 text-sm text-gray-600 dark:text-muted-foreground">
           Our support team is trained to handle delivery issues, payment concerns,
           and technical questions quickly and professionally.
         </p>
@@ -311,7 +311,7 @@ const SafeSecureCheckout = () => {
         </h2>
         <p>Email: <span className="text-blue-600">support@cdkeydeals.com</span></p>
         <p>Support: 24/7 live chat or ticket system</p>
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-gray-500 dark:text-muted-foreground">
           27 OLD GLOUCESTER STREET LONDON WC1N 3AX
         </p>
       </section>

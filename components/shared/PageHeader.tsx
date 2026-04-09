@@ -19,7 +19,7 @@ export default function PageHeader({
   background = "light"
 }: PageHeaderProps) {
   const backgroundStyles = {
-    light: "bg-white text-gray-900",
+    light: "bg-white dark:bg-card text-gray-900 dark:text-foreground",
     primary: "bg-[#00d4aa] text-white",
     gradient: "bg-gradient-to-r from-[#00d4aa] to-[#6343D8] text-white"
   };

@@ -27,13 +27,13 @@ export default function MoreDropdown({ isOpen, onHover, onLeave }: MoreDropdownP
     >
       {/* Trigger */}
       <div className="flex items-center gap-1 cursor-pointer group py-2">
-        <span className="text-[14.5px] font-semibold text-[#1a1a1a] transition-colors group-hover:text-indigo-600">
+        <span className="text-[14.5px] font-semibold text-[#1a1a1a] dark:text-gray-200 transition-colors group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
           More
         </span>
-        <ChevronDown 
-          className={`w-3.5 h-3.5 text-gray-400 transition-all duration-200 ${
-            isOpen ? "rotate-180 text-indigo-600" : "group-hover:text-indigo-600"
-          }`} 
+        <ChevronDown
+          className={`w-3.5 h-3.5 text-gray-400 dark:text-gray-500 transition-all duration-200 ${
+            isOpen ? "rotate-180 text-indigo-600 dark:text-indigo-400" : "group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
+          }`}
         />
       </div>
 
@@ -45,7 +45,7 @@ export default function MoreDropdown({ isOpen, onHover, onLeave }: MoreDropdownP
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-full left-0 mt-1 min-w-[180px] bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50"
+            className="absolute top-full left-0 mt-1 min-w-[180px] bg-white dark:bg-[#1E1E1E] rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden z-50"
             role="menu"
             aria-label="More menu"
           >
@@ -59,7 +59,7 @@ export default function MoreDropdown({ isOpen, onHover, onLeave }: MoreDropdownP
                 >
                   <Link
                     href={item.href}
-                    className="block px-4 py-3 text-[14.5px] font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors duration-150"
+                    className="block px-4 py-3 text-[14.5px] font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-150"
                     role="menuitem"
                   >
                     {item.label}

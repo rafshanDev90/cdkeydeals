@@ -29,23 +29,23 @@ interface CollectionSlugClientProps {
 // Breadcrumb component
 function Breadcrumb({ platformName }: { platformName: string }) {
   return (
-    <nav className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+    <nav className="flex items-center gap-2 text-sm text-gray-600 dark:text-muted-foreground mb-4">
       <Link
         href="/"
-        className="flex items-center gap-1 hover:text-gray-900 transition-colors"
+        className="flex items-center gap-1 hover:text-gray-900 dark:hover:text-foreground transition-colors"
       >
         <Home className="w-4 h-4" />
         Home
       </Link>
-      <ChevronRight className="w-4 h-4 text-gray-400" />
+      <ChevronRight className="w-4 h-4 text-gray-400 dark:text-muted-foreground" />
       <Link
         href="/collections"
-        className="hover:text-gray-900 transition-colors"
+        className="hover:text-gray-900 dark:hover:text-foreground transition-colors"
       >
         Collections
       </Link>
-      <ChevronRight className="w-4 h-4 text-gray-400" />
-      <span className="text-gray-900 font-medium">{platformName}</span>
+      <ChevronRight className="w-4 h-4 text-gray-400 dark:text-muted-foreground" />
+      <span className="text-gray-900 dark:text-foreground font-medium">{platformName}</span>
     </nav>
   );
 }
@@ -58,18 +58,18 @@ function EmptyState({ platformName }: { platformName: string }) {
       animate={{ opacity: 1, y: 0 }}
       className="flex flex-col items-center justify-center py-16 px-4"
     >
-      <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-        <Package className="w-12 h-12 text-gray-400" />
+      <div className="w-24 h-24 bg-gray-100 dark:bg-muted rounded-full flex items-center justify-center mb-6">
+        <Package className="w-12 h-12 text-gray-400 dark:text-muted-foreground" />
       </div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-foreground mb-2">
         No products found
       </h3>
-      <p className="text-gray-600 text-center max-w-md mb-6">
+      <p className="text-gray-600 dark:text-muted-foreground text-center max-w-md mb-6">
         We couldn&apos;t find any products for {platformName}. Try adjusting your filters or check back later.
       </p>
       <Link
         href="/collections"
-        className="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+        className="px-6 py-3 bg-gray-900 dark:bg-foreground text-white dark:text-background rounded-lg hover:bg-gray-800 dark:hover:bg-foreground/90 transition-colors"
       >
         Browse All Collections
       </Link>
@@ -278,9 +278,9 @@ export default function CollectionSlugClient({
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-muted">
       {/* Header Section */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white dark:bg-card border-b border-gray-200 dark:border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           <Breadcrumb platformName={platformName} />
 
@@ -290,10 +290,10 @@ export default function CollectionSlugClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-foreground mb-3">
               {platformName}
             </h1>
-            <p className="text-gray-600 max-w-3xl text-sm md:text-base">
+            <p className="text-gray-600 dark:text-muted-foreground max-w-3xl text-sm md:text-base">
               Browse our collection of {initialProducts.length} {platformName} products. 
               Find the best deals on game keys, gift cards, and software with instant delivery.
             </p>

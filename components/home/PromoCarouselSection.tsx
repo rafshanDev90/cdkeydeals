@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Copy, Check, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import { Copy, Check, ChevronLeft, ChevronRight, ShoppingCart, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -115,6 +115,7 @@ const COUPON_CODE = "MEGA26";
 // Product Card Component
 function PromoProductCard({ product }: { product: PromoProduct }) {
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const { addToCart, getItemQuantity } = useCart();
   
   const currencySymbol = product.currency === "BDT" ? "৳" : "$";
@@ -144,7 +145,11 @@ function PromoProductCard({ product }: { product: PromoProduct }) {
   const productUrl = product.slug ? `/product/${product.slug}` : `/product/${product.id}`;
 
   return (
-    <Card className="group relative bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ease-out h-full flex flex-col">
+    <Card
+      className="group relative bg-white dark:bg-muted rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] h-full flex flex-col"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Badge */}
       {product.badge && (
         <div className="absolute top-3 left-3 z-20">
@@ -154,16 +159,26 @@ function PromoProductCard({ product }: { product: PromoProduct }) {
         </div>
       )}
 
+      {/* Quick View Button */}
+      <button
+        className={`absolute top-3 right-3 z-20 w-8 h-8 bg-white/90 dark:bg-gray-800/90 hover:bg-gray-900 hover:text-white text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center transition-all duration-300 shadow-md backdrop-blur-sm ${
+          isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+        }`}
+        aria-label="Quick view"
+      >
+        <Eye className="w-3.5 h-3.5" />
+      </button>
+
       {/* Product Image */}
       <Link href={productUrl} className="block">
-        <div className="relative h-40 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 overflow-hidden">
+        <div className="relative h-40 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center p-4 overflow-hidden">
           {product.image && !imageError ? (
             <Image
               src={product.image}
               alt={product.title}
               width={160}
               height={120}
-              className="object-contain w-full h-full group-hover:scale-110 transition-transform duration-500"
+              className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500"
               onError={() => setImageError(true)}
               loading="lazy"
             />
@@ -176,72 +191,87 @@ function PromoProductCard({ product }: { product: PromoProduct }) {
       </Link>
 
       {/* Content */}
-      <div className="flex-1 p-4 flex flex-col">
-        {/* Title */}
-        <Link href={productUrl}>
-          <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 min-h-[2.5rem] hover:text-blue-600 transition-colors leading-snug">
-            {product.title}
-          </h3>
-        </Link>
+      <div className="flex-1 p-4 flex flex-col justify-between">
+        <div>
+          {/* Title */}
+          <Link href={productUrl}>
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 min-h-[2.5rem] hover:text-blue-600 dark:hover:text-blue-400 transition-colors leading-snug">
+              {product.title}
+            </h3>
+          </Link>
 
-        {/* Price */}
-        <div className="mt-2 flex items-center gap-2">
-          <span className="text-lg font-bold text-gray-900">
-            {currencySymbol}{product.price.toLocaleString()}
-          </span>
-          {product.originalPrice && (
-            <>
-              <span className="text-sm text-gray-400 line-through">
-                {currencySymbol}{product.originalPrice.toLocaleString()}
-              </span>
-              {discount > 0 && (
-                <span className="text-xs text-red-500 font-semibold bg-red-50 px-1.5 py-0.5 rounded">
-                  -{discount}%
+          {/* Price */}
+          <div className="mt-2 flex items-center gap-2">
+            <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
+              {currencySymbol}{product.price.toLocaleString()}
+            </span>
+            {product.originalPrice && (
+              <>
+                <span className="text-sm text-gray-400 line-through">
+                  {currencySymbol}{product.originalPrice.toLocaleString()}
                 </span>
-              )}
-            </>
-          )}
+                {discount > 0 && (
+                  <span className="text-xs text-red-500 font-semibold bg-red-50 dark:bg-red-900/20 px-1.5 py-0.5 rounded">
+                    -{discount}%
+                  </span>
+                )}
+              </>
+            )}
+          </div>
+
+          {/* Stock Status */}
+          <div className="mt-2 flex items-center gap-1.5">
+            <div
+              className={`w-2 h-2 rounded-full ${
+                isOutOfStock
+                  ? "bg-red-500"
+                  : isLowStock
+                  ? "bg-orange-500"
+                  : "bg-green-500"
+              }`}
+            />
+            <span
+              className={`text-xs font-medium ${
+                isOutOfStock
+                  ? "text-red-600"
+                  : isLowStock
+                  ? "text-orange-600"
+                  : "text-green-600"
+              }`}
+            >
+              {product.stockLabel || (isOutOfStock ? "Out of Stock" : isLowStock ? "Low Stock" : "In Stock")}
+            </span>
+          </div>
         </div>
 
-        {/* Stock Status */}
-        <div className="mt-2 flex items-center gap-1.5">
-          <div
-            className={`w-2 h-2 rounded-full ${
-              isOutOfStock
-                ? "bg-red-500"
-                : isLowStock
-                ? "bg-orange-500"
-                : "bg-green-500"
-            }`}
-          />
-          <span
-            className={`text-xs font-medium ${
-              isOutOfStock
-                ? "text-red-600"
-                : isLowStock
-                ? "text-orange-600"
-                : "text-green-600"
-            }`}
+        {/* Action Buttons - Revealed on hover */}
+        <div className={`mt-3 space-y-1.5 transition-all duration-300 ${
+          isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+        }`}>
+          <Button
+            variant={isOutOfStock ? "secondary" : "default"}
+            size="sm"
+            className="w-full bg-gray-900 hover:bg-gray-800 text-white shadow-md text-xs py-1.5 px-3 h-8"
+            disabled={isOutOfStock}
+            onClick={handleAddToCart}
           >
-            {product.stockLabel || (isOutOfStock ? "Out of Stock" : isLowStock ? "Low Stock" : "In Stock")}
-          </span>
-        </div>
+            <ShoppingCart className="w-3.5 h-3.5 mr-1" />
+            {isOutOfStock
+              ? "Out of Stock"
+              : itemQuantity > 0
+              ? `In Cart (${itemQuantity})`
+              : "Add to Cart"}
+          </Button>
 
-        {/* Add to Cart Button */}
-        <Button
-          variant={isOutOfStock ? "secondary" : "default"}
-          size="sm"
-          className="mt-3 w-full bg-gray-900 hover:bg-gray-800 text-white shadow-md text-xs py-2 h-9"
-          disabled={isOutOfStock}
-          onClick={handleAddToCart}
-        >
-          <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />
-          {isOutOfStock
-            ? "Out of Stock"
-            : itemQuantity > 0
-            ? `In Cart (${itemQuantity})`
-            : "Add to Cart"}
-        </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="w-full border-gray-300 dark:border-gray-600 hover:border-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 text-xs py-1.5 px-3 h-8"
+          >
+            <Eye className="w-3.5 h-3.5 mr-1" />
+            Quick View
+          </Button>
+        </div>
       </div>
     </Card>
   );
@@ -295,7 +325,7 @@ export default function PromoCarouselSection({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           {/* Left Side - Promo Banner */}
           <div className="lg:col-span-4">
-            <div className="relative h-full min-h-[400px] lg:min-h-full rounded-2xl overflow-hidden bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 p-6 flex flex-col justify-between">
+            <div className="relative min-h-[400px] lg:min-h-full rounded-2xl overflow-hidden bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 p-6 flex flex-col justify-between">
               {/* Circular Discount Badge */}
               <div className="absolute top-4 left-4 w-20 h-20 bg-white rounded-full flex flex-col items-center justify-center shadow-lg">
                 <span className="text-xs text-gray-600 font-medium">Save Up to</span>
@@ -351,7 +381,7 @@ export default function PromoCarouselSection({
 
           {/* Right Side - Product Carousel */}
           <div className="lg:col-span-8">
-            <div className="relative h-full">
+            <div className="relative">
               {/* Carousel */}
               <Carousel
                 setApi={setApi}
@@ -360,15 +390,15 @@ export default function PromoCarouselSection({
                   loop: false,
                   slidesToScroll: 1,
                 }}
-                className="w-full h-full"
+                className="w-full"
               >
-                <CarouselContent className="-ml-4 h-full">
+                <CarouselContent className="-ml-4 !overflow-visible pb-4">
                   {products.map((product) => (
                     <CarouselItem
                       key={product.id}
                       className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
                     >
-                      <div className="h-full">
+                      <div className="py-2">
                         <PromoProductCard product={product} />
                       </div>
                     </CarouselItem>

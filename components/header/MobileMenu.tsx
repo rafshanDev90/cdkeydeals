@@ -45,7 +45,7 @@ export default function MobileMenu({
 
       {/* Mobile Sidebar Menu */}
       <div
-        className="fixed top-0 left-0 h-full w-[320px] max-w-[85vw] bg-white dark:bg-gray-900 z-50 transform transition-transform duration-300 ease-out overflow-hidden translate-x-0"
+        className="fixed top-0 left-0 h-full w-[320px] max-w-[85vw] bg-white dark:bg-[#1E1E1E] z-50 transform transition-transform duration-300 ease-out overflow-hidden translate-x-0"
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}

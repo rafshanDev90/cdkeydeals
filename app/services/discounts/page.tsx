@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function DiscountsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-muted">
       {/* Hero Section */}
       <PageHeader
         title="Exclusive Daily Discounts"
@@ -24,27 +24,27 @@ export default function DiscountsPage() {
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Promo Offers Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+            <div className="bg-white dark:bg-card rounded-xl p-6 text-center shadow-sm border border-gray-100 dark:border-border">
               <div className="text-3xl font-bold text-[#00d4aa] mb-1">90%</div>
-              <div className="text-sm text-gray-600">Max Savings</div>
+              <div className="text-sm text-gray-600 dark:text-muted-foreground">Max Savings</div>
             </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+            <div className="bg-white dark:bg-card rounded-xl p-6 text-center shadow-sm border border-gray-100 dark:border-border">
               <div className="text-3xl font-bold text-[#00d4aa] mb-1">Daily</div>
-              <div className="text-sm text-gray-600">New Deals</div>
+              <div className="text-sm text-gray-600 dark:text-muted-foreground">New Deals</div>
             </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+            <div className="bg-white dark:bg-card rounded-xl p-6 text-center shadow-sm border border-gray-100 dark:border-border">
               <div className="text-3xl font-bold text-[#00d4aa] mb-1">50K+</div>
-              <div className="text-sm text-gray-600">Products</div>
+              <div className="text-sm text-gray-600 dark:text-muted-foreground">Products</div>
             </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+            <div className="bg-white dark:bg-card rounded-xl p-6 text-center shadow-sm border border-gray-100 dark:border-border">
               <div className="text-3xl font-bold text-[#00d4aa] mb-1">24/7</div>
-              <div className="text-sm text-gray-600">Support</div>
+              <div className="text-sm text-gray-600 dark:text-muted-foreground">Support</div>
             </div>
           </div>
 
           {/* Featured Categories */}
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-foreground mb-6 text-center">
               Popular Discount Categories
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -90,8 +90,8 @@ export default function DiscountsPage() {
                     1
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Find Your Deal</h4>
-                    <p className="text-sm text-gray-600">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Find Your Deal</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">
                       Browse our deals page or search for the product you want at a discounted price.
                     </p>
                   </div>
@@ -101,8 +101,8 @@ export default function DiscountsPage() {
                     2
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Add to Cart</h4>
-                    <p className="text-sm text-gray-600">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Add to Cart</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">
                       Click on the product and add it to your cart. Discounts are automatically applied.
                     </p>
                   </div>
@@ -112,8 +112,8 @@ export default function DiscountsPage() {
                     3
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Apply Coupon (Optional)</h4>
-                    <p className="text-sm text-gray-600">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Apply Coupon (Optional)</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">
                       If you have a special coupon code, enter it at checkout for additional savings.
                     </p>
                   </div>
@@ -123,8 +123,8 @@ export default function DiscountsPage() {
                     4
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Complete Purchase</h4>
-                    <p className="text-sm text-gray-600">
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground mb-1">Complete Purchase</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">
                       Finish checkout and enjoy your discounted product delivered instantly!
                     </p>
                   </div>
@@ -140,37 +140,37 @@ export default function DiscountsPage() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-gray-900">Flash Sale</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-foreground">Flash Sale</h4>
                       <span className="px-2 py-0.5 bg-red-500 text-white text-xs font-bold rounded">HOT</span>
                     </div>
-                    <p className="text-sm text-gray-600">Up to 90% off selected Windows and Office keys</p>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">Up to 90% off selected Windows and Office keys</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-100">
+                <div className="flex items-center gap-4 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
                   <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
                     <Ticket className="w-6 h-6 text-purple-600" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">New User Special</h4>
-                    <p className="text-sm text-gray-600">Extra 10% off your first purchase with code NEWBIE10</p>
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground">New User Special</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">Extra 10% off your first purchase with code NEWBIE10</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-100">
+                <div className="flex items-center gap-4 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
                   <div className="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center">
                     <ShoppingCart className="w-6 h-6 text-orange-600" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">Bundle Deals</h4>
-                    <p className="text-sm text-gray-600">Buy 2 get 1 free on selected game keys</p>
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground">Bundle Deals</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">Buy 2 get 1 free on selected game keys</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-100">
+                <div className="flex items-center gap-4 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
                   <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
                     <Bell className="w-6 h-6 text-blue-600" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900">Newsletter Perks</h4>
-                    <p className="text-sm text-gray-600">Subscribe for exclusive member-only discounts</p>
+                    <h4 className="font-semibold text-gray-900 dark:text-foreground">Newsletter Perks</h4>
+                    <p className="text-sm text-gray-600 dark:text-muted-foreground">Subscribe for exclusive member-only discounts</p>
                   </div>
                 </div>
               </div>
@@ -200,32 +200,32 @@ export default function DiscountsPage() {
 
           {/* Trust Badges */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-100">
+            <div className="flex items-center gap-3 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
               <Percent className="w-8 h-8 text-[#00d4aa]" />
               <div>
-                <div className="font-semibold text-gray-900">Best Prices</div>
-                <div className="text-xs text-gray-500">Price match guarantee</div>
+                <div className="font-semibold text-gray-900 dark:text-foreground">Best Prices</div>
+                <div className="text-xs text-gray-500 dark:text-muted-foreground">Price match guarantee</div>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-100">
+            <div className="flex items-center gap-3 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
               <Clock className="w-8 h-8 text-[#00d4aa]" />
               <div>
-                <div className="font-semibold text-gray-900">Instant Delivery</div>
-                <div className="text-xs text-gray-500">Keys in minutes</div>
+                <div className="font-semibold text-gray-900 dark:text-foreground">Instant Delivery</div>
+                <div className="text-xs text-gray-500 dark:text-muted-foreground">Keys in minutes</div>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-100">
+            <div className="flex items-center gap-3 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
               <Star className="w-8 h-8 text-[#00d4aa]" />
               <div>
-                <div className="font-semibold text-gray-900">Verified Keys</div>
-                <div className="text-xs text-gray-500">100% authentic</div>
+                <div className="font-semibold text-gray-900 dark:text-foreground">Verified Keys</div>
+                <div className="text-xs text-gray-500 dark:text-muted-foreground">100% authentic</div>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-100">
+            <div className="flex items-center gap-3 p-4 bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-border">
               <Shield className="w-8 h-8 text-[#00d4aa]" />
               <div>
-                <div className="font-semibold text-gray-900">Secure Payment</div>
-                <div className="text-xs text-gray-500">256-bit encryption</div>
+                <div className="font-semibold text-gray-900 dark:text-foreground">Secure Payment</div>
+                <div className="text-xs text-gray-500 dark:text-muted-foreground">256-bit encryption</div>
               </div>
             </div>
           </div>

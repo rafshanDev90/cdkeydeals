@@ -62,7 +62,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div
-      className="group relative bg-card dark:bg-muted rounded-xl border border-border overflow-hidden hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ease-out"
+      className="group relative bg-transparent dark:bg-transparent rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -95,7 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Product Image */}
       <Link href={`/product/${product.id}`} className="block">
-        <div className="relative aspect-[4/3] bg-gradient-to-br from-muted/30 to-muted/50 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
+        <div className="relative aspect-[3/3] bg-gradient-to-br from-muted/30 to-muted/50 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
           {/* Image or Placeholder */}
           {!imageError && product.image ? (
             <Image
@@ -131,7 +131,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       </Link>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-5">
         {/* Category Tag */}
         <div className="mb-3">
           <span className={`inline-block text-xs font-semibold px-2.5 py-1 rounded-full border ${categoryColorClass}`}>

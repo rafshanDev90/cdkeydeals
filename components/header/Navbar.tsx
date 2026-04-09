@@ -32,7 +32,7 @@ export default function Navbar({ isDarkMode, onDarkModeToggle }: NavbarProps) {
   const [isFAQDropdownOpen, setIsFAQDropdownOpen] = useState(false);
 
   return (
-    <div className="hidden lg:block w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+    <div className="hidden lg:block w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1E1E1E]">
       {/* Main Container: 
           - max-w-[1280px]: মেনুগুলোকে একটি নির্দিষ্ট সীমানার মধ্যে রাখবে।
           - mx-auto: কন্টেইনারটিকে স্ক্রিনের মাঝখানে রাখবে।

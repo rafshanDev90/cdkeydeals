@@ -103,7 +103,7 @@ const gameProducts = [
 
 export default function GamesPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-card">
       <Header />
 
       <main>
@@ -118,7 +118,7 @@ export default function GamesPage() {
                 <h1 className="text-3xl lg:text-4xl font-bold text-[#1a1a1a]">
                   Games
                 </h1>
-                <p className="text-gray-500">
+                <p className="text-gray-500 dark:text-muted-foreground">
                   Game keys for all major platforms
                 </p>
               </div>
@@ -130,17 +130,17 @@ export default function GamesPage() {
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Sidebar Categories */}
             <aside className="lg:col-span-1">
-              <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
+              <div className="bg-gray-50 dark:bg-muted rounded-xl border border-gray-200 dark:border-border p-4">
                 <h3 className="font-semibold text-[#1a1a1a] mb-4">Categories</h3>
                 <ul className="space-y-2">
                   {gameCategories.map((category) => (
                     <li key={category.slug}>
                       <Link
                         href={`/${category.slug}`}
-                        className="flex items-center justify-between py-2 px-3 rounded-lg text-gray-600 hover:text-[#00d4aa] hover:bg-gray-100 transition-colors"
+                        className="flex items-center justify-between py-2 px-3 rounded-lg text-gray-600 dark:text-muted-foreground hover:text-[#00d4aa] hover:bg-gray-100 transition-colors"
                       >
                         <span>{category.name}</span>
-                        <span className="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded">
+                        <span className="text-xs bg-gray-200 text-gray-600 dark:text-muted-foreground px-2 py-0.5 rounded">
                           {category.count}
                         </span>
                       </Link>
@@ -169,7 +169,7 @@ export default function GamesPage() {
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-muted-foreground">
                   <span>Sort by:</span>
                   <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-[#1a1a1a] rounded-lg transition-colors">
                     Best Selling
@@ -179,7 +179,7 @@ export default function GamesPage() {
               </div>
 
               {/* Results Count */}
-              <p className="text-gray-500 mb-6">
+              <p className="text-gray-500 dark:text-muted-foreground mb-6">
                 Showing <span className="text-[#1a1a1a] font-medium">{gameProducts.length}</span>{" "}
                 games
               </p>

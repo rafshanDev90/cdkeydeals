@@ -50,7 +50,7 @@ export default function ProductCard({
 
   return (
     <div
-      className="group relative bg-card dark:bg-muted rounded-xl overflow-hidden border border-border hover:border-[#00d4aa]/50 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 ease-out"
+      className="group relative bg-transparent dark:bg-transparent rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgba(255,255,255,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -85,7 +85,7 @@ export default function ProductCard({
 
       {/* Image */}
       <Link href={`/product/${id}`} className="block">
-        <div className="aspect-[4/3] bg-muted/50 dark:bg-gray-700 flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="aspect-[3/3] bg-muted/50 dark:bg-gray-700 flex items-center justify-center p-6 relative overflow-hidden">
           <div className="w-20 h-20 bg-muted dark:bg-gray-600 rounded-lg flex items-center justify-center">
             <Gamepad2 className="w-10 h-10 text-muted-foreground dark:text-gray-400" />
           </div>
@@ -99,7 +99,7 @@ export default function ProductCard({
       </Link>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-5">
         {/* Title */}
         <Link href={`/product/${id}`}>
           <h3 className="text-sm font-medium text-foreground line-clamp-2 min-h-[40px] hover:text-[#00d4aa] transition-colors">
