@@ -32,7 +32,7 @@ export default function ContactPage() {
       </SectionContainer>
 
       {/* Contact Content */}
-      <SectionContainer background="white" maxWidth="full">
+      <SectionContainer background="white" padding="lg" maxWidth="2xl">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Left Column - Business Details */}
           <div className="space-y-8">
@@ -126,16 +126,6 @@ export default function ContactPage() {
           </div>
         </div>
       </SectionContainer>
-
-      <CTASection
-        title="Need Quick Help?"
-        subtitle="Check out our FAQ section for instant answers to common questions"
-        buttonText="View FAQ"
-        buttonHref="/faq"
-        secondaryButtonText="Browse Products"
-        secondaryButtonHref="/"
-        background="primary"
-      />
     </>
   )
 }

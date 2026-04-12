@@ -378,14 +378,6 @@ export default function TermsPage() {
           </div>
         </div>
       </SectionContainer>
-
-      <CTASection
-        title="Questions About Our Terms?"
-        subtitle="Our legal team is ready to help clarify any questions about our terms and conditions"
-        buttonText="Contact Legal Support"
-        buttonHref="/contact"
-        background="primary"
-      />
     </>
   )
 }

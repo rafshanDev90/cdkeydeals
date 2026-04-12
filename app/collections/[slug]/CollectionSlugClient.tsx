@@ -281,7 +281,7 @@ export default function CollectionSlugClient({
     <div className="min-h-screen bg-gray-50 dark:bg-muted">
       {/* Header Section */}
       <div className="bg-white dark:bg-card border-b border-gray-200 dark:border-border">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           <Breadcrumb platformName={platformName} />
 
           {/* Page Title */}
@@ -302,7 +302,7 @@ export default function CollectionSlugClient({
       </div>
 
       {/* Main Content */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         {/* Hero Banner */}
         <HeroSection 
           platformName={platformName} 

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Eye, Gamepad2 } from "lucide-react";
+import PriceDisplay from "@/components/ui/PriceDisplay";
+import { useCurrency } from "@/context/CurrencyContext";
 
 interface ProductCardProps {
   id: number;
@@ -43,10 +45,18 @@ export default function ProductCard({
   stockLabel,
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { formatPriceWithOriginal } = useCurrency();
 
-  const currencySymbol = currency === "GBP" ? "£" : currency === "EUR" ? "€" : "$";
   const isLowStock = stock !== undefined && stock <= 5 && stock > 0;
   const isOutOfStock = stock === 0;
+
+  // Convert to USD base price (assuming current price is in USD for consistency)
+  // If your prices are in different currencies, convert them to USD first
+  const basePriceUSD = price;
+  const baseOriginalPriceUSD = originalPrice;
+
+  // Get discount info
+  const { hasDiscount } = formatPriceWithOriginal(basePriceUSD, baseOriginalPriceUSD);
 
   return (
     <div
@@ -108,19 +118,14 @@ export default function ProductCard({
         </Link>
 
         {/* Price */}
-        <div className="mt-3 flex items-center gap-2">
-          <span className="text-lg font-bold text-[#00d4aa]">
-            {currencySymbol}
-            {price.toFixed(2)}
-          </span>
-          {originalPrice && originalPrice > price && (
-            <span className="text-sm text-muted-foreground dark:text-gray-500 line-through">
-              {currencySymbol}
-              {originalPrice.toFixed(2)}
-            </span>
-          )}
-          <span className="text-xs text-muted-foreground dark:text-gray-500">{currency}</span>
-        </div>
+        <PriceDisplay
+          price={basePriceUSD}
+          originalPrice={baseOriginalPriceUSD}
+          priceClassName="text-lg font-bold text-[#00d4aa]"
+          originalPriceClassName="text-sm text-muted-foreground dark:text-gray-500 line-through"
+          showDiscount={false}
+          className="mt-3 flex items-center gap-2"
+        />
 
         {/* Stock Label */}
         {stockLabel && (

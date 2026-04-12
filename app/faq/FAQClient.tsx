@@ -330,14 +330,6 @@ export default function FAQClient() {
           </div>
         </div>
       </SectionContainer>
-
-      <CTASection
-        title="Need More Assistance?"
-        subtitle="Our dedicated support team is available 24/7 to help you with any questions or concerns"
-        buttonText="Contact Support"
-        buttonHref="/contact"
-        background="primary"
-      />
     </>
   )
 }

@@ -5,7 +5,6 @@ import {
   Menu,
   X,
   Heart,
-  MapPin,
   Moon,
   Sun,
   Flame,
@@ -24,6 +23,7 @@ import SoftwareDropdown from "./SoftwareDropdown";
 import MoreDropdown from "./MoreDropdown";
 import FAQDropdown from "./FAQDropdown";
 import MobileMegaMenu from "./MobileMegaMenu";
+import CurrencyDropdown from "./CurrencyDropdown";
 
 function HeaderContent() {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
@@ -152,7 +152,7 @@ function HeaderContent() {
             : ""
         }`}
       >
-        <div className="max-w-[1280px] mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[52px]">
             {/* LEFT SIDE: Navigation Links */}
             <nav className="flex items-center gap-6">
@@ -222,10 +222,13 @@ function HeaderContent() {
             {/* RIGHT SIDE: Utilities */}
             <div className="flex items-center gap-8">
               {/* Currency/Region Selector */}
-              <button className="flex items-center gap-2 text-[14px] font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-                <span>Bangladesh (BDT ৳)</span>
-                <MapPin className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-              </button>
+              <CurrencyDropdown 
+                onSelect={(country) => {
+                  // Handle country/currency selection
+                  console.log("Selected country:", country);
+                  // You can add additional logic here like updating global state, cookies, etc.
+                }}
+              />
 
               {/* Dark Mode Toggle */}
               {mounted && (

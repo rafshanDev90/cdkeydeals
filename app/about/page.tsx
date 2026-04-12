@@ -268,13 +268,6 @@ export default function AboutPage() {
         </div>
       </SectionContainer>
 
-      <CTASection
-        title="Ready to Get Started?"
-        subtitle="Join thousands of satisfied customers who trust CDKeyDeals for their digital needs"
-        buttonText="Shop Now"
-        buttonHref="/"
-        background="primary"
-      />
     </>
   )
 }

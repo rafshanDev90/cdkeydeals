@@ -6,6 +6,8 @@ import { ShoppingCart, Eye, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ProductCardProps, BadgeColor } from '@/types/product';
 import { useCart } from '@/context/CartContext';
+import { useCurrency } from '@/context/CurrencyContext';
+import PriceDisplay from '@/components/ui/PriceDisplay';
 
 const badgeColors: Record<BadgeColor, string> = {
   red: 'bg-red-500',
@@ -37,11 +39,16 @@ export default function ProductCard({
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
   const { addToCart, getItemQuantity } = useCart();
+  const { formatPriceWithOriginal } = useCurrency();
 
-  const currencySymbol = currency === 'BDT' ? '৳' : currency === 'GBP' ? '£' : currency === 'EUR' ? '€' : '$';
   const isLowStock = stock !== undefined && stock <= 5 && stock > 0;
   const isOutOfStock = stock === 0;
   const inStock = stockLabel?.toLowerCase().includes('in stock') || (stock !== undefined && stock > 5);
+
+  // Convert to USD base price (assuming current price is in USD for consistency)
+  // If your prices are in different currencies, convert them to USD first
+  const basePriceUSD = price;
+  const baseOriginalPriceUSD = originalPrice;
 
   const getStockStatus = () => {
     if (isOutOfStock) return { status: 'out-of-stock', color: 'text-red-600', bg: 'bg-red-500', label: 'Out of Stock' };
@@ -161,25 +168,14 @@ export default function ProductCard({
           </Link>
 
           {/* Price */}
-          <div className="mt-2 flex items-center gap-1">
-            <span className="text-sm font-bold text-foreground">
-              {currencySymbol}
-              {price.toFixed(2)}
-            </span>
-            {originalPrice && originalPrice > price && (
-              <>
-                <span className="text-xs text-muted-foreground dark:text-gray-500 line-through">
-                  {currencySymbol}
-                  {originalPrice.toFixed(2)}
-                </span>
-                {discount && (
-                  <span className="text-xs text-red-500 font-semibold bg-red-50 dark:bg-red-900/20 px-1 py-0.5 rounded">
-                    -{discount}%
-                  </span>
-                )}
-              </>
-            )}
-          </div>
+          <PriceDisplay
+            price={basePriceUSD}
+            originalPrice={baseOriginalPriceUSD}
+            priceClassName="text-sm font-bold text-foreground"
+            originalPriceClassName="text-xs text-muted-foreground dark:text-gray-500 line-through"
+            discountBadgeClassName="text-xs text-red-500 font-semibold bg-red-50 dark:bg-red-900/20 px-1 py-0.5 rounded"
+            className="mt-2 flex items-center gap-1"
+          />
 
           {/* Stock Status */}
           <div className="mt-2 flex items-center gap-1">

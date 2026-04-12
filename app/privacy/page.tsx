@@ -379,14 +379,6 @@ export default function PrivacyPolicyPage() {
           </div>
         </div>
       </SectionContainer>
-
-      <CTASection
-        title="Questions About Your Privacy?"
-        subtitle="Our team is ready to help with any privacy concerns or data protection inquiries"
-        buttonText="Contact Support"
-        buttonHref="/contact"
-        background="primary"
-      />
     </>
   )
 }

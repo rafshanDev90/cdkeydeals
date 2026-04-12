@@ -29,6 +29,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Product, BadgeColor, Review } from '@/types/product';
 import { useCart } from '@/context/CartContext';
 import { useWishlist, productToWishlistItem } from '@/context/WishlistContext';
+import { useCurrency } from '@/context/CurrencyContext';
+import PriceDisplay from '@/components/ui/PriceDisplay';
 
 const badgeColors: Record<BadgeColor, string> = {
   red: 'bg-red-500',
@@ -55,6 +57,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
   const [returnOpen, setReturnOpen] = useState(false);
   const { addToCart, getItemQuantity } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
+  const { formatPriceWithOriginal, convertPrice, selectedCurrency } = useCurrency();
 
   const {
     id,
@@ -83,7 +86,15 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
     specifications = {},
   } = product;
 
-  const currencySymbol = currency === 'BDT' ? '৳' : currency === 'GBP' ? '£' : currency === 'EUR' ? '€' : '$';
+  // Convert to USD base price (assuming current price is in USD for consistency)
+  // If your prices are in different currencies, convert them to USD first
+  const basePriceUSD = price;
+  const baseOriginalPriceUSD = originalPrice;
+
+  // Get formatted prices with discount info
+  const { current: currentPrice, original: originalPriceFormatted, hasDiscount, discountPercentage } = 
+    formatPriceWithOriginal(basePriceUSD, baseOriginalPriceUSD);
+
   const isOutOfStock = stock === 0;
   const isLowStock = stock !== undefined && stock <= 5 && stock > 0;
   const inWishlist = isInWishlist(id);
@@ -303,15 +314,15 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
           {/* Price */}
           <div className="flex items-baseline gap-3 flex-wrap">
             <span className="text-3xl lg:text-4xl font-bold text-gray-900">
-              {currencySymbol}{price.toFixed(2)}
+              {currentPrice}
             </span>
-            {originalPrice && originalPrice > price && (
+            {hasDiscount && originalPriceFormatted && (
               <>
                 <span className="text-xl text-gray-400 line-through">
-                  {currencySymbol}{originalPrice.toFixed(2)}
+                  {originalPriceFormatted}
                 </span>
                 <span className="text-sm font-bold text-red-500 bg-red-50 px-2 py-1 rounded">
-                  Save {currencySymbol}{(originalPrice - price).toFixed(2)}
+                  Save {discountPercentage}%
                 </span>
               </>
             )}
@@ -394,7 +405,12 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
           <div className="flex items-center justify-between p-4 bg-blue-50 rounded-xl">
             <span className="font-medium text-gray-700">Total Price:</span>
             <span className="text-2xl font-bold text-gray-900">
-              {currencySymbol}{(price * quantity).toFixed(2)}
+              {new Intl.NumberFormat(selectedCurrency.locale, {
+                style: 'currency',
+                currency: selectedCurrency.code,
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(convertPrice(basePriceUSD * quantity))}
             </span>
           </div>
 

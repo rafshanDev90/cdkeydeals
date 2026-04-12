@@ -219,10 +219,6 @@ const defaultBanners: PromoBannerData[] = [
   },
 ];
 
-// =====================================================
-// MAIN PROMO BANNER COMPONENT
-// =====================================================
-
 export default function PromoBanner({ banners = defaultBanners, className = "" }: PromoBannerProps) {
   return (
     <section className={`py-12 bg-white dark:bg-[#1E1E1E] ${className}`}>

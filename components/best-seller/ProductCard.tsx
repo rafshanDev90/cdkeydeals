@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart, Eye, Star, Package } from "lucide-react";
+import PriceDisplay from "@/components/ui/PriceDisplay";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export interface Product {
   id: number;
@@ -53,12 +55,22 @@ const categoryColors = {
 export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const { formatPriceWithOriginal } = useCurrency();
 
-  const currencySymbol = product.currency === "GBP" ? "£" : product.currency === "EUR" ? "€" : "$";
-  const hasDiscount = product.originalPrice && product.originalPrice > product.price;
-  const discountPercentage = hasDiscount ? Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100) : 0;
   const badgeColorClass = product.badgeColor ? badgeColors[product.badgeColor as keyof typeof badgeColors] : "bg-orange-500";
   const categoryColorClass = categoryColors[product.category as keyof typeof categoryColors] || "bg-gray-100 text-gray-700 border-gray-200";
+
+  // Note: Prices in products.json are in various currencies (USD, GBP, EUR)
+  // For demonstration, we're treating them as USD base prices
+  // In production, you should store all base prices in USD
+  const basePriceUSD = product.price;
+  const baseOriginalPriceUSD = product.originalPrice;
+  
+  // Get discount info for the top badge
+  const { hasDiscount, discountPercentage } = formatPriceWithOriginal(
+    basePriceUSD,
+    baseOriginalPriceUSD
+  );
 
   return (
     <div
@@ -169,18 +181,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Price Section */}
-        <div className="flex items-baseline gap-2 mb-4">
-          {hasDiscount && (
-            <span className="text-muted-foreground dark:text-gray-500 line-through text-sm">
-              {currencySymbol}{product.originalPrice!.toFixed(2)}
-            </span>
-          )}
-          <div className="flex items-baseline gap-1">
-            <span className="text-xl font-bold text-foreground">
-              {currencySymbol}{product.price.toFixed(2)}
-            </span>
-          </div>
-        </div>
+        <PriceDisplay
+          price={basePriceUSD}
+          originalPrice={baseOriginalPriceUSD}
+          priceClassName="text-xl font-bold text-foreground"
+          originalPriceClassName="text-muted-foreground dark:text-gray-500 line-through text-sm"
+          discountBadgeClassName="bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-full shadow-lg"
+        />
 
         {/* Stock Status */}
         <div className="flex items-center gap-2 mb-4">

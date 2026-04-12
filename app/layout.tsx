@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import { AuthProvider } from '@/context/AuthContext'
 import { CartProvider } from '@/context/CartContext'
 import { WishlistProvider } from '@/context/WishlistContext'
+import { CurrencyProvider } from '@/context/CurrencyContext'
 import CartDrawer from '@/components/cart/CartDrawer'
 import { Toaster } from 'sonner'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -46,20 +47,22 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
-            <WishlistProvider>
-              <CartProvider>
-                <div className="min-h-screen flex flex-col">
-                  <Header />
-                  <main className="flex-1">
-                    {children}
-                  </main>
-                  <Footer />
-                </div>
-                <CartDrawer />
-                <Toaster position="top-right" richColors />
-                <Analytics />
-              </CartProvider>
-            </WishlistProvider>
+            <CurrencyProvider>
+              <WishlistProvider>
+                <CartProvider>
+                  <div className="min-h-screen flex flex-col">
+                    <Header />
+                    <main className="flex-1">
+                      {children}
+                    </main>
+                    <Footer />
+                  </div>
+                  <CartDrawer />
+                  <Toaster position="top-right" richColors />
+                  <Analytics />
+                </CartProvider>
+              </WishlistProvider>
+            </CurrencyProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>
