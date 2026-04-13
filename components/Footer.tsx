@@ -82,18 +82,18 @@ export default function Footer() {
                 <span className="text-2xl font-bold tracking-tight">cdkey<span className="font-medium">Deals</span></span>
               </div>
             </div>
-            <p className="text-[#666666] dark:text-gray-400 text-[14px] leading-relaxed max-w-xs">
+            <p className="text-[#666666] dark:text-gray-400 text-sm leading-relaxed max-w-xs">
               Save more on games and software with CDKeyDeals. Buy authentic digital keys and gift cards with instant email delivery and secure checkout.
             </p>
           </div>
 
           {/* 3. By Platform */}
           <div>
-            <h4 className="font-bold text-[#1a1a1a] dark:text-gray-100 mb-5 text-[15px]">By Platform</h4>
+            <h4 className="font-bold text-[#1a1a1a] dark:text-gray-100 mb-5 text-sm">By Platform</h4>
             <ul className="space-y-3">
               {footerLinks.byPlatform.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-[#666666] dark:text-gray-400 text-[14px] hover:text-[#6343D8] dark:hover:text-indigo-400 transition-colors">
+                  <Link href={link.href} className="text-[#666666] dark:text-gray-400 text-sm hover:text-[#6343D8] dark:hover:text-indigo-400 transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -103,11 +103,11 @@ export default function Footer() {
 
           {/* 4. Categories */}
           <div>
-            <h4 className="font-bold text-[#1a1a1a] dark:text-gray-100 mb-5 text-[15px]">Categories</h4>
+            <h4 className="font-bold text-[#1a1a1a] dark:text-gray-100 mb-5 text-sm">Categories</h4>
             <ul className="space-y-3">
               {footerLinks.categories.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-[#666666] dark:text-gray-400 text-[14px] hover:text-[#6343D8] dark:hover:text-indigo-400 transition-colors">
+                  <Link href={link.href} className="text-[#666666] dark:text-gray-400 text-sm hover:text-[#6343D8] dark:hover:text-indigo-400 transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -117,11 +117,11 @@ export default function Footer() {
 
           {/* 5. Get to Know Us */}
           <div>
-            <h4 className="font-bold text-[#1a1a1a] dark:text-gray-100 mb-5 text-[15px]">Get to Know Us</h4>
+            <h4 className="font-bold text-[#1a1a1a] dark:text-gray-100 mb-5 text-sm">Get to Know Us</h4>
             <ul className="space-y-3">
               {footerLinks.getToKnowUs.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-[#666666] dark:text-gray-400 text-[14px] hover:text-[#6343D8] dark:hover:text-indigo-400 transition-colors">
+                  <Link href={link.href} className="text-[#666666] dark:text-gray-400 text-sm hover:text-[#6343D8] dark:hover:text-indigo-400 transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -131,11 +131,11 @@ export default function Footer() {
 
           {/* 6. Let Us Help You */}
           <div>
-            <h4 className="font-bold text-[#1a1a1a] dark:text-gray-100 mb-5 text-[15px]">Let Us Help You</h4>
+            <h4 className="font-bold text-[#1a1a1a] dark:text-gray-100 mb-5 text-sm">Let Us Help You</h4>
             <ul className="space-y-3">
               {footerLinks.letUsHelpYou.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-[#666666] dark:text-gray-400 text-[14px] hover:text-[#6343D8] dark:hover:text-indigo-400 transition-colors">
+                  <Link href={link.href} className="text-[#666666] dark:text-gray-400 text-sm hover:text-[#6343D8] dark:hover:text-indigo-400 transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -146,7 +146,7 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col md:flex-row items-center gap-4 text-[#666666] dark:text-gray-400 text-[13px]">
+          <div className="flex flex-col md:flex-row items-center gap-4 text-[#666666] dark:text-gray-400 text-xs">
             <span>© 2026 cdkeydeals.com. All Rights Reserved.</span>
             <div className="flex items-center gap-1 font-medium text-black dark:text-gray-200">
                <span>Bangladesh (BDT ৳)</span>
@@ -154,7 +154,7 @@ export default function Footer() {
             </div>
           </div>
           
-          <div className="flex gap-6 text-[#666666] dark:text-gray-400 text-[13px]">
+          <div className="flex gap-6 text-[#666666] dark:text-gray-400 text-xs">
             <Link href="/privacy" className="hover:underline hover:text-indigo-600 dark:hover:text-indigo-400">Privacy Policy</Link>
             <Link href="/refund-policy" className="hover:underline hover:text-indigo-600 dark:hover:text-indigo-400">Refund Policy</Link>
             <Link href="/terms" className="hover:underline hover:text-indigo-600 dark:hover:text-indigo-400">Terms Of Service</Link>
@@ -168,7 +168,7 @@ export default function Footer() {
       <div className="fixed bottom-6 right-6 z-50">
         <button className="bg-[#6343D8] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform relative">
           <MessageCircle size={28} />
-          <span className="absolute -top-1 -right-1 bg-red-600 text-[10px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-white dark:border-[#1E1E1E]">1</span>
+          <span className="absolute -top-1 -right-1 bg-red-600 text-[9px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-white dark:border-[#1E1E1E]">1</span>
         </button>
       </div>
     </footer>

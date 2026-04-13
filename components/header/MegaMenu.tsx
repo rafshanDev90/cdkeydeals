@@ -71,7 +71,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
               <button
                 key={category.id}
                 onMouseEnter={() => setActiveCategory(category.id)}
-                className={`w-full flex items-center justify-between px-5 py-3.5 rounded-lg text-[15px] font-semibold transition-all duration-200 ${
+                className={`w-full flex items-center justify-between px-5 py-3.5 rounded-lg text-base font-semibold transition-all duration-200 ${
                   activeCategory === category.id
                     ? "bg-[#1A1A1A] text-white shadow-inner"
                     : "text-gray-400 hover:text-gray-200 hover:bg-[#1A1A1A]/50"
@@ -105,11 +105,11 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                   onClose();
                 }}
                 /* Link Styling:
-                   - Slightly larger text (text-[16px])
+                   - Slightly larger text (text-base)
                    - Medium weight
                    - No background hover (matches image) or very subtle hover
                 */
-                className="block px-4 py-2 text-[16px] font-medium text-[#E0E0E0] hover:text-white transition-colors rounded-md"
+                className="block px-4 py-2 text-base font-medium text-[#E0E0E0] hover:text-white transition-colors rounded-md"
               >
                 {item}
               </a>

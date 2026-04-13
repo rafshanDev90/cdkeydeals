@@ -162,7 +162,7 @@ function HeaderContent() {
                 className="flex items-center bg-[#FFD700] px-3 py-1.5 rounded-md cursor-pointer hover:bg-[#f2cc00] transition-colors group"
               >
                 <Flame className="w-4 h-4 mr-1.5 fill-black" />
-                <span className="text-[14px] font-bold text-black tracking-tight">
+                <span className="text-sm font-bold text-black tracking-tight">
                   Sale
                 </span>
               </Link>
@@ -234,7 +234,7 @@ function HeaderContent() {
               {mounted && (
                 <button
                   onClick={handleDarkModeToggle}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-[14px] font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
                   aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
                 >
                   <span>
