@@ -30,6 +30,7 @@ import { Product, BadgeColor, Review } from '@/types/product';
 import { useCart } from '@/context/CartContext';
 import { useWishlist, productToWishlistItem } from '@/context/WishlistContext';
 import { useCurrency } from '@/context/CurrencyContext';
+import { useTheme } from '@/hooks/use-theme';
 import PriceDisplay from '@/components/ui/PriceDisplay';
 
 const badgeColors: Record<BadgeColor, string> = {
@@ -142,7 +143,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
         );
       } else {
         stars.push(
-          <Star key={i} className="w-4 h-4 text-gray-300" />
+          <Star key={i} className="w-4 h-4 text-muted-foreground/30" />
         );
       }
     }
@@ -161,30 +162,30 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumb */}
-      <nav className="flex items-center text-sm text-gray-500 mb-6">
-        <Link href="/" className="hover:text-gray-900 transition-colors">
+      <nav className="flex items-center text-sm text-muted-foreground mb-6">
+        <Link href="/" className="hover:text-foreground transition-colors">
           Home
         </Link>
         <ChevronRight className="w-4 h-4 mx-2" />
-        <Link href="/collections" className="hover:text-gray-900 transition-colors">
+        <Link href="/collections" className="hover:text-foreground transition-colors">
           Products
         </Link>
         {category && (
           <>
             <ChevronRight className="w-4 h-4 mx-2" />
-            <Link href={`/collections?category=${encodeURIComponent(category)}`} className="hover:text-gray-900 transition-colors">
+            <Link href={`/collections?category=${encodeURIComponent(category)}`} className="hover:text-foreground transition-colors">
               {category}
             </Link>
           </>
         )}
         <ChevronRight className="w-4 h-4 mx-2" />
-        <span className="text-gray-900 font-medium truncate max-w-[200px]">{title}</span>
+        <span className="text-foreground font-medium truncate max-w-[200px]">{title}</span>
       </nav>
 
       {/* Back Button (Mobile) */}
       <Link 
         href="/collections" 
-        className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 mb-4 lg:hidden"
+        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-4 lg:hidden"
       >
         <ArrowLeft className="w-4 h-4 mr-1" />
         Back to Products
@@ -193,7 +194,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Image Section */}
         <div className="space-y-4">
-          <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 flex items-center justify-center min-h-[400px] lg:min-h-[500px]">
+          <div className="relative bg-gradient-to-br from-muted to-muted/80 rounded-2xl p-8 flex items-center justify-center min-h-[400px] lg:min-h-[500px]">
             {/* Badges */}
             <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
               {badge && (
@@ -224,13 +225,13 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-md ${
                   inWishlist
                     ? 'bg-red-500 text-white'
-                    : 'bg-white hover:bg-gray-100 text-gray-700'
+                    : 'bg-background hover:bg-muted text-foreground'
                 }`}
               >
                 <Heart className={`w-5 h-5 ${inWishlist ? 'fill-current' : ''}`} />
               </button>
               <button
-                className="w-10 h-10 rounded-full bg-white hover:bg-gray-100 text-gray-700 flex items-center justify-center transition-all duration-300 shadow-md"
+                className="w-10 h-10 rounded-full bg-background hover:bg-muted text-foreground flex items-center justify-center transition-all duration-300 shadow-md"
                 onClick={() => navigator.share?.({ title, url: window.location.href })}
               >
                 <Share2 className="w-5 h-5" />
@@ -246,8 +247,8 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
                 onError={() => setImageError(true)}
               />
             ) : (
-              <div className="w-48 h-60 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg shadow-xl flex items-center justify-center">
-                <Package className="w-20 h-24 text-gray-400" />
+              <div className="w-48 h-60 bg-gradient-to-br from-muted to-muted/60 rounded-lg shadow-xl flex items-center justify-center">
+                <Package className="w-20 h-24 text-muted-foreground" />
               </div>
             )}
           </div>
@@ -258,7 +259,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
               {[image, ...images].filter(Boolean).slice(0, 4).map((img, index) => (
                 <button
                   key={index}
-                  className="flex-shrink-0 w-20 h-20 bg-gray-100 rounded-lg overflow-hidden border-2 border-transparent hover:border-blue-500 transition-colors"
+                  className="flex-shrink-0 w-20 h-20 bg-muted rounded-lg overflow-hidden border-2 border-transparent hover:border-primary transition-colors"
                 >
                   <img src={img} alt={`${title} - ${index + 1}`} className="w-full h-full object-cover" />
                 </button>
@@ -284,7 +285,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 leading-tight">
+          <h1 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight">
             {title}
           </h1>
 
@@ -295,16 +296,16 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
                 <div className="flex items-center">
                   {renderRating(rating)}
                 </div>
-                <span className="font-medium text-gray-700">{rating.toFixed(1)}</span>
+                <span className="font-medium text-foreground">{rating.toFixed(1)}</span>
                 {reviewCount && (
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-muted-foreground">
                     ({reviewCount.toLocaleString()} reviews)
                   </span>
                 )}
               </div>
             )}
             {soldCount && (
-              <div className="flex items-center gap-1 text-sm text-gray-500">
+              <div className="flex items-center gap-1 text-sm text-muted-foreground">
                 <Zap className="w-4 h-4 text-orange-500" />
                 <span>{soldCount.toLocaleString()} sold</span>
               </div>
@@ -313,15 +314,15 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
 
           {/* Price */}
           <div className="flex items-baseline gap-3 flex-wrap">
-            <span className="text-3xl lg:text-4xl font-bold text-gray-900">
+            <span className="text-3xl lg:text-4xl font-bold text-foreground">
               {currentPrice}
             </span>
             {hasDiscount && originalPriceFormatted && (
               <>
-                <span className="text-xl text-gray-400 line-through">
+                <span className="text-xl text-muted-foreground line-through">
                   {originalPriceFormatted}
                 </span>
-                <span className="text-sm font-bold text-red-500 bg-red-50 px-2 py-1 rounded">
+                <span className="text-sm font-bold text-red-500 bg-red-50 dark:bg-red-950 px-2 py-1 rounded">
                   Save {discountPercentage}%
                 </span>
               </>
@@ -342,36 +343,36 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
             <span
               className={`font-medium ${
                 isOutOfStock
-                  ? 'text-red-600'
+                  ? 'text-red-600 dark:text-red-400'
                   : isLowStock
-                  ? 'text-orange-600'
-                  : 'text-green-600'
+                  ? 'text-orange-600 dark:text-orange-400'
+                  : 'text-green-600 dark:text-green-400'
               }`}
             >
               {stockLabel || (isOutOfStock ? 'Out of Stock' : 'In Stock')}
             </span>
             {!isOutOfStock && stock && stock > 0 && (
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-muted-foreground">
                 ({stock} available)
               </span>
             )}
           </div>
 
           {/* Trust Badges */}
-          <div className="grid grid-cols-2 gap-3 p-4 bg-gray-50 rounded-xl">
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="grid grid-cols-2 gap-3 p-4 bg-muted rounded-xl">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Zap className="w-5 h-5 text-yellow-500" />
               <span>{deliveryTime} Delivery</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <ShieldCheck className="w-5 h-5 text-green-500" />
               <span>Secure Payment</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Award className="w-5 h-5 text-blue-500" />
               <span>Genuine License</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Truck className="w-5 h-5 text-purple-500" />
               <span>Digital Download</span>
             </div>
@@ -379,11 +380,11 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
 
           {/* Quantity Selector */}
           <div className="flex items-center gap-4">
-            <span className="font-medium text-gray-700">Quantity:</span>
-            <div className="flex items-center border border-gray-300 rounded-lg">
+            <span className="font-medium text-foreground">Quantity:</span>
+            <div className="flex items-center border border-border rounded-lg">
               <button
                 onClick={decrementQuantity}
-                className="p-3 hover:bg-gray-100 transition-colors disabled:opacity-50"
+                className="p-3 hover:bg-muted transition-colors disabled:opacity-50"
                 disabled={quantity <= 1}
               >
                 <Minus className="w-4 h-4" />
@@ -393,7 +394,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
               </span>
               <button
                 onClick={incrementQuantity}
-                className="p-3 hover:bg-gray-100 transition-colors disabled:opacity-50"
+                className="p-3 hover:bg-muted transition-colors disabled:opacity-50"
                 disabled={isOutOfStock}
               >
                 <Plus className="w-4 h-4" />
@@ -402,9 +403,9 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
           </div>
 
           {/* Total Price */}
-          <div className="flex items-center justify-between p-4 bg-blue-50 rounded-xl">
-            <span className="font-medium text-gray-700">Total Price:</span>
-            <span className="text-2xl font-bold text-gray-900">
+          <div className="flex items-center justify-between p-4 bg-primary/10 rounded-xl">
+            <span className="font-medium text-foreground">Total Price:</span>
+            <span className="text-2xl font-bold text-foreground">
               {new Intl.NumberFormat(selectedCurrency.locale, {
                 style: 'currency',
                 currency: selectedCurrency.code,
@@ -443,7 +444,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
           </div>
 
           {/* Safe Checkout Badge */}
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <ShieldCheck className="w-4 h-4" />
             <span>256-bit SSL Encrypted Secure Checkout</span>
           </div>
@@ -456,33 +457,33 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
           <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent">
             <TabsTrigger 
               value="description" 
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-gray-900 data-[state=active]:bg-transparent px-6 py-3"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent px-6 py-3"
             >
               Description
             </TabsTrigger>
             <TabsTrigger 
               value="features"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-gray-900 data-[state=active]:bg-transparent px-6 py-3"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent px-6 py-3"
             >
               Features
             </TabsTrigger>
             <TabsTrigger 
               value="specifications"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-gray-900 data-[state=active]:bg-transparent px-6 py-3"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent px-6 py-3"
             >
               Specifications
             </TabsTrigger>
             <TabsTrigger 
               value="reviews"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-gray-900 data-[state=active]:bg-transparent px-6 py-3"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent px-6 py-3"
             >
               Reviews {reviews.length > 0 && `(${reviews.length})`}
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="description" className="mt-6">
-            <div className="prose max-w-none">
-              <p className="text-gray-600 leading-relaxed text-lg">
+            <div className="prose max-w-none prose-gray dark:prose-invert">
+              <p className="text-muted-foreground leading-relaxed text-lg">
                 {description || 'No description available for this product.'}
               </p>
             </div>
@@ -494,12 +495,12 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
                 {features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-600">{feature}</span>
+                    <span className="text-muted-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-500">No features listed for this product.</p>
+              <p className="text-muted-foreground">No features listed for this product.</p>
             )}
           </TabsContent>
 
@@ -507,14 +508,14 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
             {Object.keys(specifications).length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {Object.entries(specifications).map(([key, value]) => (
-                  <div key={key} className="flex justify-between p-3 bg-gray-50 rounded-lg">
-                    <span className="font-medium text-gray-700">{key}</span>
-                    <span className="text-gray-600">{value}</span>
+                  <div key={key} className="flex justify-between p-3 bg-muted rounded-lg">
+                    <span className="font-medium text-foreground">{key}</span>
+                    <span className="text-muted-foreground">{value}</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500">No specifications available for this product.</p>
+              <p className="text-muted-foreground">No specifications available for this product.</p>
             )}
           </TabsContent>
 
@@ -522,37 +523,37 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
             {reviews.length > 0 ? (
               <div className="space-y-4">
                 {reviews.map((review: Review) => (
-                  <div key={review.id} className="p-4 bg-white border rounded-xl">
+                  <div key={review.id} className="p-4 bg-card border rounded-xl">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-medium text-gray-600">
+                        <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center font-medium text-muted-foreground">
                           {review.author.charAt(0)}
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">{review.author}</p>
+                          <p className="font-medium text-foreground">{review.author}</p>
                           <div className="flex items-center gap-1">
                             {renderRating(review.rating)}
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-gray-500" suppressHydrationWarning>{formatDate(review.date)}</p>
+                        <p className="text-sm text-muted-foreground" suppressHydrationWarning>{formatDate(review.date)}</p>
                         {review.verified && (
-                          <Badge variant="secondary" className="text-xs bg-green-50 text-green-600">
+                          <Badge variant="secondary" className="text-xs bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400">
                             <Check className="w-3 h-3 mr-1" />
                             Verified Purchase
                           </Badge>
                         )}
                       </div>
                     </div>
-                    <p className="text-gray-600 mt-2">{review.content}</p>
+                    <p className="text-muted-foreground mt-2">{review.content}</p>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-gray-500 mb-2">No reviews yet</p>
-                <p className="text-sm text-gray-400">Be the first to review this product!</p>
+                <p className="text-muted-foreground mb-2">No reviews yet</p>
+                <p className="text-sm text-muted-foreground/70">Be the first to review this product!</p>
               </div>
             )}
           </TabsContent>
@@ -562,45 +563,45 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
       {/* Accordion Sections - Delivery & Return Policy */}
       <div className="mt-8 space-y-4">
         {/* Delivery Information */}
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           <button
             onClick={() => setDeliveryOpen(!deliveryOpen)}
-            className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors"
+            className="w-full flex items-center justify-between p-5 text-left hover:bg-muted transition-colors"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                 <Truck className="w-5 h-5 text-blue-600" />
               </div>
-              <span className="font-semibold text-gray-900">Delivery Information</span>
+              <span className="font-semibold text-foreground">Delivery Information</span>
             </div>
             <ChevronDown
-              className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
+              className={`w-5 h-5 text-muted-foreground transition-transform duration-200 ${
                 deliveryOpen ? 'rotate-180' : ''
               }`}
             />
           </button>
           {deliveryOpen && (
-            <div className="px-5 pb-5 pt-0 border-t border-gray-100">
+            <div className="px-5 pb-5 pt-0 border-t border-border">
               <div className="pt-4 space-y-3">
                 <div className="flex items-start gap-3">
                   <Zap className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-gray-900">Instant Digital Delivery</p>
-                    <p className="text-sm text-gray-600">Your product key will be delivered instantly via email after payment confirmation.</p>
+                    <p className="font-medium text-foreground">Instant Digital Delivery</p>
+                    <p className="text-sm text-muted-foreground">Your product key will be delivered instantly via email after payment confirmation.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-gray-900">24/7 Automatic Delivery</p>
-                    <p className="text-sm text-gray-600">Our system delivers keys automatically, even on weekends and holidays.</p>
+                    <p className="font-medium text-foreground">24/7 Automatic Delivery</p>
+                    <p className="text-sm text-muted-foreground">Our system delivers keys automatically, even on weekends and holidays.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <ShieldCheck className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-gray-900">Secure Delivery</p>
-                    <p className="text-sm text-gray-600">Keys are delivered securely through your account dashboard and email.</p>
+                    <p className="font-medium text-foreground">Secure Delivery</p>
+                    <p className="text-sm text-muted-foreground">Keys are delivered securely through your account dashboard and email.</p>
                   </div>
                 </div>
               </div>
@@ -609,45 +610,45 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
         </div>
 
         {/* Return Policy */}
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           <button
             onClick={() => setReturnOpen(!returnOpen)}
-            className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors"
+            className="w-full flex items-center justify-between p-5 text-left hover:bg-muted transition-colors"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                 <RotateCcw className="w-5 h-5 text-green-600" />
               </div>
-              <span className="font-semibold text-gray-900">Return & Refund Policy</span>
+              <span className="font-semibold text-foreground">Return & Refund Policy</span>
             </div>
             <ChevronDown
-              className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
+              className={`w-5 h-5 text-muted-foreground transition-transform duration-200 ${
                 returnOpen ? 'rotate-180' : ''
               }`}
             />
           </button>
           {returnOpen && (
-            <div className="px-5 pb-5 pt-0 border-t border-gray-100">
+            <div className="px-5 pb-5 pt-0 border-t border-border">
               <div className="pt-4 space-y-3">
                 <div className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-gray-900">Money-Back Guarantee</p>
-                    <p className="text-sm text-gray-600">Full refund within 30 days if the product key doesn&apos;t work or is invalid.</p>
+                    <p className="font-medium text-foreground">Money-Back Guarantee</p>
+                    <p className="text-sm text-muted-foreground">Full refund within 30 days if the product key doesn&apos;t work or is invalid.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <ShieldCheck className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-gray-900">Genuine Products Only</p>
-                    <p className="text-sm text-gray-600">All our products are 100% genuine and sourced from authorized distributors.</p>
+                    <p className="font-medium text-foreground">Genuine Products Only</p>
+                    <p className="text-sm text-muted-foreground">All our products are 100% genuine and sourced from authorized distributors.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Headphones className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium text-gray-900">24/7 Customer Support</p>
-                    <p className="text-sm text-gray-600">Our support team is available around the clock to assist with any issues.</p>
+                    <p className="font-medium text-foreground">24/7 Customer Support</p>
+                    <p className="text-sm text-muted-foreground">Our support team is available around the clock to assist with any issues.</p>
                   </div>
                 </div>
               </div>
@@ -658,25 +659,25 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
 
       {/* Trust Badges Section */}
       <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-5 text-center border border-yellow-100">
+        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl p-5 text-center border border-yellow-200 dark:border-yellow-800">
           <Zap className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-          <h4 className="font-semibold text-gray-900 text-sm">Instant Delivery</h4>
-          <p className="text-xs text-gray-500 mt-1">Digital keys in minutes</p>
+          <h4 className="font-semibold text-foreground text-sm">Instant Delivery</h4>
+          <p className="text-xs text-muted-foreground mt-1">Digital keys in minutes</p>
         </div>
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-5 text-center border border-green-100">
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-xl p-5 text-center border border-green-200 dark:border-green-800">
           <ShieldCheck className="w-8 h-8 text-green-500 mx-auto mb-2" />
-          <h4 className="font-semibold text-gray-900 text-sm">Secure Payment</h4>
-          <p className="text-xs text-gray-500 mt-1">256-bit SSL encryption</p>
+          <h4 className="font-semibold text-foreground text-sm">Secure Payment</h4>
+          <p className="text-xs text-muted-foreground mt-1">256-bit SSL encryption</p>
         </div>
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-5 text-center border border-blue-100">
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-xl p-5 text-center border border-blue-200 dark:border-blue-800">
           <Headphones className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-          <h4 className="font-semibold text-gray-900 text-sm">24/7 Support</h4>
-          <p className="text-xs text-gray-500 mt-1">Always here to help</p>
+          <h4 className="font-semibold text-foreground text-sm">24/7 Support</h4>
+          <p className="text-xs text-muted-foreground mt-1">Always here to help</p>
         </div>
-        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-5 text-center border border-purple-100">
+        <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-xl p-5 text-center border border-purple-200 dark:border-purple-800">
           <Award className="w-8 h-8 text-purple-500 mx-auto mb-2" />
-          <h4 className="font-semibold text-gray-900 text-sm">Best Price</h4>
-          <p className="text-xs text-gray-500 mt-1">Guaranteed lowest</p>
+          <h4 className="font-semibold text-foreground text-sm">Best Price</h4>
+          <p className="text-xs text-muted-foreground mt-1">Guaranteed lowest</p>
         </div>
       </div>
 
@@ -684,10 +685,10 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
       {relatedProducts.length > 0 && (
         <div className="mt-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900">You May Also Like</h2>
+            <h2 className="text-xl font-bold text-foreground">You May Also Like</h2>
             <Link 
               href="/collections" 
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+              className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1"
             >
               View All
               <ChevronRight className="w-4 h-4" />
@@ -698,10 +699,10 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
               <Link
                 key={relatedProduct.id}
                 href={`/product/${relatedProduct.slug || relatedProduct.id}`}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 transition-all duration-200 cursor-pointer group"
+                className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-border/80 transition-all duration-200 cursor-pointer group"
               >
                 {/* Image */}
-                <div className="relative h-32 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-3 overflow-hidden">
+                <div className="relative h-32 bg-gradient-to-br from-muted to-muted/80 flex items-center justify-center p-3 overflow-hidden">
                   {relatedProduct.image ? (
                     <img
                       src={relatedProduct.image}
@@ -709,7 +710,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
                       className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
                     />
                   ) : (
-                    <Package className="w-10 h-12 text-gray-400" />
+                    <Package className="w-10 h-12 text-muted-foreground" />
                   )}
                   {relatedProduct.badge && (
                     <span
@@ -733,15 +734,15 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
                 </div>
                 {/* Content */}
                 <div className="p-3">
-                  <h4 className="text-xs font-bold text-gray-900 line-clamp-2 min-h-[2rem] group-hover:text-blue-600 transition-colors">
+                  <h4 className="text-xs font-bold text-foreground line-clamp-2 min-h-[2rem] group-hover:text-primary transition-colors">
                     {relatedProduct.title}
                   </h4>
                   <div className="mt-2 flex items-baseline gap-1">
-                    <span className="text-sm font-bold text-gray-900">
+                    <span className="text-sm font-bold text-foreground">
                       ${relatedProduct.price.toFixed(2)}
                     </span>
                     {relatedProduct.originalPrice && relatedProduct.originalPrice > relatedProduct.price && (
-                      <span className="text-xs text-gray-400 line-through">
+                      <span className="text-xs text-muted-foreground line-through">
                         ${relatedProduct.originalPrice.toFixed(2)}
                       </span>
                     )}

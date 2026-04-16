@@ -130,6 +130,7 @@ function TrendingProductCard({
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart, getItemQuantity } = useCart();
   const itemQuantity = getItemQuantity(id);
+
   const isOutOfStock = stockStatus === "out-of-stock";
   const isLowStock = stockStatus === "low-stock";
 
@@ -141,28 +142,24 @@ function TrendingProductCard({
   };
 
   const handleQuickView = () => {
-    if (onQuickView) {
-      onQuickView();
-    }
+    if (onQuickView) onQuickView();
   };
 
   const productSlug = slug || id.toString();
 
   return (
     <div
-      className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden
-        hover:shadow-lg hover:border-gray-300 
-        transition-all duration-300 ease-out
+      className="group relative bg-[#2A2A2A] rounded-xl border border-gray-700 overflow-hidden
+        hover:shadow-lg hover:border-gray-500 transition-all duration-300 ease-out
         hover:-translate-y-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Product Image Container */}
+      {/* Product Image */}
       <Link
         href={`/product/${productSlug}`}
-        className="relative block aspect-[4/5] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100"
+        className="relative block aspect-[4/5] overflow-hidden bg-[#1A1A1A]"
       >
-        {/* Image */}
         {image ? (
           <img
             src={image}
@@ -172,79 +169,56 @@ function TrendingProductCard({
             }`}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400">
-            <svg
-              className="w-16 h-16"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
+          <div className="w-full h-full flex items-center justify-center text-gray-500">
+            No Image
           </div>
         )}
 
-        {/* Badge */}
         {badge && (
-          <span className="absolute top-3 left-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-md">
+          <span className="absolute top-3 left-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
             {badge}
           </span>
         )}
 
-        {/* Quick View Button */}
+        {/* Quick View */}
         <button
           type="button"
           onClick={(e) => {
             e.preventDefault();
             handleQuickView();
           }}
-          className={`absolute top-3 right-3 z-20 w-9 h-9 
-            bg-white/95 backdrop-blur-sm
-            hover:bg-gray-900 hover:text-white 
-            text-gray-700
-            rounded-full flex items-center justify-center 
-            transition-all duration-300 shadow-md ${
-              isHovered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
-            }`}
-          aria-label="Quick view"
+          className={`absolute top-3 right-3 w-9 h-9 bg-[#1E1E1E]/90 text-white rounded-full flex items-center justify-center transition-all ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
         >
           <Eye className="w-4 h-4" />
         </button>
       </Link>
 
-      {/* Product Info */}
-      <div className="p-4 space-y-3">
-        {/* Category */}
-        <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">
-          {category}
-        </span>
+      {/* Info */}
+      <div className="p-4 space-y-3 text-white">
+        <span className="text-xs text-gray-400 uppercase">{category}</span>
 
-        {/* Title */}
         <Link href={`/product/${productSlug}`}>
-          <h3 className="text-sm font-semibold text-gray-900 leading-snug line-clamp-2 min-h-[2.5rem] hover:text-blue-600 transition-colors">
+          <h3 className="text-sm font-semibold hover:text-blue-400 line-clamp-2">
             {title}
           </h3>
         </Link>
 
-        {/* Price */}
         <div className="flex items-baseline gap-2">
-          <span className="text-lg font-bold text-gray-900">
-            {currency} {price.toLocaleString()} BDT
+          <span className="text-lg font-bold text-white">
+            {currency} {price.toLocaleString()}
           </span>
-          {originalPrice && originalPrice > price && (
+
+          {originalPrice && (
             <span className="text-sm text-gray-400 line-through">
               {currency} {originalPrice.toLocaleString()}
             </span>
           )}
         </div>
 
-        {/* Stock Status */}
-        <div className="flex items-center gap-2 pt-1">
+        {/* Stock */}
+        <div className="flex items-center gap-2">
           <span
             className={`w-2 h-2 rounded-full ${
               isOutOfStock
@@ -254,35 +228,23 @@ function TrendingProductCard({
                 : "bg-green-500"
             }`}
           />
-          <span
-            className={`text-xs font-semibold ${
-              isOutOfStock
-                ? "text-red-600"
-                : isLowStock
-                ? "text-orange-600"
-                : "text-green-600"
-            }`}
-          >
-            {stockLabel}
-          </span>
+          <span className="text-xs text-gray-300">{stockLabel}</span>
         </div>
 
-        {/* Action Buttons */}
+        {/* Actions */}
         <div
-          className={`space-y-2 pt-2 transition-all duration-300 ${
+          className={`space-y-2 transition-all duration-300 ${
             isHovered
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-2 pointer-events-none"
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
           }`}
         >
           <Button
-            variant={isOutOfStock ? "secondary" : "default"}
-            size="sm"
-            className="w-full bg-gray-900 hover:bg-gray-800 text-white shadow-md text-xs py-2 px-3 h-9"
+            className="w-full bg-white text-black hover:bg-gray-200"
             disabled={isOutOfStock}
             onClick={handleAddToCart}
           >
-            <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />
+            <ShoppingCart className="w-4 h-4 mr-2" />
             {isOutOfStock
               ? "Out of Stock"
               : itemQuantity > 0
@@ -292,11 +254,10 @@ function TrendingProductCard({
 
           <Button
             variant="outline"
-            size="sm"
-            className="w-full border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-xs py-2 px-3 h-9"
+            className="w-full border-gray-600 text-white hover:bg-gray-800"
             onClick={handleQuickView}
           >
-            <Eye className="w-3.5 h-3.5 mr-1.5" />
+            <Eye className="w-4 h-4 mr-2" />
             Quick View
           </Button>
         </div>
@@ -305,7 +266,7 @@ function TrendingProductCard({
   );
 }
 
-// Main Trending Now Section Component
+// Main Section
 export default function TrendingNowSection({
   title = "Trending Now",
   products: externalProducts,
@@ -319,62 +280,32 @@ export default function TrendingNowSection({
   const handleQuickView = (productId: number) => {
     const product = products.find((p) => p.id === productId);
     if (product) {
-      setSelectedProduct({
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        originalPrice: product.originalPrice,
-        currency: product.currency,
-        image: product.image,
-        category: product.category,
-        badge: product.badge,
-        stockLabel: product.stockLabel,
-      });
+      setSelectedProduct(product as Product);
       setIsQuickViewOpen(true);
     }
   };
 
-  const handleCloseQuickView = () => {
-    setIsQuickViewOpen(false);
-    setTimeout(() => setSelectedProduct(null), 300);
-  };
-
   return (
-    <section className="py-12 bg-white">
+    <section className="py-12 bg-[#1E1E1E] text-white">
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
-            <p className="mt-1 text-sm text-gray-600">
+            <h2 className="text-2xl font-bold">{title}</h2>
+            <p className="text-sm text-gray-400">
               Products that are gaining popularity
             </p>
           </div>
+
           {viewAllLink && (
-            <Link
-              href={viewAllLink}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 transition-colors"
-            >
-              View All
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+            <Link href={viewAllLink} className="text-blue-400">
+              View All →
             </Link>
           )}
         </div>
 
-        {/* Product Grid - 6 on large screens, 3 on tablets, 2 on mobile */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
+        {/* Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {products.map((product) => (
             <TrendingProductCard
               key={product.id}
@@ -384,11 +315,11 @@ export default function TrendingNowSection({
           ))}
         </div>
 
-        {/* Quick View Modal */}
+        {/* Modal */}
         <QuickViewModal
           product={selectedProduct}
           isOpen={isQuickViewOpen}
-          onClose={handleCloseQuickView}
+          onClose={() => setIsQuickViewOpen(false)}
         />
       </div>
     </section>
