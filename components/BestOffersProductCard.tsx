@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart, Eye, Clock, Shield, Star, ChevronRight } from "lucide-react";
 
@@ -15,6 +16,7 @@ interface BestOffersProductCardProps {
   badgeType?: "hot" | "new" | "limited" | "bestseller" | "sale";
   discount?: number;
   image?: string;
+  images?: string[];
   rating?: number;
   platform?: string;
   deliveryTime?: string;
@@ -51,6 +53,7 @@ export default function BestOffersProductCard({
   badgeType = "sale",
   discount,
   image,
+  images,
   rating = 4.5,
   platform = "steam",
   deliveryTime = "Instant",
@@ -59,6 +62,10 @@ export default function BestOffersProductCard({
 }: BestOffersProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
+
+  // Determine which images to use
+  const defaultImage = image || (images && images[0]) || '';
+  const hoverImage = images && images[1] ? images[1] : defaultImage;
 
   const currencySymbol = currency === "GBP" ? "£" : currency === "EUR" ? "€" : "$";
   const currentBadge = badgeConfig[badgeType];
@@ -100,21 +107,39 @@ export default function BestOffersProductCard({
       {/* Product Image */}
       <Link href={`/product/${slug || id.toString()}`} className="block">
         <div className="relative aspect-[4/3] bg-gradient-to-br from-muted/30 to-muted/50 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
-          {/* Image or Placeholder */}
-          {!imageError && image ? (
-            <img
-              src={image}
-              alt={title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="w-20 h-20 bg-muted dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-muted-foreground dark:text-gray-500 text-xs font-medium text-center uppercase">
-                  {platform}
-                </span>
+          {/* Default Image */}
+          <div className="absolute inset-0">
+            {!imageError && defaultImage ? (
+              <Image
+                src={defaultImage}
+                alt={title}
+                fill
+                className={`object-cover transition-all duration-500 ${isHovered ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-muted dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                  <span className="text-muted-foreground dark:text-gray-500 text-xs font-medium text-center uppercase">
+                    {platform}
+                  </span>
+                </div>
               </div>
+            )}
+          </div>
+          
+          {/* Hover Image */}
+          {hoverImage && hoverImage !== defaultImage && (
+            <div className="absolute inset-0">
+              {!imageError ? (
+                <Image
+                  src={hoverImage}
+                  alt={`${title} - hover`}
+                  fill
+                  className={`object-cover transition-all duration-500 ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
+                  onError={() => setImageError(true)}
+                />
+              ) : null}
             </div>
           )}
 

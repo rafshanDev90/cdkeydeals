@@ -76,7 +76,8 @@ function DealCard({
             {deal.title}
           </span>
         </div>
-        {/* Quick View overlay */}
+
+        {/* Quick View */}
         <div className="absolute inset-0 bg-black/0 group-hover/deal:bg-black/10 dark:group-hover/deal:bg-white/5 transition-colors flex items-center justify-center opacity-0 group-hover/deal:opacity-100">
           <button
             onClick={(e) => {
@@ -84,7 +85,6 @@ function DealCard({
               onQuickView();
             }}
             className="w-9 h-9 bg-background/90 dark:bg-zinc-700/90 hover:bg-background rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-105"
-            aria-label="Quick view"
           >
             <Eye className="w-4 h-4 text-foreground" />
           </button>
@@ -170,9 +170,10 @@ export default function DealsSection() {
           </Link>
         </div>
 
-        {/* Carousel */}
-        <div className="relative group">
-          <div className="flex gap-6 overflow-hidden">
+        {/* ✅ NEW BACKGROUND WRAPPER */}
+        <div className="bg-muted/40 dark:bg-zinc-900/60 rounded-2xl p-6 sm:p-8 relative group overflow-hidden">
+
+          <div className="flex gap-6">
             {/* Banner */}
             <div className="hidden lg:block min-w-[350px] relative rounded-2xl overflow-hidden shadow-lg border border-gray-100">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-100 flex flex-col p-8 justify-between">
@@ -198,7 +199,7 @@ export default function DealsSection() {
             {/* Products */}
             <div
               ref={scrollRef}
-              className="flex gap-6 overflow-x-auto pt-10 pb-6 scrollbar-hide snap-x snap-mandatory"
+              className="flex gap-6 overflow-x-auto pt-4 pb-2 scrollbar-hide snap-x snap-mandatory"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {dealsData.map((deal) => (
@@ -212,14 +213,14 @@ export default function DealsSection() {
           {/* Buttons */}
           <button
             onClick={() => scroll("left")}
-            className="absolute left-0 sm:left-[-20px] top-1/2 -translate-y-1/2 bg-white shadow-xl rounded-full p-2 sm:p-3 border border-gray-100 hover:bg-gray-50 z-20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+            className="absolute left-2 sm:left-[-20px] top-1/2 -translate-y-1/2 bg-white shadow-xl rounded-full p-2 sm:p-3 border border-gray-100 hover:bg-gray-50 z-20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" />
           </button>
 
           <button
             onClick={() => scroll("right")}
-            className="absolute right-0 sm:right-[-20px] top-1/2 -translate-y-1/2 bg-white shadow-xl rounded-full p-2 sm:p-3 border border-gray-100 hover:bg-gray-50 z-20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+            className="absolute right-2 sm:right-[-20px] top-1/2 -translate-y-1/2 bg-white shadow-xl rounded-full p-2 sm:p-3 border border-gray-100 hover:bg-gray-50 z-20 transition-all opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" />
           </button>

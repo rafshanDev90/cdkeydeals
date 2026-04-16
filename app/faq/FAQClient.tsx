@@ -16,7 +16,6 @@ interface FAQItem {
 }
 
 const faqData: FAQItem[] = [
-  // General Questions
   {
     id: 'general-1',
     category: 'General',
@@ -39,7 +38,6 @@ const faqData: FAQItem[] = [
     icon: <HelpCircle className="w-5 h-5" />
   },
 
-  // Orders & Products
   {
     id: 'orders-1',
     category: 'Orders & Products',
@@ -69,7 +67,6 @@ const faqData: FAQItem[] = [
     icon: <Shield className="w-5 h-5" />
   },
 
-  // Payment & Billing
   {
     id: 'payment-1',
     category: 'Payment & Billing',
@@ -92,7 +89,6 @@ const faqData: FAQItem[] = [
     icon: <CreditCard className="w-5 h-5" />
   },
 
-  // Refunds & Returns
   {
     id: 'refunds-1',
     category: 'Refunds & Returns',
@@ -115,7 +111,6 @@ const faqData: FAQItem[] = [
     icon: <ShoppingBag className="w-5 h-5" />
   },
 
-  // Technical Support
   {
     id: 'tech-1',
     category: 'Technical Support',
@@ -138,7 +133,6 @@ const faqData: FAQItem[] = [
     icon: <Shield className="w-5 h-5" />
   },
 
-  // Account & Security
   {
     id: 'account-1',
     category: 'Account & Security',
@@ -175,11 +169,8 @@ export default function FAQClient() {
   const toggleItem = (id: string) => {
     setOpenItems(prev => {
       const newSet = new Set(prev)
-      if (newSet.has(id)) {
-        newSet.delete(id)
-      } else {
-        newSet.add(id)
-      }
+      if (newSet.has(id)) newSet.delete(id)
+      else newSet.add(id)
       return newSet
     })
   }
@@ -195,31 +186,35 @@ export default function FAQClient() {
 
       {/* Breadcrumb */}
       <SectionContainer background="white" padding="sm">
-        <nav className="flex items-center space-x-2 text-sm text-gray-600">
-          <Link href="/" className="hover:text-[#00d4aa] transition-colors">
-            Home
-          </Link>
-          <span className="text-gray-400">/</span>
-          <span className="text-gray-900 font-medium">FAQ</span>
-        </nav>
+        <div className="-mt-6">
+          <nav className="flex items-center space-x-2 text-sm text-gray-600">
+            <Link href="/" className="hover:text-[#00d4aa] transition-colors">
+              Home
+            </Link>
+            <span className="text-gray-400">/</span>
+            <span className="text-gray-900 font-medium">FAQ</span>
+          </nav>
+        </div>
       </SectionContainer>
 
       {/* Category Filter */}
       <SectionContainer background="white" maxWidth="2xl">
-        <div className="flex flex-wrap gap-2 justify-center">
-          {categories.map(category => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedCategory === category
-                  ? 'bg-[#00d4aa] text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+        <div className="-mt-6">
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  selectedCategory === category
+                    ? 'bg-[#00d4aa] text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
       </SectionContainer>
 
@@ -227,10 +222,7 @@ export default function FAQClient() {
       <SectionContainer background="white" maxWidth="2xl">
         <div className="space-y-4">
           {filteredFAQs.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
-            >
+            <div key={item.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
               <button
                 onClick={() => toggleItem(item.id)}
                 className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
@@ -248,86 +240,18 @@ export default function FAQClient() {
                     </h3>
                   </div>
                 </div>
-                <div className="flex-shrink-0 ml-4">
-                  {openItems.has(item.id) ? (
-                    <ChevronUp className="w-5 h-5 text-gray-500" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-gray-500" />
-                  )}
-                </div>
+                {openItems.has(item.id) ? <ChevronUp className="w-5 h-5 text-gray-500" /> : <ChevronDown className="w-5 h-5 text-gray-500" />}
               </button>
-              
+
               {openItems.has(item.id) && (
                 <div className="px-6 pb-4 border-t border-gray-100">
                   <div className="pt-4 pl-13">
-                    <p className="text-gray-700 leading-relaxed">
-                      {item.answer}
-                    </p>
+                    <p className="text-gray-700 leading-relaxed">{item.answer}</p>
                   </div>
                 </div>
               )}
             </div>
           ))}
-        </div>
-      </SectionContainer>
-
-      {/* Quick Help Section */}
-      <SectionContainer background="light">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Still Need Help?</h2>
-          <p className="text-gray-700 mb-8 max-w-2xl mx-auto">
-            Can't find the answer you're looking for? Our customer support team is here to help you with any questions or concerns.
-          </p>
-          
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-[#00d4aa] rounded-full flex items-center justify-center mx-auto mb-4">
-                <HelpCircle className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Contact Support</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Get personalized help from our support team
-              </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center text-[#00d4aa] hover:text-[#00b894] font-medium text-sm"
-              >
-                Contact Us →
-              </Link>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-[#00d4aa] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Refund Policy</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Learn about our refund and return policies
-              </p>
-              <Link
-                href="/refund"
-                className="inline-flex items-center text-[#00d4aa] hover:text-[#00b894] font-medium text-sm"
-              >
-                View Policy →
-              </Link>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="w-12 h-12 bg-[#00d4aa] rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShoppingBag className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Browse Products</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Explore our wide selection of digital products
-              </p>
-              <Link
-                href="/collections"
-                className="inline-flex items-center text-[#00d4aa] hover:text-[#00b894] font-medium text-sm"
-              >
-                Shop Now →
-              </Link>
-            </div>
-          </div>
         </div>
       </SectionContainer>
     </>

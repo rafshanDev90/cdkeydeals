@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart, Eye, Gamepad2 } from "lucide-react";
 import PriceDisplay from "@/components/ui/PriceDisplay";
@@ -17,6 +18,7 @@ interface ProductCardProps {
   badgeColor?: string;
   discount?: number;
   image?: string;
+  images?: string[];
   stock?: number;
   stockLabel?: string;
 }
@@ -43,11 +45,18 @@ export default function ProductCard({
   badge,
   badgeColor = "cyan",
   discount,
+  image,
+  images,
   stock,
   stockLabel,
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const { formatPriceWithOriginal } = useCurrency();
+
+  // Determine which images to use
+  const defaultImage = image || (images && images[0]) || '';
+  const hoverImage = images && images[1] ? images[1] : defaultImage;
 
   // Use slug if available, fallback to id for backward compatibility
   const productIdentifier = slug || id.toString();
@@ -100,10 +109,41 @@ export default function ProductCard({
 
       {/* Image */}
       <Link href={`/product/${productIdentifier}`} className="block">
-        <div className="aspect-[3/3] bg-muted/50 dark:bg-gray-700 flex items-center justify-center p-6 relative overflow-hidden">
-          <div className="w-20 h-20 bg-muted dark:bg-gray-600 rounded-lg flex items-center justify-center">
-            <Gamepad2 className="w-10 h-10 text-muted-foreground dark:text-gray-400" />
+        <div className="aspect-[3/3] bg-muted/50 dark:bg-gray-700 relative overflow-hidden">
+          {/* Default Image */}
+          <div className="absolute inset-0">
+            {!imageError && defaultImage ? (
+              <Image
+                src={defaultImage}
+                alt={title}
+                fill
+                className={`object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-muted dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                  <Gamepad2 className="w-10 h-10 text-muted-foreground dark:text-gray-400" />
+                </div>
+              </div>
+            )}
           </div>
+          
+          {/* Hover Image */}
+          {hoverImage && hoverImage !== defaultImage && (
+            <div className="absolute inset-0">
+              {!imageError ? (
+                <Image
+                  src={hoverImage}
+                  alt={`${title} - hover`}
+                  fill
+                  className={`object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+                  onError={() => setImageError(true)}
+                />
+              ) : null}
+            </div>
+          )}
+          
           {/* Hover Overlay */}
           <div
             className={`absolute inset-0 bg-[#00d4aa]/5 transition-opacity duration-300 ${

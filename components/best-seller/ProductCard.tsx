@@ -43,6 +43,10 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
   const { formatPriceWithOriginal } = useCurrency();
 
+  // Determine which images to use
+  const defaultImage = product.image || (product.images && product.images[0]) || '';
+  const hoverImage = product.images && product.images[1] ? product.images[1] : defaultImage;
+
   const badgeColorClass = product.badgeColor ? badgeColors[product.badgeColor as keyof typeof badgeColors] : "bg-orange-500";
   const categoryColorClass = categoryColors[product.category as keyof typeof categoryColors] || "bg-gray-100 text-gray-700 border-gray-200";
 
@@ -94,20 +98,37 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Product Image */}
       <Link href={`/product/${product.slug || product.id.toString()}`} className="block">
         <div className="relative aspect-[3/3] bg-gradient-to-br from-muted/30 to-muted/50 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
-          {/* Image or Placeholder */}
-          {!imageError && product.image ? (
-            <Image
-              src={product.image}
-              alt={product.title}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                <Package className="w-8 h-8 text-gray-400" />
+          {/* Default Image */}
+          <div className="absolute inset-0">
+            {!imageError && defaultImage ? (
+              <Image
+                src={defaultImage}
+                alt={product.title}
+                fill
+                className={`object-cover transition-all duration-500 ${isHovered ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
+                  <Package className="w-8 h-8 text-gray-400" />
+                </div>
               </div>
+            )}
+          </div>
+          
+          {/* Hover Image */}
+          {hoverImage && hoverImage !== defaultImage && (
+            <div className="absolute inset-0">
+              {!imageError ? (
+                <Image
+                  src={hoverImage}
+                  alt={`${product.title} - hover`}
+                  fill
+                  className={`object-cover transition-all duration-500 ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
+                  onError={() => setImageError(true)}
+                />
+              ) : null}
             </div>
           )}
 

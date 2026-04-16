@@ -36,7 +36,7 @@ const defaultProducts: PromoProduct[] = [
     price: 1700,
     currency: "BDT",
     badge: "Best Seller",
-    image: "/images/office-logo.png", // আপনার ইমেজের পাথ দিন
+    image: "/images/office-logo.png",
     stockLabel: "In Stock",
   },
   {
@@ -68,16 +68,17 @@ function PromoProductCard({ product }: { product: PromoProduct }) {
   const isLimited = product.stockLabel?.includes("Last Items");
 
   return (
-    <Card className="bg-white rounded-2xl overflow-hidden border-none shadow-sm h-full flex flex-col p-4">
+    <Card className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border-none shadow-sm h-full flex flex-col p-4 transition-colors">
+      
       {/* Badge */}
       <div className="mb-2">
-        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tight">
+        <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-tight">
           {product.badge}
         </span>
       </div>
 
       {/* Product Title */}
-      <h3 className="text-[15px] font-bold text-gray-900 leading-tight mb-4 min-h-[40px]">
+      <h3 className="text-[15px] font-bold text-gray-900 dark:text-white leading-tight mb-4 min-h-[40px]">
         {product.title}
       </h3>
 
@@ -92,19 +93,29 @@ function PromoProductCard({ product }: { product: PromoProduct }) {
             className="object-contain"
           />
         ) : (
-          <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center" />
+          <div className="w-full h-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center" />
         )}
       </div>
 
       {/* Pricing & Stock */}
       <div className="mt-auto">
         <div className="flex flex-col gap-0.5">
-          <span className="text-base font-bold text-gray-900">
+          <span className="text-base font-bold text-gray-900 dark:text-white">
             {currencySymbol} {product.price.toLocaleString()}.00 {product.currency}
           </span>
           <div className="flex items-center gap-1.5 mt-1">
-            <div className={`w-1.5 h-1.5 rounded-full ${isLimited ? "bg-red-500" : "bg-green-500"}`} />
-            <span className={`text-[11px] font-semibold ${isLimited ? "text-red-500" : "text-green-600"}`}>
+            <div
+              className={`w-1.5 h-1.5 rounded-full ${
+                isLimited ? "bg-red-500" : "bg-green-500"
+              }`}
+            />
+            <span
+              className={`text-[11px] font-semibold ${
+                isLimited
+                  ? "text-red-500"
+                  : "text-green-600 dark:text-green-400"
+              }`}
+            >
               {product.stockLabel}
             </span>
           </div>
@@ -127,13 +138,18 @@ export default function PromoCarouselSection({ products = defaultProducts }) {
 
   return (
     <section className="w-full max-w-7xl mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[24px] overflow-hidden bg-gradient-to-r from-[#9333ea] via-[#6366f1] to-[#0ea5e9]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[24px] overflow-hidden 
+      bg-gradient-to-r from-[#9333ea] via-[#6366f1] to-[#0ea5e9] 
+      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors">
         
-        {/* Left Side: Promo Content */}
+        {/* Left Side */}
         <div className="lg:col-span-4 p-8 sm:p-12 flex flex-col justify-center relative">
-          {/* Discount Sticker */}
+          
+          {/* Sticker */}
           <div className="absolute top-8 left-8 w-24 h-24 bg-[#facc15] rounded-full flex flex-col items-center justify-center shadow-lg border-4 border-white/20 transform -rotate-12">
-            <span className="text-[11px] font-bold text-gray-800 leading-none">Save Up to</span>
+            <span className="text-[11px] font-bold text-gray-800 leading-none">
+              Save Up to
+            </span>
             <div className="flex items-start">
               <span className="text-3xl font-black text-gray-900">26</span>
               <span className="text-sm font-bold mt-1">%</span>
@@ -144,26 +160,37 @@ export default function PromoCarouselSection({ products = defaultProducts }) {
             <Badge className="bg-[#ef4444] text-white border-none rounded-md px-2 py-0.5 text-[10px] font-bold mb-4">
               Mega Sale
             </Badge>
+
             <h2 className="text-3xl sm:text-4xl font-bold text-white leading-[1.1] mb-4">
               Your Favorite Keys Now at Lower Prices
             </h2>
+
             <p className="text-white/90 text-sm mb-8 max-w-[300px]">
               Save up to 26% on Windows, Office, and game keys — just use code 
               <span className="font-bold"> {COUPON_CODE} </span> at checkout.
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <div className="flex items-center bg-white rounded-lg p-1 w-full max-w-[240px]">
-                <div className="flex-1 px-4 font-mono font-bold text-gray-700 tracking-widest uppercase">
+              
+              {/* Coupon */}
+              <div className="flex items-center bg-white dark:bg-gray-800 rounded-lg p-1 w-full max-w-[240px]">
+                <div className="flex-1 px-4 font-mono font-bold text-gray-700 dark:text-gray-200 tracking-widest uppercase">
                   {COUPON_CODE}
                 </div>
-                <button 
+
+                <button
                   onClick={handleCopy}
-                  className="p-2 hover:bg-gray-100 rounded-md transition-colors"
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
                 >
-                  {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                  {copied ? (
+                    <Check className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-gray-400" />
+                  )}
                 </button>
               </div>
+
+              {/* Button */}
               <Link
                 href="/collections"
                 className="bg-[#facc15] hover:bg-[#eab308] text-gray-900 font-bold px-8 rounded-lg h-[46px] inline-flex items-center justify-center transition-colors"
@@ -174,30 +201,34 @@ export default function PromoCarouselSection({ products = defaultProducts }) {
           </div>
         </div>
 
-        {/* Right Side: Carousel */}
+        {/* Right Side */}
         <div className="lg:col-span-8 p-8 flex items-center relative">
           <Carousel setApi={setApi} className="w-full" opts={{ align: "start" }}>
             <CarouselContent className="-ml-4">
               {products.map((product) => (
-                <CarouselItem key={product.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                <CarouselItem
+                  key={product.id}
+                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
+                >
                   <PromoProductCard product={product} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            
-            {/* Custom Navigation */}
+
+            {/* Navigation */}
             <div className="flex justify-between absolute top-1/2 -left-4 -right-4 -translate-y-1/2 pointer-events-none">
-              <button 
+              <button
                 onClick={() => api?.scrollPrev()}
-                className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-md pointer-events-auto hover:bg-white"
+                className="w-8 h-8 bg-white/90 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-md pointer-events-auto hover:bg-white dark:hover:bg-gray-700"
               >
-                <ChevronLeft className="w-5 h-5 text-purple-600" />
+                <ChevronLeft className="w-5 h-5 text-purple-600 dark:text-white" />
               </button>
-              <button 
+
+              <button
                 onClick={() => api?.scrollNext()}
-                className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-md pointer-events-auto hover:bg-white"
+                className="w-8 h-8 bg-white/90 dark:bg-gray-800 rounded-full flex items-center justify-center shadow-md pointer-events-auto hover:bg-white dark:hover:bg-gray-700"
               >
-                <ChevronRight className="w-5 h-5 text-purple-600" />
+                <ChevronRight className="w-5 h-5 text-purple-600 dark:text-white" />
               </button>
             </div>
           </Carousel>

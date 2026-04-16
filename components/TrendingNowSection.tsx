@@ -149,8 +149,8 @@ function TrendingProductCard({
 
   return (
     <div
-      className="group relative bg-[#2A2A2A] rounded-xl border border-gray-700 overflow-hidden
-        hover:shadow-lg hover:border-gray-500 transition-all duration-300 ease-out
+      className="group relative bg-white dark:bg-[#2A2A2A] rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden
+        hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-300 ease-out
         hover:-translate-y-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -158,7 +158,7 @@ function TrendingProductCard({
       {/* Product Image */}
       <Link
         href={`/product/${productSlug}`}
-        className="relative block aspect-[4/5] overflow-hidden bg-[#1A1A1A]"
+        className="relative block aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-[#1A1A1A]"
       >
         {image ? (
           <img
@@ -187,7 +187,7 @@ function TrendingProductCard({
             e.preventDefault();
             handleQuickView();
           }}
-          className={`absolute top-3 right-3 w-9 h-9 bg-[#1E1E1E]/90 text-white rounded-full flex items-center justify-center transition-all ${
+          className={`absolute top-3 right-3 w-9 h-9 bg-black/80 dark:bg-[#1E1E1E]/90 text-white rounded-full flex items-center justify-center transition-all ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -196,17 +196,19 @@ function TrendingProductCard({
       </Link>
 
       {/* Info */}
-      <div className="p-4 space-y-3 text-white">
-        <span className="text-xs text-gray-400 uppercase">{category}</span>
+      <div className="p-4 space-y-3 text-black dark:text-white">
+        <span className="text-xs text-gray-500 dark:text-gray-400 uppercase">
+          {category}
+        </span>
 
         <Link href={`/product/${productSlug}`}>
-          <h3 className="text-sm font-semibold hover:text-blue-400 line-clamp-2">
+          <h3 className="text-sm font-semibold hover:text-blue-500 dark:hover:text-blue-400 line-clamp-2">
             {title}
           </h3>
         </Link>
 
         <div className="flex items-baseline gap-2">
-          <span className="text-lg font-bold text-white">
+          <span className="text-lg font-bold">
             {currency} {price.toLocaleString()}
           </span>
 
@@ -228,7 +230,9 @@ function TrendingProductCard({
                 : "bg-green-500"
             }`}
           />
-          <span className="text-xs text-gray-300">{stockLabel}</span>
+          <span className="text-xs text-gray-600 dark:text-gray-300">
+            {stockLabel}
+          </span>
         </div>
 
         {/* Actions */}
@@ -240,7 +244,7 @@ function TrendingProductCard({
           }`}
         >
           <Button
-            className="w-full bg-white text-black hover:bg-gray-200"
+            className="w-full bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
             disabled={isOutOfStock}
             onClick={handleAddToCart}
           >
@@ -254,7 +258,7 @@ function TrendingProductCard({
 
           <Button
             variant="outline"
-            className="w-full border-gray-600 text-white hover:bg-gray-800"
+            className="w-full border-gray-300 dark:border-gray-600 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
             onClick={handleQuickView}
           >
             <Eye className="w-4 h-4 mr-2" />
@@ -286,19 +290,20 @@ export default function TrendingNowSection({
   };
 
   return (
-    <section className="py-12 bg-[#1E1E1E] text-white">
+    <section className="py-12 bg-white dark:bg-[#1E1E1E] text-black dark:text-white">
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-2xl font-bold">{title}</h2>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               Products that are gaining popularity
             </p>
           </div>
 
           {viewAllLink && (
-            <Link href={viewAllLink} className="text-blue-400">
+            <Link href={viewAllLink} className="text-blue-500 dark:text-blue-400">
               View All →
             </Link>
           )}
