@@ -96,22 +96,22 @@ const newProducts = [
 ];
 
 const brands = [
-  { id: 1, name: "Microsoft", slug: "microsoft" },
-  { id: 2, name: "Steam", slug: "steam" },
-  { id: 3, name: "Xbox", slug: "xbox" },
-  { id: 4, name: "PlayStation", slug: "playstation" },
-  { id: 5, name: "Nintendo", slug: "nintendo" },
-  { id: 6, name: "EA Sports", slug: "ea-sports" },
-  { id: 7, name: "Adobe", slug: "adobe" },
-  { id: 8, name: "Epic Games", slug: "epic-games" },
-  { id: 9, name: "Ubisoft", slug: "ubisoft" },
-  { id: 10, name: "Apple", slug: "apple" },
+  { id: 1, name: "Microsoft", slug: "microsoft", image: "/images/brands/microsoft.png" },
+  { id: 2, name: "Steam", slug: "steam", image: "/images/brands/steam.png" },
+  { id: 3, name: "Xbox", slug: "xbox", image: "/images/brands/xbox.png" },
+  { id: 4, name: "PlayStation", slug: "playstation", image: "/images/brands/playstation.png" },
+  { id: 5, name: "Nintendo", slug: "nintendo", image: "/images/brands/nintendo.png" },
+  { id: 6, name: "EA Sports", slug: "ea-sports", image: "/images/brands/ea-sports.png" },
+  { id: 7, name: "Adobe", slug: "adobe", image: "/images/brands/adobe.png" },
+  { id: 8, name: "Epic Games", slug: "epic-games", image: "/images/brands/epic-games.png" },
+  { id: 9, name: "Ubisoft", slug: "ubisoft", image: "/images/brands/ubisoft.png" },
+  { id: 10, name: "Apple", slug: "apple", image: "/images/brands/apple.png" },
 ];
 
 export default async function Home() {
   // Fetch products from WooCommerce API
   const liveProducts = await getProducts({ per_page: 20 });
-  
+
   const displayNewProducts = liveProducts.slice(0, 8);
   const displayTopProducts = liveProducts.slice(0, 8);
 
