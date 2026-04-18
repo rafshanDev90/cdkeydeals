@@ -300,3 +300,112 @@ export async function getBlogPosts(params: {
     return [];
   }
 }
+
+// ─── Shared normalized types ──────────────────────────────────────────────────
+
+export interface WCCategory {
+  id: number;
+  name: string;
+  slug: string;
+  count: number;
+  image: string | null;
+  parentId: number;
+}
+
+export interface WCTag {
+  id: number;
+  name: string;
+  slug: string;
+  count: number;
+}
+
+/**
+ * Fetch WooCommerce product tags — used to drive "Shop by Brand" dynamically.
+ * Returns tags that have at least 1 product attached.
+ */
+export async function getProductTags(params: {
+  per_page?: number;
+  orderby?: 'name' | 'count' | 'id';
+} = {}): Promise<WCTag[]> {
+  try {
+    const qs = new URLSearchParams();
+    qs.append('per_page', (params.per_page ?? 100).toString());
+    qs.append('orderby', params.orderby ?? 'count');
+    qs.append('order', 'desc');
+    qs.append('hide_empty', 'true'); // only tags with products
+
+    const data = await wcFetch<any[]>(`products/tags?${qs.toString()}`, {
+      next: { revalidate: 600 }, // 10 min cache
+    });
+
+    return data.map((tag: any) => ({
+      id: tag?.id ?? 0,
+      name: tag?.name ?? '',
+      slug: tag?.slug ?? '',
+      count: tag?.count ?? 0,
+    }));
+  } catch (error) {
+    errorHandler.logApiError(error as Error, { action: 'getProductTags' });
+    return [];
+  }
+}
+
+/**
+ * Enhanced getCategories — returns structured WCCategory objects with parentId.
+ * Top-level categories (parentId === 0) drive the navigation menus.
+ */
+export async function getWCCategories(params: {
+  per_page?: number;
+  parent?: number;
+  hide_empty?: boolean;
+} = {}): Promise<WCCategory[]> {
+  try {
+    const qs = new URLSearchParams();
+    qs.append('per_page', (params.per_page ?? 100).toString());
+    qs.append('orderby', 'count');
+    qs.append('order', 'desc');
+    if (params.parent !== undefined) qs.append('parent', params.parent.toString());
+    if (params.hide_empty !== false) qs.append('hide_empty', 'true');
+
+    const data = await wcFetch<any[]>(`products/categories?${qs.toString()}`, {
+      next: { revalidate: 300 }, // 5 min cache — drives all menus
+    });
+
+    return data.map((cat: any) => ({
+      id: cat?.id ?? 0,
+      name: cat?.name ?? 'Unknown',
+      slug: cat?.slug ?? '',
+      count: cat?.count ?? 0,
+      image: cat?.image?.src ?? null,
+      parentId: cat?.parent ?? 0,
+    }));
+  } catch (error) {
+    errorHandler.logApiError(error as Error, { action: 'getWCCategories' });
+    return [];
+  }
+}
+
+/**
+ * Fetch products filtered by a WooCommerce category ID.
+ * Use for dynamic category/collection pages.
+ */
+export async function getProductsByCategory(
+  categoryId: number,
+  params: { per_page?: number; page?: number } = {}
+): Promise<Product[]> {
+  try {
+    const qs = new URLSearchParams();
+    qs.append('category', categoryId.toString());
+    qs.append('per_page', (params.per_page ?? 20).toString());
+    qs.append('page', (params.page ?? 1).toString());
+
+    const data = await wcFetch<any[]>(`products?${qs.toString()}`, {
+      next: { revalidate: 60 },
+    });
+
+    return data.map(mapWooCommerceProduct);
+  } catch (error) {
+    errorHandler.logApiError(error as Error, { categoryId, action: 'getProductsByCategory' });
+    return [];
+  }
+}

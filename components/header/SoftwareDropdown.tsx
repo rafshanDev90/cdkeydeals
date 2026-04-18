@@ -2,40 +2,59 @@
 
 import MegaDropdown, { MegaDropdownColumn } from "./MegaDropdown";
 
-// ================= DATA =================
-const softwareItems = [
-  { name: "Windows Keys", href: "/collections/software" },
-  { name: "Microsoft Office", href: "/collections/software" },
-  { name: "Adobe Software", href: "/collections/software" },
-  { name: "Antivirus", href: "/collections/software" },
-  { name: "VPN Services", href: "/collections/software" },
-  { name: "Project & Visio", href: "/collections/software" },
-  { name: "Utilities", href: "/collections/software" },
-  { name: "SQL Server", href: "/collections/software" }
-];
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-const softwareColumns: MegaDropdownColumn[] = [
-  {
-    title: "Operating Systems",
-    items: softwareItems.slice(0, 2),
-  },
-  {
-    title: "Productivity",
-    items: softwareItems.slice(2, 5),
-  },
-  {
-    title: "More Software",
-    items: softwareItems.slice(5),
-  },
-];
+interface NavItem {
+  name: string;
+  href: string;
+}
 
 interface SoftwareDropdownProps {
   isOpen: boolean;
   onToggle: () => void;
   onClose: () => void;
+  /** Live items from WooCommerce — injected by the parent Header */
+  dynamicItems?: NavItem[];
 }
 
-export default function SoftwareDropdown({ isOpen, onToggle, onClose }: SoftwareDropdownProps) {
+// ─── Static fallback data ─────────────────────────────────────────────────────
+
+const DEFAULT_SOFTWARE: NavItem[] = [
+  { name: "Windows Keys",     href: "/collections/software" },
+  { name: "Microsoft Office", href: "/collections/software" },
+  { name: "Adobe Software",   href: "/collections/software" },
+  { name: "Antivirus",        href: "/collections/software" },
+  { name: "VPN Services",     href: "/collections/software" },
+  { name: "Project & Visio",  href: "/collections/software" },
+  { name: "Utilities",        href: "/collections/software" },
+  { name: "SQL Server",       href: "/collections/software" },
+];
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export default function SoftwareDropdown({
+  isOpen,
+  onToggle,
+  onClose,
+  dynamicItems,
+}: SoftwareDropdownProps) {
+  const items = dynamicItems && dynamicItems.length > 0 ? dynamicItems : DEFAULT_SOFTWARE;
+
+  const columns: MegaDropdownColumn[] = [
+    {
+      title: "Operating Systems",
+      items: items.slice(0, 3),
+    },
+    {
+      title: "Productivity",
+      items: items.slice(3, 6),
+    },
+    {
+      title: "More Software",
+      items: items.slice(6),
+    },
+  ];
+
   return (
     <MegaDropdown
       triggerLabel="Software"
@@ -44,7 +63,7 @@ export default function SoftwareDropdown({ isOpen, onToggle, onClose }: Software
       isOpen={isOpen}
       onToggle={onToggle}
       onClose={onClose}
-      columns={softwareColumns}
+      columns={columns}
       columnHoverColor="text-indigo-600"
     />
   );

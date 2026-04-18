@@ -2,45 +2,66 @@
 
 import MegaDropdown, { MegaDropdownColumn } from "./MegaDropdown";
 
-// ================= DATA =================
-const gamesItems = [
-  { name: "Steam Keys", href: "/collections/games" },
-  { name: "Xbox Keys", href: "/collections/games" },
-  { name: "PlayStation Keys", href: "/collections/games" },
-  { name: "Nintendo Keys", href: "/collections/games" },
-  { name: "Epic Games", href: "/collections/games" },
-  { name: "Uplay Keys", href: "/collections/games" },
-  { name: "Origin Keys", href: "/collections/games" },
-  { name: "Battle.net", href: "/collections/games" }
-];
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-const gamesColumns: MegaDropdownColumn[] = [
-  {
-    title: "Popular Platforms",
-    items: gamesItems.slice(0, 4),
-  },
-  {
-    title: "More Platforms",
-    items: gamesItems.slice(4),
-  },
-  {
-    title: "Game Categories",
-    items: [
-      { name: "Action Games", href: "/collections/games" },
-      { name: "Adventure Games", href: "/collections/games" },
-      { name: "RPG Games", href: "/collections/games" },
-      { name: "Strategy Games", href: "/collections/games" },
-    ],
-  },
-];
+interface NavItem {
+  name: string;
+  href: string;
+}
 
 interface GamesDropdownProps {
   isOpen: boolean;
   onToggle: () => void;
   onClose: () => void;
+  /** Live items from WooCommerce — injected by the parent Header */
+  dynamicItems?: NavItem[];
 }
 
-export default function GamesDropdown({ isOpen, onToggle, onClose }: GamesDropdownProps) {
+// ─── Static fallback data (used if API is unavailable) ────────────────────────
+
+const DEFAULT_PLATFORMS: NavItem[] = [
+  { name: "Steam Keys", href: "/collections/steam-keys" },
+  { name: "Xbox Keys", href: "/collections/xbox" },
+  { name: "PlayStation Keys", href: "/collections/playstation" },
+  { name: "Nintendo Keys", href: "/collections/nintendo" },
+  { name: "Epic Games", href: "/collections/epic-games" },
+  { name: "Uplay Keys", href: "/collections/game-keys" },
+  { name: "Origin Keys", href: "/collections/game-keys" },
+  { name: "Battle.net", href: "/collections/game-keys" },
+];
+
+const GAME_CATEGORIES: NavItem[] = [
+  { name: "Action Games", href: "/collections/games" },
+  { name: "Adventure Games", href: "/collections/games" },
+  { name: "RPG Games", href: "/collections/games" },
+  { name: "Strategy Games", href: "/collections/games" },
+];
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export default function GamesDropdown({
+  isOpen,
+  onToggle,
+  onClose,
+  dynamicItems,
+}: GamesDropdownProps) {
+  const platforms = dynamicItems && dynamicItems.length > 0 ? dynamicItems : DEFAULT_PLATFORMS;
+
+  const columns: MegaDropdownColumn[] = [
+    {
+      title: "Popular Platforms",
+      items: platforms.slice(0, 4),
+    },
+    {
+      title: "More Platforms",
+      items: platforms.slice(4, 8),
+    },
+    {
+      title: "Game Categories",
+      items: GAME_CATEGORIES,
+    },
+  ];
+
   return (
     <MegaDropdown
       triggerLabel="Games"
@@ -49,7 +70,7 @@ export default function GamesDropdown({ isOpen, onToggle, onClose }: GamesDropdo
       isOpen={isOpen}
       onToggle={onToggle}
       onClose={onClose}
-      columns={gamesColumns}
+      columns={columns}
       columnHoverColor="text-purple-600"
     />
   );

@@ -13,107 +13,67 @@ import TrendingNowSection from "@/components/TrendingNowSection";
 import ServicesSection from "@/components/ServicesSection";
 import SupportFaqSection from "@/components/SupportFaqSection";
 import Newsletter from "@/components/Newsletter";
-import { getProducts } from "@/lib/wordpress";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { getProducts, getProductTags } from "@/lib/wordpress";
+import { getHomepageCategoryTiles } from "@/lib/nav-data";
 import ClientOnly from "@/components/ClientOnly";
 
-// Static data for the UI
-const categories = [
-  { id: 1, name: "Steam Keys", icon: "steam", slug: "steam-keys" },
-  { id: 2, name: "Xbox Live Keys", icon: "xbox", slug: "xbox-keys" },
-  { id: 3, name: "Gaming Gift Cards", icon: "gift-card", slug: "gift-cards" },
-  { id: 4, name: "PlayStation Keys", icon: "playstation", slug: "playstation-keys" },
-  { id: 5, name: "UPlay", icon: "uplay", slug: "uplay" },
-  { id: 6, name: "Epic Games", icon: "epic", slug: "epic-games" },
-  { id: 7, name: "Nintendo", icon: "nintendo", slug: "nintendo" },
-];
+// ─── Brand image fallback mapping ──────────────────────────────────────────────
+// Maps WooCommerce tag slugs → images in /public/images/brands/.
+// Drop a matching .png file and it appears automatically — no code change needed.
+const BRAND_IMAGE_MAP: Record<string, string> = {
+  microsoft: "/images/brands/microsoft.png",
+  steam: "/images/brands/steam.png",
+  xbox: "/images/brands/xbox.png",
+  playstation: "/images/brands/playstation.png",
+  nintendo: "/images/brands/nintendo.png",
+  "ea-sports": "/images/brands/ea-sports.png",
+  adobe: "/images/brands/adobe.png",
+  "epic-games": "/images/brands/epic-games.png",
+  ubisoft: "/images/brands/ubisoft.png",
+  apple: "/images/brands/apple.png",
+};
 
-const newProducts = [
-  {
-    id: 11,
-    title: "YouTube Premium 12 Months Subscription",
-    price: 29.99,
-    originalPrice: 40.99,
-    currency: "GBP",
-    discount: 26,
-  },
-  {
-    id: 12,
-    title: "Xbox Game Pass Ultimate - 1 Month Non-Stackable",
-    price: 8.99,
-    originalPrice: 13.99,
-    currency: "GBP",
-    discount: 35,
-  },
-  {
-    id: 13,
-    title: "Microsoft Office 2024 Pro Plus LTSC",
-    price: 34.99,
-    originalPrice: 79.99,
-    currency: "GBP",
-    badge: "Best Seller",
-  },
-  {
-    id: 14,
-    title: "Xbox Game Pass Core (Essential) 3 Months",
-    price: 14.99,
-    originalPrice: 19.99,
-    currency: "GBP",
-    discount: 25,
-  },
-  {
-    id: 15,
-    title: "Spotify Premium 12 Months ACCOUNT",
-    price: 24.99,
-    originalPrice: 26.99,
-    currency: "GBP",
-    discount: 5,
-  },
-  {
-    id: 16,
-    title: "Microsoft Windows 11 Pro 1 pc Key",
-    price: 12.99,
-    originalPrice: 99.99,
-    currency: "GBP",
-    discount: 87,
-  },
-  {
-    id: 17,
-    title: "EA SPORTS FC 26 - 5900 FC Points (Xbox One / Xbox Series X|S)",
-    price: 39.99,
-    originalPrice: 42.99,
-    currency: "GBP",
-    discount: 5,
-    badge: "Xbox Live",
-  },
-  {
-    id: 18,
-    title: "Old School RuneScape 1 Month Membership (PC)",
-    price: 6.99,
-    originalPrice: 10.99,
-    currency: "GBP",
-    badge: "Mega Sale",
-  },
-];
-
-const brands = [
-  { id: 1, name: "Microsoft", slug: "microsoft", image: "/images/brands/microsoft.png" },
-  { id: 2, name: "Steam", slug: "steam", image: "/images/brands/steam.png" },
-  { id: 3, name: "Xbox", slug: "xbox", image: "/images/brands/xbox.png" },
-  { id: 4, name: "PlayStation", slug: "playstation", image: "/images/brands/playstation.png" },
-  { id: 5, name: "Nintendo", slug: "nintendo", image: "/images/brands/nintendo.png" },
-  { id: 6, name: "EA Sports", slug: "ea-sports", image: "/images/brands/ea-sports.png" },
-  { id: 7, name: "Adobe", slug: "adobe", image: "/images/brands/adobe.png" },
-  { id: 8, name: "Epic Games", slug: "epic-games", image: "/images/brands/epic-games.png" },
-  { id: 9, name: "Ubisoft", slug: "ubisoft", image: "/images/brands/ubisoft.png" },
-  { id: 10, name: "Apple", slug: "apple", image: "/images/brands/apple.png" },
+// ─── Category fallback (used when WC API is unavailable) ──────────────────────
+const FALLBACK_CATEGORIES = [
+  { id: 1, name: "Steam Keys", icon: "steam", slug: "steam-keys", href: "/collections/steam-keys", count: 0, image: null },
+  { id: 2, name: "Xbox Live Keys", icon: "xbox", slug: "xbox-keys", href: "/collections/xbox", count: 0, image: null },
+  { id: 3, name: "Gift Cards", icon: "gift-card", slug: "gift-cards", href: "/collections/gift-cards", count: 0, image: null },
+  { id: 4, name: "PlayStation Keys", icon: "playstation", slug: "playstation-keys", href: "/collections/playstation", count: 0, image: null },
+  { id: 5, name: "UPlay", icon: "uplay", slug: "uplay", href: "/collections/game-keys", count: 0, image: null },
+  { id: 6, name: "Epic Games", icon: "epic", slug: "epic-games", href: "/collections/epic-games", count: 0, image: null },
+  { id: 7, name: "Nintendo", icon: "nintendo", slug: "nintendo", href: "/collections/nintendo", count: 0, image: null },
 ];
 
 export default async function Home() {
-  // Fetch products from WooCommerce API
-  const liveProducts = await getProducts({ per_page: 20 });
+  // ── Parallel data fetch for performance ──────────────────────────────────────
+  const [liveProducts, liveCategories, liveTags] = await Promise.all([
+    getProducts({ per_page: 20 }),
+    getHomepageCategoryTiles(8),
+    getProductTags({ per_page: 20 }),
+  ]);
 
+  // ── Derived display data ──────────────────────────────────────────────────────
   const displayNewProducts = liveProducts.slice(0, 8);
   const displayTopProducts = liveProducts.slice(0, 8);
+
+  // Live WC tags → brand items; falls back to the static image map if empty.
+  const brands = liveTags.length > 0
+    ? liveTags.map((tag) => ({
+        id: tag.id,
+        name: tag.name,
+        slug: tag.slug,
+        image: BRAND_IMAGE_MAP[tag.slug] ?? `/images/brands/${tag.slug}.png`,
+      }))
+    : Object.entries(BRAND_IMAGE_MAP).map(([slug, image], idx) => ({
+        id: idx + 1,
+        name: slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+        slug,
+        image,
+      }));
+
+  // Live WC categories → category tiles; falls back to static list if empty.
+  const categories = liveCategories.length > 0 ? liveCategories : FALLBACK_CATEGORIES;
 
   return (
     <ClientOnly
@@ -121,10 +81,10 @@ export default async function Home() {
         <div className="min-h-screen bg-background">
           <div className="max-w-7xl mx-auto bg-background">
             <div className="animate-pulse">
-              <div className="h-64 bg-gray-200 dark:bg-gray-800 rounded-lg mb-8"></div>
+              <div className="h-64 bg-gray-200 dark:bg-gray-800 rounded-lg mb-8" />
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 {[...Array(8)].map((_, i) => (
-                  <div key={i} className="h-32 bg-gray-200 dark:bg-gray-800 rounded-lg"></div>
+                  <div key={i} className="h-32 bg-gray-200 dark:bg-gray-800 rounded-lg" />
                 ))}
               </div>
             </div>
@@ -138,30 +98,40 @@ export default async function Home() {
             {/* Hero Slider */}
             <HeroSlider />
 
-            {/* Shop by Category */}
-            <CategoryTile categories={categories} />
+            {/* Shop by Category — live from WooCommerce */}
+            <ErrorBoundary section="ShopByCategory">
+              <CategoryTile categories={categories} />
+            </ErrorBoundary>
 
-            {/* New Products Section (Horizontal Scroll) */}
-            <NewProductsSection products={displayNewProducts} />
+            {/* New Products Section */}
+            <ErrorBoundary section="NewProductsSection">
+              <NewProductsSection products={displayNewProducts} />
+            </ErrorBoundary>
 
             {/* Top Products Grid */}
-            <TopProducts
-              title="Top Products"
-              products={displayTopProducts}
-              viewAllLink="/best-selling"
-            />
+            <ErrorBoundary section="TopProducts">
+              <TopProducts
+                title="Top Products"
+                products={displayTopProducts}
+                viewAllLink="/best-selling"
+              />
+            </ErrorBoundary>
 
             {/* Promo Banners */}
             <PromoBanner />
 
             {/* Hot Deals Section */}
-            <DealsSection />
+            <ErrorBoundary section="DealsSection">
+              <DealsSection />
+            </ErrorBoundary>
 
             {/* Sale Marquee Banner */}
             <SaleBanner />
 
-            {/* Shop by Brand */}
-            <BrandCarousel brands={brands} />
+            {/* Shop by Brand — live from WooCommerce tags */}
+            <ErrorBoundary section="BrandCarousel">
+              <BrandCarousel brands={brands} />
+            </ErrorBoundary>
 
             {/* Best Offers Section */}
             <BestOffersSection />
@@ -187,7 +157,6 @@ export default async function Home() {
             {/* Newsletter */}
             <Newsletter />
           </main>
-
         </div>
       </div>
     </ClientOnly>
