@@ -13,6 +13,7 @@ interface TrendingNowProps {
   title?: string;
   products: Product[];
   viewAllLink?: string;
+  isPreview?: boolean;
 }
 
 // ─── Individual Card ──────────────────────────────────────────────────────────
@@ -162,11 +163,14 @@ function TrendingCard({ product, onQuickView }: { product: Product; onQuickView:
 
 // ─── Main Section ─────────────────────────────────────────────────────────────
 
-export default function TrendingNowSection({ title = "Trending Now", products, viewAllLink }: TrendingNowProps) {
+export default function TrendingNowSection({ title = "Trending Now", products, viewAllLink, isPreview = false }: TrendingNowProps) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   if (!products || products.length === 0) return null;
+
+  // Limit to 2 rows (12 items) in preview mode (6 columns on large screens)
+  const displayProducts = isPreview ? products.slice(0, 12) : products;
 
   return (
     <section className="py-12 bg-white dark:bg-[#1E1E1E]">
@@ -189,7 +193,7 @@ export default function TrendingNowSection({ title = "Trending Now", products, v
 
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {products.map((product) => (
+          {displayProducts.map((product) => (
             <TrendingCard
               key={product.id}
               product={product}

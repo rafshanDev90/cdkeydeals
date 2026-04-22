@@ -85,6 +85,7 @@ export default function BestDealsDropdown({
       columns={bestDealsColumns}
       promoCards={bestDealsPromoCards}
       columnHoverColor="text-indigo-600"
+      maxWidth="960px"
     />
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import MegaDropdown, { MegaDropdownColumn } from "./MegaDropdown";
+import { GAMES_MENU_ICONS } from "./sharedIcons";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -45,22 +46,13 @@ export default function GamesDropdown({
   onClose,
   dynamicItems,
 }: GamesDropdownProps) {
-  const platforms = dynamicItems && dynamicItems.length > 0 ? dynamicItems : DEFAULT_PLATFORMS;
-
-  const columns: MegaDropdownColumn[] = [
-    {
-      title: "Popular Platforms",
-      items: platforms.slice(0, 4),
-    },
-    {
-      title: "More Platforms",
-      items: platforms.slice(4, 8),
-    },
-    {
-      title: "Game Categories",
-      items: GAME_CATEGORIES,
-    },
-  ];
+  // Use shared icon configuration for consistent icons with Software menu
+  const columns: MegaDropdownColumn[] = GAMES_MENU_ICONS.map((menu) => ({
+    title: menu.title,
+    icon: menu.icon,
+    iconAlt: menu.iconAlt || menu.title,
+    items: menu.items,
+  }));
 
   return (
     <MegaDropdown

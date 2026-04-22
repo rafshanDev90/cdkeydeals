@@ -150,7 +150,8 @@ export default async function Home() {
               <MostPopular
                 title="Most Popular"
                 products={popularProducts}
-                viewAllLink="/categories"
+                viewAllLink="/most-popular"
+                limit={12} // 2 rows: 6 products per row on desktop (lg:grid-cols-6)
               />
             </ErrorBoundary>
 
@@ -160,6 +161,7 @@ export default async function Home() {
                 title="Trending Now"
                 products={topRatedProducts}
                 viewAllLink="/categories"
+                isPreview={true}
               />
             </ErrorBoundary>
 

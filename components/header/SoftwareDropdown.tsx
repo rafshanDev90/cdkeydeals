@@ -1,6 +1,7 @@
 "use client";
 
 import MegaDropdown, { MegaDropdownColumn } from "./MegaDropdown";
+import { SOFTWARE_MENU_ICONS } from "./sharedIcons";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -13,21 +14,20 @@ interface SoftwareDropdownProps {
   isOpen: boolean;
   onToggle: () => void;
   onClose: () => void;
-  /** Live items from WooCommerce — injected by the parent Header */
   dynamicItems?: NavItem[];
 }
 
-// ─── Static fallback data ─────────────────────────────────────────────────────
+// Static fallback data
 
 const DEFAULT_SOFTWARE: NavItem[] = [
-  { name: "Windows Keys",     href: "/collections/software" },
+  { name: "Windows Keys", href: "/collections/software" },
   { name: "Microsoft Office", href: "/collections/software" },
-  { name: "Adobe Software",   href: "/collections/software" },
-  { name: "Antivirus",        href: "/collections/software" },
-  { name: "VPN Services",     href: "/collections/software" },
-  { name: "Project & Visio",  href: "/collections/software" },
-  { name: "Utilities",        href: "/collections/software" },
-  { name: "SQL Server",       href: "/collections/software" },
+  { name: "Adobe Software", href: "/collections/software" },
+  { name: "Antivirus", href: "/collections/software" },
+  { name: "VPN Services", href: "/collections/software" },
+  { name: "Project & Visio", href: "/collections/software" },
+  { name: "Utilities", href: "/collections/software" },
+  { name: "SQL Server", href: "/collections/software" },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -38,22 +38,18 @@ export default function SoftwareDropdown({
   onClose,
   dynamicItems,
 }: SoftwareDropdownProps) {
-  const items = dynamicItems && dynamicItems.length > 0 ? dynamicItems : DEFAULT_SOFTWARE;
+  const items =
+    dynamicItems && dynamicItems.length > 0
+      ? dynamicItems
+      : DEFAULT_SOFTWARE;
 
-  const columns: MegaDropdownColumn[] = [
-    {
-      title: "Operating Systems",
-      items: items.slice(0, 3),
-    },
-    {
-      title: "Productivity",
-      items: items.slice(3, 6),
-    },
-    {
-      title: "More Software",
-      items: items.slice(6),
-    },
-  ];
+  // Use shared icon configuration for consistent icons
+  const columns: MegaDropdownColumn[] = SOFTWARE_MENU_ICONS.map((menu) => ({
+    title: menu.title,
+    icon: menu.icon,
+    iconAlt: menu.iconAlt || menu.title,
+    items: menu.items,
+  }));
 
   return (
     <MegaDropdown

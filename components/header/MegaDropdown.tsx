@@ -1,21 +1,25 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image"; // ✅ added
 
 // ================= TYPES =================
-export interface MegaDropdownColumn {
-  title: string;
-  items: MegaDropdownItem[];
-}
-
-export interface MegaDropdownItem {
+export interface MegaDropdownSubItem {
   name: string;
   href: string;
   badge?: string;
-  hoverColor?: string; // Custom hover color for this item
+  hoverColor?: string;
+}
+
+export interface MegaDropdownColumn {
+  title: string;
+  icon?: string;
+  iconAlt?: string;
+  items: MegaDropdownSubItem[];
+  hoverColor?: string;
 }
 
 export interface MegaDropdownPromoCard {
@@ -30,22 +34,19 @@ export interface MegaDropdownPromoCard {
 }
 
 interface MegaDropdownProps {
-  // Trigger props
   triggerLabel: string;
   triggerHref: string;
-  triggerHoverColor?: string; // Default: indigo-600
-  
-  // Dropdown state
+  triggerHoverColor?: string;
+
   isOpen: boolean;
   onToggle: () => void;
   onClose: () => void;
-  
-  // Content props
+
   columns: MegaDropdownColumn[];
   promoCards?: MegaDropdownPromoCard[];
-  
-  // Styling props
-  columnHoverColor?: string; // Default hover color for columns (e.g., "text-indigo-600")
+
+  columnHoverColor?: string;
+  maxWidth?: string;
 }
 
 export default function MegaDropdown({
@@ -58,9 +59,11 @@ export default function MegaDropdown({
   columns,
   promoCards = [],
   columnHoverColor = "text-indigo-600",
+  maxWidth,
 }: MegaDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [activeColumnIndex, setActiveColumnIndex] = useState<number>(0);
 
   // ================= EVENTS =================
   useEffect(() => {
@@ -87,22 +90,45 @@ export default function MegaDropdown({
     };
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    if (isOpen) {
+      setActiveColumnIndex(0);
+    }
+  }, [isOpen]);
+
   const handleEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    onToggle();
+    if (!isOpen) onToggle();
   };
 
   const handleLeave = () => {
     timeoutRef.current = setTimeout(() => onClose(), 120);
   };
 
-  // Determine if we have promo cards to show
-  const hasPromoCards = promoCards.length > 0;
-  
-  // Calculate grid columns based on content
-  const gridCols = hasPromoCards ? "grid-cols-4" : `grid-cols-${Math.min(columns.length, 4)}`;
+  // ================= COLOR HELPERS =================
+  const resolveHoverClass = (color: string) => {
+    switch (color) {
+      case "text-indigo-600": return "hover:text-indigo-600";
+      case "text-purple-600": return "hover:text-purple-600";
+      case "text-green-600": return "hover:text-green-600";
+      case "text-orange-600": return "hover:text-orange-600";
+      default: return "hover:text-indigo-600";
+    }
+  };
 
-  // ================= UI =================
+  const resolveTriggerHoverClass = (color: string) => {
+    switch (color) {
+      case "text-indigo-600": return "group-hover:text-indigo-600";
+      case "text-purple-600": return "group-hover:text-purple-600";
+      case "text-green-600": return "group-hover:text-green-600";
+      case "text-orange-600": return "group-hover:text-orange-600";
+      default: return "group-hover:text-indigo-600";
+    }
+  };
+
+  const activeColumn = columns[activeColumnIndex];
+  const activeHoverColor = activeColumn?.hoverColor || columnHoverColor;
+
   return (
     <div
       ref={dropdownRef}
@@ -111,19 +137,15 @@ export default function MegaDropdown({
       onMouseLeave={handleLeave}
     >
       {/* Trigger */}
-      <Link
-        href={triggerHref}
-        className="flex items-center gap-1 py-2 group"
-      >
-        <span className={`text-[14.5px] font-semibold ${
-          triggerHoverColor === 'text-indigo-600' ? 'group-hover:text-indigo-600' :
-          triggerHoverColor === 'text-purple-600' ? 'group-hover:text-purple-600' :
-          triggerHoverColor === 'text-green-600' ? 'group-hover:text-green-600' :
-          triggerHoverColor === 'text-orange-600' ? 'group-hover:text-orange-600' :
-          'group-hover:text-indigo-600'
-        }`}>
+      <Link href={triggerHref} className="flex items-center gap-1 py-2 group">
+        <span
+          className={`text-[14.5px] font-semibold ${resolveTriggerHoverClass(
+            triggerHoverColor
+          )}`}
+        >
           {triggerLabel}
         </span>
+
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -131,17 +153,14 @@ export default function MegaDropdown({
             onToggle();
           }}
           className="p-0.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
-          aria-label={`Toggle ${triggerLabel} dropdown`}
         >
           <ChevronDown
-            className={`w-3.5 h-3.5 transition ${
-              isOpen ? "rotate-180" : ""
-            }`}
+            className={`w-3.5 h-3.5 transition ${isOpen ? "rotate-180" : ""}`}
           />
         </button>
       </Link>
 
-      {/* DROPDOWN */}
+      {/* Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -149,70 +168,103 @@ export default function MegaDropdown({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="absolute left-0 right-0 top-full mt-0 w-full bg-white dark:bg-[#121212] 
-            shadow-2xl border-b border-t z-50 overflow-hidden"
+            className={`absolute left-80 top-full w-auto min-w-[720px]${
+              maxWidth ? ` max-w-[${maxWidth}]` : ''
+            }
+            bg-white dark:bg-[#121212] shadow-2xl border-b border-t
+            z-50 overflow-hidden flex rounded-xl`}
           >
-            {/* Container to center content */}
-            <div className={`max-w-7xl mx-auto grid ${gridCols} min-h-[400px]`}>
-              
-              {/* Columns */}
-              {columns.map((column, colIndex) => (
-                <div 
-                  key={column.title} 
-                  className={`p-10 ${colIndex < columns.length - 1 || hasPromoCards ? 'border-r' : ''}`}
+            {/* LEFT SIDE */}
+            <div className="w-[260px] py-4 border-r border-gray-100 dark:border-gray-800">
+              {columns.map((column, index) => (
+                <div
+                  key={column.title}
+                  onMouseEnter={() => setActiveColumnIndex(index)}
+                  className={`flex items-center gap-3 px-5 py-3 cursor-pointer transition ${
+                    activeColumnIndex === index
+                      ? "bg-gray-50 dark:bg-[#1e1e1e]"
+                      : "hover:bg-gray-50 dark:hover:bg-[#1a1a1a]"
+                  }`}
                 >
-                  <h3 className="font-bold text-lg mb-6">{column.title}</h3>
-                  <div className="space-y-3">
-                    {column.items.map((item) => {
-                      const hoverClass = item.hoverColor || columnHoverColor;
-                      return (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className={`block text-[15px] text-gray-600 dark:text-gray-400 transition-colors ${
-                            hoverClass === 'text-indigo-600' ? 'hover:text-indigo-600' :
-                            hoverClass === 'text-purple-600' ? 'hover:text-purple-600' :
-                            hoverClass === 'text-green-600' ? 'hover:text-green-600' :
-                            hoverClass === 'text-orange-600' ? 'hover:text-orange-600' :
-                            'hover:text-indigo-600'
-                          }`}
-                          onClick={onClose}
-                        >
-                          <span>{item.name}</span>
-                          {item.badge && (
-                            <span className="ml-2 text-[10px] font-bold px-2 py-[2px] rounded bg-gray-100 dark:bg-gray-800 text-gray-500">
-                              {item.badge}
-                            </span>
-                          )}
-                        </Link>
-                      );
-                    })}
-                  </div>
+                  {/* ✅ IMAGE FIXED */}
+                  {column.icon ? (
+                    <div className="w-7 h-7 relative flex-shrink-0">
+                      <Image
+                        src={column.icon}
+                        alt={column.iconAlt || column.title}
+                        fill
+                        className="object-contain"
+                        sizes="28px"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-7 h-7 rounded bg-gray-200 dark:bg-gray-700" />
+                  )}
+
+                  <span className="text-[14px] font-medium flex-1">
+                    {column.title}
+                  </span>
+
+                  <ChevronRight className="w-4 h-4 text-gray-400" />
                 </div>
               ))}
+            </div>
 
-              {/* Promo Cards Column */}
-              {hasPromoCards && (
-                <div className="p-8 flex flex-col gap-6 bg-gray-50 dark:bg-[#1a1a1a]">
-                  {promoCards.map((card, index) => (
+            {/* RIGHT SIDE */}
+            <div className="flex-1 flex">
+              <AnimatePresence mode="wait">
+                {activeColumn && (
+                  <motion.div
+                    key={activeColumnIndex}
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -8 }}
+                    className="flex-1 py-5 px-6 min-w-[320px]"
+                  >
+                    <h3 className="font-bold text-sm mb-4 text-gray-400">
+                      {activeColumn.title}
+                    </h3>
+
+                    {activeColumn.items.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={`flex items-center justify-between px-3 py-2 rounded transition
+                        hover:bg-gray-50 dark:hover:bg-[#1a1a1a]
+                        ${resolveHoverClass(
+                          item.hoverColor || activeHoverColor
+                        )}`}
+                      >
+                        <span>{item.name}</span>
+
+                        {item.badge && (
+                          <span className="text-[11px] px-2 py-0.5 bg-indigo-100 text-indigo-600 rounded">
+                            {item.badge}
+                          </span>
+                        )}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* PROMO */}
+              {promoCards.length > 0 && (
+                <div className="w-[240px] p-5 bg-gray-50 dark:bg-[#181818] border-l">
+                  {promoCards.map((card, i) => (
                     <div
-                      key={index}
-                      className={`flex-1 rounded-2xl overflow-hidden ${card.gradient} p-6 flex flex-col justify-center`}
+                      key={i}
+                      className={`rounded-xl p-4 mb-4 ${card.gradient} ${card.textColor || "text-white"}`}
                     >
-                      <p className={`text-sm mb-1 ${card.textColor || 'opacity-80'}`}>
+                      <h4 className="font-semibold text-sm">{card.title}</h4>
+                      <p className="text-xs opacity-80 mb-3">
                         {card.subtitle}
                       </p>
-                      <h4 className={`font-bold text-2xl ${card.textColor || 'text-white'}`}>
-                        {card.title}
-                      </h4>
+
                       <Link
                         href={card.buttonHref}
-                        className={`mt-4 w-fit px-4 py-1.5 text-sm font-bold rounded-lg transition ${
-                          card.buttonTextColor 
-                            ? card.buttonTextColor 
-                            : 'bg-white text-blue-900 hover:bg-opacity-90'
-                        }`}
-                        onClick={onClose}
+                        target={card.isExternal ? "_blank" : "_self"}
+                        className={`text-xs font-medium underline ${card.buttonTextColor || ""}`}
                       >
                         {card.buttonText}
                       </Link>

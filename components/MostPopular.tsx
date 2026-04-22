@@ -14,6 +14,7 @@ interface MostPopularProps {
   title?: string;
   products: Product[];
   viewAllLink?: string;
+  limit?: number; // Optional limit for number of products to display
 }
 
 // ─── Individual Product Card ──────────────────────────────────────────────────
@@ -183,7 +184,7 @@ function PopularCard({ product, onQuickView }: { product: Product; onQuickView: 
 
 // ─── Main Section ─────────────────────────────────────────────────────────────
 
-export default function MostPopular({ title = "Most Popular", products, viewAllLink }: MostPopularProps) {
+export default function MostPopular({ title = "Most Popular", products, viewAllLink, limit }: MostPopularProps) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
@@ -193,6 +194,9 @@ export default function MostPopular({ title = "Most Popular", products, viewAllL
   };
 
   if (!products || products.length === 0) return null;
+
+  // Apply limit if specified (for homepage display)
+  const displayProducts = limit ? products.slice(0, limit) : products;
 
   return (
     <section className="py-12 bg-background">
@@ -212,7 +216,7 @@ export default function MostPopular({ title = "Most Popular", products, viewAllL
 
         {/* Product Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-8">
-          {products.map((product) => (
+          {displayProducts.map((product) => (
             <PopularCard
               key={product.id}
               product={product}
