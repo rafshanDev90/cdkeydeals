@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import Image from "next/image";
 import ShopNowButton from "./ShopNowButton";
 
 // =====================================================
@@ -27,34 +28,35 @@ interface SlideData {
 const defaultSlides: SlideData[] = [
   {
     id: 1,
-    title: "Counter-Strike 2 Prime Status",
-    subtitle:
-      "Upgrade your CS2 experience with Prime Status for exclusive drops and ranked matchmaking.",
+    title: "Call of Duty 2",
+    subtitle: "Experience the intense WWII combat in this classic first-person shooter. Relive historic battles with stunning graphics and immersive gameplay.",
     cta: "Shop Now",
-    productSlug: "counter-strike-2-prime-status-upgrade",
+    productSlug: "call-of-duty-2",
     badge: "Save Up to",
-    discount: "25%",
-    image: "/images/Escape from Tarkov – Steam.jpg",
+    discount: "20%",
+    image: "/images/Call Of Duty 2.jpg",
     buttonVariant: "primary",
   },
   {
     id: 2,
-    title: "Xbox Game Pass Ultimate",
-    subtitle: "Instant delivery - Secure payments - 24/7 support",
+    title: "Escape from Tarkov",
+    subtitle: "Hardcore and realistic online first-person action RPG with MMO features. Survive in the war-torn city of Tarkov.",
     cta: "Shop Now",
-    productSlug: "xbox-game-pass-ultimate-3-months-key",
-    image: "/images/Ready for Play on Xbox Game Pass!.jpg",
+    productSlug: "escape-from-tarkov-steam",
+    badge: "Save Up to",
+    discount: "15%",
+    image: "/images/Escape from Tarkov – Steam.jpg",
     buttonVariant: "primary",
   },
   {
     id: 3,
-    title: "Steam Gift Card $50",
-    subtitle: "Grab discounted Steam credit & activate instantly.",
+    title: "Xbox Game Pass",
+    subtitle: "Ready for Play on Xbox Game Pass! Get instant access to over 100 high-quality games on console, PC, and cloud.",
     cta: "Shop Now",
-    productSlug: "steam-gift-card-50-usd-global-key",
+    productSlug: "xbox-game-pass-ultimate",
     badge: "Save Up to",
-    discount: "30%",
-    image: "/images/Call Of Duty 2.jpg",
+    discount: "25%",
+    image: "/images/Ready for Play on Xbox Game Pass!.jpg",
     buttonVariant: "primary",
   },
 ];
@@ -100,6 +102,7 @@ import { Product } from "@/types/product";
 export default function HeroSlider({ products = [] }: { products?: Product[] }) {
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Map dynamic products if available, otherwise use defaults
   const slides: SlideData[] = products.length > 0 
@@ -116,26 +119,64 @@ export default function HeroSlider({ products = [] }: { products?: Product[] }) 
       }))
     : defaultSlides;
 
+  // Navigation functions with useCallback for optimization
+  const goToPrevious = useCallback(() => {
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+  }, [slides.length]);
+
+  const goToNext = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % slides.length);
+  }, [slides.length]);
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrent(index);
+  }, []);
+
+  // Auto-slide functionality with hover pause
   useEffect(() => {
-    if (!isPlaying) return; // ✅ pause support
+    if (!isPlaying || isHovered) return;
 
     const t = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 5000);
+      goToNext();
+    }, 4000); // 4 seconds as requested
 
     return () => clearInterval(t);
-  }, [isPlaying]);
+  }, [isPlaying, isHovered, goToNext]);
+
+  // Keyboard navigation support
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        goToPrevious();
+      } else if (e.key === 'ArrowRight') {
+        goToNext();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [goToPrevious, goToNext]);
 
   const slide = slides[current];
 
   return (
-    <section className="relative h-[360px] md:h-[420px] overflow-hidden rounded-xl">
+    <section 
+      className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full overflow-visible rounded-xl"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       
-      {/* 🔥 Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-all duration-700"
-        style={{ backgroundImage: `url(${slide.image})` }}
-      />
+      {/* 🔥 Background Image using Next.js Image */}
+      <div className="absolute inset-0">
+        <Image
+          src={slide.image}
+          alt={slide.title}
+          fill
+          className="object-cover transition-all duration-700 pointer-events-none"
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+        />
+      </div>
 
       {/* 🔥 Dark Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
@@ -182,10 +223,11 @@ export default function HeroSlider({ products = [] }: { products?: Product[] }) 
         </div>
       )}
 
-      {/* ⏯️ Play / Pause Button (NEW) */}
+      {/* ⏯️ Play / Pause Button */}
       <button
         onClick={() => setIsPlaying(!isPlaying)}
-        className="absolute bottom-3 right-3 bg-white/20 hover:bg-white/40 p-2 rounded-full"
+        className="absolute bottom-3 right-3 bg-white/20 hover:bg-white/40 p-2 rounded-full transition-colors z-20 pointer-events-auto"
+        aria-label={isPlaying ? "Pause slideshow" : "Play slideshow"}
       >
         {isPlaying ? (
           <Pause className="w-5 h-5 text-white" />
@@ -194,32 +236,33 @@ export default function HeroSlider({ products = [] }: { products?: Product[] }) 
         )}
       </button>
 
-      {/* ⬅️➡️ Arrows */}
+      {/* ⬅️➡️ Navigation Arrows */}
       <button
-        onClick={() =>
-          setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
-        }
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-1.5 sm:p-2 rounded-full"
+        onClick={goToPrevious}
+        className="absolute left-[-20px] sm:left-[-24px] top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 p-3 sm:p-4 rounded-full transition-all duration-300 z-30 pointer-events-auto"
+        aria-label="Previous slide"
       >
-        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
 
       <button
-        onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-1.5 sm:p-2 rounded-full"
+        onClick={goToNext}
+        className="absolute right-[-20px] sm:right-[-24px] top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 p-3 sm:p-4 rounded-full transition-all duration-300 z-30 pointer-events-auto"
+        aria-label="Next slide"
       >
-        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
 
-      {/* 🔘 Dots */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+      {/* 🔘 Dot Indicators */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20 pointer-events-auto">
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => setCurrent(i)}
-            className={`h-2 rounded-full transition-all ${
-              i === current ? "w-6 bg-yellow-400" : "w-2 bg-white/50"
+            onClick={() => goToSlide(i)}
+            className={`h-2 rounded-full transition-all pointer-events-auto ${
+              i === current ? "w-6 bg-yellow-400" : "w-2 bg-white/50 hover:bg-white/70"
             }`}
+            aria-label={`Go to slide ${i + 1}`}
           />
         ))}
       </div>

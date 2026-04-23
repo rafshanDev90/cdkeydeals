@@ -54,23 +54,19 @@ export default function ProductCard({
   const [imageError, setImageError] = useState(false);
   const { formatPriceWithOriginal } = useCurrency();
 
-  // Determine which images to use
-  const defaultImage = image || (images && images[0]) || '';
-  const hoverImage = images && images[1] ? images[1] : defaultImage;
+  // Determine images
+  // Normal image: current 'image' prop or the first element of 'images' array
+  const defaultImage = image || (images && images.length > 0 ? images[0] : '');
+  
+  // Hover image: the second element of 'images' array if exists, otherwise same as default
+  const hoverImage = images && images.length > 1 ? images[1] : defaultImage;
 
-  // Use slug if available, fallback to id for backward compatibility
   const productIdentifier = slug || id.toString();
-
   const isLowStock = stock !== undefined && stock <= 5 && stock > 0;
   const isOutOfStock = stock === 0;
 
-  // Convert to USD base price (assuming current price is in USD for consistency)
-  // If your prices are in different currencies, convert them to USD first
   const basePriceUSD = price;
   const baseOriginalPriceUSD = originalPrice;
-
-  // Get discount info
-  const { hasDiscount } = formatPriceWithOriginal(basePriceUSD, baseOriginalPriceUSD);
 
   return (
     <div
@@ -99,54 +95,56 @@ export default function ProductCard({
 
       {/* Quick View Button */}
       <button
-        className={`absolute top-3 right-3 z-10 w-8 h-8 bg-[#1a1a1a]/60 hover:bg-[#00d4aa] text-white hover:text-white rounded-full flex items-center justify-center transition-all duration-300 ${
-          isHovered ? "opacity-100" : "opacity-0"
+        className={`absolute top-3 right-3 z-20 w-8 h-8 bg-[#1a1a1a]/60 hover:bg-[#00d4aa] text-white hover:text-white rounded-full flex items-center justify-center transition-all duration-300 ${
+          isHovered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
         }`}
         aria-label="Quick view"
       >
         <Eye className="w-4 h-4" />
       </button>
 
-      {/* Image */}
+      {/* Image Container */}
       <Link href={`/product/${productIdentifier}`} className="block">
         <div className="aspect-[3/3] bg-muted/50 dark:bg-gray-700 relative overflow-hidden">
-          {/* Default Image */}
-          <div className="absolute inset-0">
-            {!imageError && defaultImage ? (
+          
+          {!imageError && defaultImage ? (
+            <>
+              {/* Normal Image (Always there, fades out on hover if hoverImage exists) */}
               <Image
                 src={defaultImage}
                 alt={title}
                 fill
-                className={`object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className={`object-cover transition-all duration-700 ease-in-out ${
+                  isHovered && hoverImage !== defaultImage ? "opacity-0 scale-105" : "opacity-100 scale-100"
+                }`}
                 onError={() => setImageError(true)}
               />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="w-20 h-20 bg-muted dark:bg-gray-600 rounded-lg flex items-center justify-center">
-                  <Gamepad2 className="w-10 h-10 text-muted-foreground dark:text-gray-400" />
-                </div>
-              </div>
-            )}
-          </div>
-          
-          {/* Hover Image */}
-          {hoverImage && hoverImage !== defaultImage && (
-            <div className="absolute inset-0">
-              {!imageError ? (
+
+              {/* Hover Image (Hidden by default, fades in on hover) */}
+              {hoverImage && hoverImage !== defaultImage && (
                 <Image
                   src={hoverImage}
-                  alt={`${title} - hover`}
+                  alt={`${title} - alternative`}
                   fill
-                  className={`object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                  onError={() => setImageError(true)}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className={`object-cover transition-all duration-700 ease-in-out absolute inset-0 ${
+                    isHovered ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                  }`}
                 />
-              ) : null}
+              )}
+            </>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="w-20 h-20 bg-muted dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                <Gamepad2 className="w-10 h-10 text-muted-foreground dark:text-gray-400" />
+              </div>
             </div>
           )}
           
-          {/* Hover Overlay */}
+          {/* Subtle Hover Overlay */}
           <div
-            className={`absolute inset-0 bg-[#00d4aa]/5 transition-opacity duration-300 ${
+            className={`absolute inset-0 bg-black/5 transition-opacity duration-300 pointer-events-none ${
               isHovered ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -155,14 +153,12 @@ export default function ProductCard({
 
       {/* Content */}
       <div className="p-5">
-        {/* Title */}
         <Link href={`/product/${productIdentifier}`}>
           <h3 className="text-sm font-medium text-foreground line-clamp-2 min-h-[40px] hover:text-[#00d4aa] transition-colors">
             {title}
           </h3>
         </Link>
 
-        {/* Price */}
         <PriceDisplay
           price={basePriceUSD}
           originalPrice={baseOriginalPriceUSD}
@@ -172,7 +168,6 @@ export default function ProductCard({
           className="mt-3 flex items-center gap-2"
         />
 
-        {/* Stock Label */}
         {stockLabel && (
           <div className="mt-2">
             <span
@@ -189,7 +184,6 @@ export default function ProductCard({
           </div>
         )}
 
-        {/* Add to Cart Button */}
         <button
           className={`mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg font-medium text-sm transition-colors ${
             isOutOfStock
