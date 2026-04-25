@@ -413,6 +413,32 @@ export async function getWCCategories(params: {
 }
 
 /**
+ * Fetch a single category by slug from WooCommerce.
+ */
+export async function getCategoryBySlug(slug: string): Promise<WCCategory | null> {
+  try {
+    const data = await wcFetch<any[]>(`products/categories?slug=${slug}&per_page=1`, {
+      next: { revalidate: 300 },
+    });
+
+    if (!data || data.length === 0) return null;
+
+    const cat = data[0];
+    return {
+      id: cat?.id ?? 0,
+      name: cat?.name ?? 'Unknown',
+      slug: cat?.slug ?? '',
+      count: cat?.count ?? 0,
+      image: cat?.image?.src ?? null,
+      parentId: cat?.parent ?? 0,
+    };
+  } catch (error) {
+    errorHandler.logApiError(error as Error, { slug, action: 'getCategoryBySlug' });
+    return null;
+  }
+}
+
+/**
  * Fetch products filtered by a WooCommerce category ID.
  * Use for dynamic category/collection pages.
  */
@@ -423,13 +449,14 @@ export async function getProductsByCategory(
   try {
     const qs = new URLSearchParams();
     qs.append('category', categoryId.toString());
-    qs.append('per_page', (params.per_page ?? 20).toString());
+    qs.append('per_page', (params.per_page ?? 40).toString());
     qs.append('page', (params.page ?? 1).toString());
 
     const data = await wcFetch<any[]>(`products?${qs.toString()}`, {
       next: { revalidate: 60 },
     });
 
+    if (!data || !Array.isArray(data)) return [];
     return data.map(mapWooCommerceProduct);
   } catch (error) {
     errorHandler.logApiError(error as Error, { categoryId, action: 'getProductsByCategory' });

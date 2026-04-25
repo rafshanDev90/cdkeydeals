@@ -75,6 +75,11 @@ export interface NavCategory {
   icon: string;
   count: number;
   image: string | null;
+  parentId: number;
+}
+
+export interface NavCategoryNode extends NavCategory {
+  children: NavCategory[];
 }
 
 /**
@@ -82,6 +87,8 @@ export interface NavCategory {
  * to HeaderClient (Client). Contains NO functions – only plain data.
  */
 export interface HeaderNavData {
+  categories: NavCategory[];
+  menuTree: NavCategoryNode[];
   gameItems: NavItem[];
   softwareItems: NavItem[];
   giftCardItems: NavItem[];
@@ -124,9 +131,33 @@ export async function getNavCategories(params?: {
       icon: SLUG_TO_ICON[cat.slug] ?? 'gift-card',
       count: cat.count,
       image: cat.image,
+      parentId: cat.parentId,
     }));
 
     return params?.limit ? mapped.slice(0, params.limit) : mapped;
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Returns a two-level tree of categories (Parent -> Children).
+ */
+export async function getMenuTree(): Promise<NavCategoryNode[]> {
+  try {
+    const all = await getNavCategories();
+    
+    // 1. Get top-level (parents)
+    const parents = all.filter(c => c.parentId === 0);
+    
+    // 2. Map children to parents
+    const tree: NavCategoryNode[] = parents.map(p => ({
+      ...p,
+      children: all.filter(c => c.parentId === p.id)
+    }));
+
+    // 3. Only return parents that either have children OR have a significant product count
+    return tree.filter(t => t.children.length > 0 || t.count > 0);
   } catch {
     return [];
   }
@@ -180,6 +211,7 @@ export async function getMenuData(): Promise<HeaderNavData> {
 
   try {
     const allCategories = await getNavCategories();
+    const menuTree = await getMenuTree();
 
     // Classify by slug keyword matching
     const gameItems: NavItem[] = allCategories
@@ -195,6 +227,8 @@ export async function getMenuData(): Promise<HeaderNavData> {
       .map(c => ({ name: c.name, href: c.href }));
 
     return {
+      categories:   allCategories,
+      menuTree:     menuTree,
       gameItems:    gameItems.length    > 0 ? gameItems    : FALLBACK_GAMES,
       softwareItems: softwareItems.length > 0 ? softwareItems : FALLBACK_SOFTWARE,
       giftCardItems: giftCardItems.length > 0 ? giftCardItems : FALLBACK_GIFTCARDS,
@@ -202,6 +236,8 @@ export async function getMenuData(): Promise<HeaderNavData> {
   } catch {
     // If anything fails, return static fallbacks. The header will still work.
     return {
+      categories:   [],
+      menuTree:     [],
       gameItems:    FALLBACK_GAMES,
       softwareItems: FALLBACK_SOFTWARE,
       giftCardItems: FALLBACK_GIFTCARDS,

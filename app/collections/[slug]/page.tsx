@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import CollectionSlugClient from './CollectionSlugClient';
-import { getProducts } from '@/lib/wordpress';
+import { getProducts, getCategoryBySlug, getProductsByCategory } from '@/lib/wordpress';
 import { Platform } from '@/types/product';
 
-// Platform slug to display name mapping
+// Platform slug to display name mapping (Legacy fallback)
 export const platformSlugMap: Record<string, { name: string; platform: Platform | string }> = {
   'steam-keys': { name: 'Steam Keys', platform: 'Steam' },
   'steam': { name: 'Steam', platform: 'Steam' },
@@ -31,13 +31,6 @@ export const platformSlugMap: Record<string, { name: string; platform: Platform 
   'game-keys': { name: 'Game Keys', platform: 'Game Keys' },
 };
 
-// Generate static params for all platforms
-export async function generateStaticParams() {
-  return Object.keys(platformSlugMap).map((slug) => ({
-    slug,
-  }));
-}
-
 // Generate dynamic metadata for SEO
 export async function generateMetadata({ 
   params 
@@ -46,51 +39,35 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
-  const platformInfo = platformSlugMap[slug];
   
-  if (!platformInfo) {
+  // 1. Try to find dynamic category in WooCommerce
+  const wcCategory = await getCategoryBySlug(slug);
+  
+  if (wcCategory) {
     return {
-      title: 'Collection Not Found | CDKeyDeals',
-      description: 'The requested collection could not be found.',
-    };
-  }
-  
-  const platformName = platformInfo.name;
-  
-  try {
-    // Fetch products to get accurate count
-    const products = await getProducts({ maxProducts: 500 });
-    const productCount = products.filter(
-      (p: any) => p.platform === platformInfo.platform
-    ).length;
-    
-    return {
-      title: `${platformName} - Buy Cheap ${platformName} Deals | CDKeyDeals`,
-      description: `Browse ${productCount}+ ${platformName} deals at unbeatable prices. Instant delivery, secure checkout, and 24/7 customer support. Find the best ${platformName} game keys, gift cards, and software.`,
-      keywords: `${platformName.toLowerCase()}, ${platformName.toLowerCase()} keys, ${platformName.toLowerCase()} deals, ${platformName.toLowerCase()} games, cheap ${platformName.toLowerCase()}, digital keys, instant delivery`,
+      title: `${wcCategory.name} - Buy Cheap ${wcCategory.name} Deals | CDKeyDeals`,
+      description: `Browse ${wcCategory.count}+ ${wcCategory.name} deals at unbeatable prices. Instant delivery, secure checkout, and 24/7 customer support.`,
       openGraph: {
-        title: `${platformName} - Buy Cheap ${platformName} Deals | CDKeyDeals`,
-        description: `Browse ${productCount}+ ${platformName} deals at unbeatable prices. Instant delivery and secure checkout.`,
+        title: `${wcCategory.name} - Buy Cheap ${wcCategory.name} Deals | CDKeyDeals`,
+        description: `Browse ${wcCategory.count}+ ${wcCategory.name} deals at unbeatable prices. Instant delivery and secure checkout.`,
         type: 'website',
         url: `https://cdkeydeals.com/collections/${slug}`,
       },
-      twitter: {
-        card: 'summary_large_image',
-        title: `${platformName} - Buy Cheap ${platformName} Deals`,
-        description: `Browse ${productCount}+ ${platformName} deals at unbeatable prices.`,
-      },
-      alternates: {
-        canonical: `https://cdkeydeals.com/collections/${slug}`,
-      },
-    };
-  } catch (error) {
-    // Fallback metadata if API fails
-    return {
-      title: `${platformName} - Buy Cheap ${platformName} Deals | CDKeyDeals`,
-      description: `Browse ${platformName} deals at unbeatable prices. Instant delivery, secure checkout, and 24/7 customer support.`,
-      keywords: `${platformName.toLowerCase()}, ${platformName.toLowerCase()} keys, ${platformName.toLowerCase()} deals`,
     };
   }
+
+  // 2. Fallback to legacy map
+  const platformInfo = platformSlugMap[slug];
+  if (platformInfo) {
+    return {
+      title: `${platformInfo.name} - Buy Cheap ${platformInfo.name} Deals | CDKeyDeals`,
+      description: `Browse ${platformInfo.name} deals at unbeatable prices. Instant delivery, secure checkout, and 24/7 customer support.`,
+    };
+  }
+
+  return {
+    title: 'Collection Not Found | CDKeyDeals',
+  };
 }
 
 export default async function CollectionSlugPage({ 
@@ -100,27 +77,42 @@ export default async function CollectionSlugPage({
 }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
+
+  // 1. Try to fetch dynamic category from WooCommerce
+  const wcCategory = await getCategoryBySlug(slug);
+  
+  if (wcCategory) {
+    const products = await getProductsByCategory(wcCategory.id, { per_page: 50 });
+    
+    return (
+      <CollectionSlugClient 
+        slug={slug}
+        platformName={wcCategory.name}
+        platform={wcCategory.name} // Using category name as platform for filter labels
+        initialProducts={products}
+      />
+    );
+  }
+
+  // 2. Legacy Fallback: check hardcoded map
   const platformInfo = platformSlugMap[slug];
   
-  // Check if the slug is valid
-  if (!platformInfo) {
-    notFound();
+  if (platformInfo) {
+    const allProducts = await getProducts({ maxProducts: 500 });
+    const platformProducts = allProducts.filter(
+      (product: any) => product.platform === platformInfo.platform
+    );
+
+    return (
+      <CollectionSlugClient 
+        slug={slug}
+        platformName={platformInfo.name}
+        platform={platformInfo.platform}
+        initialProducts={platformProducts}
+      />
+    );
   }
-  
-  // Fetch all products from WordPress
-  const allProducts = await getProducts({ maxProducts: 500 });
-  
-  // Filter products by platform
-  const platformProducts = allProducts.filter(
-    (product: any) => product.platform === platformInfo.platform
-  );
-  
-  return (
-    <CollectionSlugClient 
-      slug={slug}
-      platformName={platformInfo.name}
-      platform={platformInfo.platform}
-      initialProducts={platformProducts}
-    />
-  );
+
+  // 3. If still nothing found, return 404
+  notFound();
 }

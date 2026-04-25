@@ -63,6 +63,7 @@ const DEFAULT_CURRENCY = currencies[1]; // BDT as default
 interface CurrencyContextType {
   selectedCurrency: Currency;
   setCurrency: (currency: Currency) => void;
+  exchangeRates: Record<string, number>;
   convertPrice: (basePriceUSD: number) => number;
   formatPrice: (basePriceUSD: number) => string;
   formatPriceWithOriginal: (
@@ -106,6 +107,32 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({
     return DEFAULT_CURRENCY;
   });
 
+  // Live exchange rates state
+  const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(() => {
+    const initial: Record<string, number> = {};
+    currencies.forEach(c => initial[c.code] = c.exchangeRate);
+    return initial;
+  });
+
+  // Fetch live exchange rates on mount
+  useEffect(() => {
+    const fetchRates = async () => {
+      try {
+        const response = await fetch("https://open.er-api.com/v6/latest/USD");
+        const data = await response.json();
+        if (data && data.rates) {
+          setExchangeRates(prev => ({
+            ...prev,
+            ...data.rates,
+          }));
+        }
+      } catch (error) {
+        console.error("Failed to fetch live exchange rates:", error);
+      }
+    };
+    fetchRates();
+  }, []);
+
   // Save to localStorage when currency changes
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -121,9 +148,10 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({
   // Convert price from USD to selected currency
   const convertPrice = useCallback(
     (basePriceUSD: number): number => {
-      return basePriceUSD * selectedCurrency.exchangeRate;
+      const rate = exchangeRates[selectedCurrency.code] || selectedCurrency.exchangeRate;
+      return basePriceUSD * rate;
     },
-    [selectedCurrency.exchangeRate]
+    [selectedCurrency, exchangeRates]
   );
 
   // Format price with currency symbol and locale
@@ -190,11 +218,12 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({
     () => ({
       selectedCurrency,
       setCurrency,
+      exchangeRates,
       convertPrice,
       formatPrice,
       formatPriceWithOriginal,
     }),
-    [selectedCurrency, setCurrency, convertPrice, formatPrice, formatPriceWithOriginal]
+    [selectedCurrency, setCurrency, exchangeRates, convertPrice, formatPrice, formatPriceWithOriginal]
   );
 
   return (

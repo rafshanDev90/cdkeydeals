@@ -19,7 +19,7 @@ interface CurrencyDropdownProps {
 
 export default function CurrencyDropdown({ onSelect }: CurrencyDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const { selectedCurrency, setCurrency } = useCurrency();
+  const { selectedCurrency, setCurrency, exchangeRates } = useCurrency();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Handle click outside to close dropdown
@@ -100,7 +100,7 @@ export default function CurrencyDropdown({ onSelect }: CurrencyDropdownProps) {
                     {currency.name}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                    {currency.code} {currency.symbol} • 1 USD = {currency.exchangeRate} {currency.code}
+                    {currency.code} {currency.symbol} • 1 USD = {(exchangeRates[currency.code] || currency.exchangeRate).toFixed(2)} {currency.code}
                   </div>
                 </div>
                 {selectedCurrency.code === currency.code && (

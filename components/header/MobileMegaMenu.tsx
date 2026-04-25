@@ -1,69 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Monitor, 
-  Palette, 
-  Shield, 
-  Download, 
+  Gamepad2, 
+  Gift,
   ChevronRight,
   X,
   Flame,
   ShoppingBag,
   Tag,
   Clock,
-  User
+  LayoutGrid
 } from "lucide-react";
 import MegaMenuWrapper from "./MegaMenuWrapper";
 import Link from "next/link";
+import type { HeaderNavData } from "@/lib/nav-data";
 
 interface MobileMegaMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  navData?: HeaderNavData;
 }
 
-interface Category {
-  id: string;
-  title: string;
-  icon: React.ComponentType<{ className?: string }>;
-  submenu: string[];
-}
+// Icon mapping helper
+const getCategoryIcon = (slug: string) => {
+  if (slug.includes('game')) return Gamepad2;
+  if (slug.includes('software')) return Monitor;
+  if (slug.includes('gift')) return Gift;
+  return LayoutGrid;
+};
 
-interface BestDealsCategory {
-  id: string;
-  title: string;
-  icon: React.ComponentType<{ className?: string }>;
-  items: { name: string; href: string }[];
-}
-
-const softwareCategories: Category[] = [
-  {
-    id: "microsoft",
-    title: "Microsoft Software",
-    icon: Monitor,
-    submenu: ["Windows Keys", "Office Keys", "Project & Visio", "SQL Server", "Microsoft Server"]
-  },
-  {
-    id: "creative",
-    title: "Creative & Productivity",
-    icon: Palette,
-    submenu: ["Adobe Creative Suite", "Graphics Design", "Video Editing", "Photo Editing", "Office Tools"]
-  },
-  {
-    id: "security",
-    title: "Security Software",
-    icon: Shield,
-    submenu: ["Antivirus", "Firewall", "VPN Services", "Password Managers", "Encryption Tools"]
-  },
-  {
-    id: "utilities",
-    title: "Utilities & Download Tools",
-    icon: Download,
-    submenu: ["System Utilities", "File Managers", "Download Managers", "Backup Tools", "Recovery Software"]
-  }
-];
-
-const bestDealsCategories: BestDealsCategory[] = [
+const bestDealsCategories = [
   {
     id: "shop-offer",
     title: "Shop Offer",
@@ -74,9 +42,6 @@ const bestDealsCategories: BestDealsCategory[] = [
       { name: "PlayStation (PSN)", href: "/collections/games" },
       { name: "Xbox", href: "/collections/games" },
       { name: "Nintendo Switch", href: "/collections/games" },
-      { name: "EA App", href: "/collections/games" },
-      { name: "Ubisoft Connect", href: "/collections/games" },
-      { name: "Battle.net", href: "/collections/games" },
     ]
   },
   {
@@ -87,185 +52,161 @@ const bestDealsCategories: BestDealsCategory[] = [
       { name: "Under 10 Dollar", href: "/best-deals" },
       { name: "Best Discounts", href: "/best-deals" },
       { name: "Clearance Sale", href: "/sale" },
-      { name: "Profile", href: "/account/profile" },
-    ]
-  },
-  {
-    id: "new-arrivals",
-    title: "New Arrivals",
-    icon: Clock,
-    items: [
-      { name: "New Releases", href: "/collections/games" },
-      { name: "Today's Deals", href: "/best-deals" },
-      { name: "Weekly Offers", href: "/best-deals" },
     ]
   }
 ];
 
-export default function MobileMegaMenu({ isOpen, onClose }: MobileMegaMenuProps) {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [activeMenu, setActiveMenu] = useState<'software' | 'best-deals'>('software');
+export default function MobileMegaMenu({ isOpen, onClose, navData }: MobileMegaMenuProps) {
+  const [activeTab, setActiveTab] = useState<string>('best-deals');
+  const [activeSubId, setActiveSubId] = useState<number | string | null>(null);
 
-  const handleCategoryHover = (categoryId: string) => {
-    setActiveCategory(categoryId);
-  };
-
-  const getActiveCategoryData = () => {
-    if (!activeCategory) return null;
-    if (activeMenu === 'software') {
-      return softwareCategories.find(cat => cat.id === activeCategory) || null;
+  // Set initial active sub-category when tab changes
+  useEffect(() => {
+    if (activeTab === 'best-deals') {
+      setActiveSubId('shop-offer');
     } else {
-      return bestDealsCategories.find(cat => cat.id === activeCategory) || null;
+      const parentId = parseInt(activeTab);
+      const parent = navData?.menuTree.find(p => p.id === parentId);
+      if (parent && parent.children.length > 0) {
+        setActiveSubId(parent.children[0].id);
+      } else {
+        setActiveSubId(null);
+      }
     }
-  };
+  }, [activeTab, navData]);
 
-  const isBestDealsCategory = (categoryId: string) => {
-    return bestDealsCategories.some(cat => cat.id === categoryId);
-  };
+  const menuTree = navData?.menuTree || [];
 
   return (
     <MegaMenuWrapper isOpen={isOpen} onClose={onClose}>
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full bg-white dark:bg-[#1E1E1E]">
+        
         {/* Mobile Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Menu</h2>
+        <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800 bg-indigo-600">
+          <h2 className="text-white font-bold">Categories</h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 rounded-lg transition-colors"
+            className="p-1.5 bg-white/10 text-white rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Two Column Layout: Left - Category Titles, Right - Options */}
+        {/* Layout: Left Sidebar for Tabs, Right for content */}
         <div className="flex flex-1 overflow-hidden">
-          {/* Left Side - Category Titles */}
-          <div className="w-1/3 border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
-            <div className="p-2 space-y-1">
-              {/* Best Deals Section Header */}
-              <Link
-                href="/best-deals"
-                onClick={onClose}
-                className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg transition-all duration-200 ${
-                  activeMenu === 'best-deals'
-                    ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-600'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Flame className={`w-4 h-4 flex-shrink-0 transition-colors duration-200 ${
-                    activeMenu === 'best-deals' ? 'text-orange-600' : 'text-gray-500'
-                  }`} />
-                  <span className={`font-medium text-sm text-left transition-colors duration-200 ${
-                    activeMenu === 'best-deals' ? 'text-orange-600' : 'text-gray-700 dark:text-gray-300'
-                  }`}>
-                    Best Deals
-                  </span>
-                </div>
-                <ChevronRight className="w-3.5 h-3.5 flex-shrink-0" />
-              </Link>
-
-              {/* Best Deals Subcategories */}
-              {activeMenu === 'best-deals' && bestDealsCategories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategoryHover(category.id)}
-                  className={`w-full flex items-center gap-2 px-3 py-2.5 pl-9 rounded-lg transition-all duration-200 ${
-                    activeCategory === category.id
-                      ? 'bg-orange-50 dark:bg-orange-900/20 text-orange-600'
-                      : 'hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  <category.icon className={`w-4 h-4 flex-shrink-0 transition-colors duration-200 ${
-                    activeCategory === category.id ? 'text-orange-600' : 'text-gray-500'
-                  }`} />
-                  <span className={`font-medium text-sm text-left transition-colors duration-200 ${
-                    activeCategory === category.id ? 'text-orange-600' : 'text-gray-700 dark:text-gray-300'
-                  }`}>
-                    {category.title}
-                  </span>
-                </button>
-              ))}
-
-              {/* Software Section Header */}
+          
+          {/* Left Sidebar - Tabs */}
+          <div className="w-[100px] border-r border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#161616] overflow-y-auto pb-20">
+            <div className="flex flex-col">
+              
+              {/* Best Deals Tab */}
               <button
-                onClick={() => {
-                  setActiveMenu('software');
-                  setActiveCategory('microsoft');
-                }}
-                className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-200 mt-2 ${
-                  activeMenu === 'software'
-                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+                onClick={() => setActiveTab('best-deals')}
+                className={`p-4 flex flex-col items-center gap-1 transition-all border-b border-gray-100 dark:border-gray-800 ${
+                  activeTab === 'best-deals' 
+                    ? "bg-white dark:bg-[#1E1E1E] text-orange-600" 
+                    : "text-gray-500"
                 }`}
               >
-                <Monitor className={`w-4 h-4 flex-shrink-0 transition-colors duration-200 ${
-                  activeMenu === 'software' ? 'text-blue-600' : 'text-gray-500'
-                }`} />
-                <span className={`font-medium text-sm text-left transition-colors duration-200 ${
-                  activeMenu === 'software' ? 'text-blue-600' : 'text-gray-700 dark:text-gray-300'
-                }`}>
-                  Software
-                </span>
+                <Flame className={`w-6 h-6 ${activeTab === 'best-deals' ? "animate-pulse" : ""}`} />
+                <span className="text-[10px] font-black uppercase text-center leading-tight">Deals</span>
               </button>
 
-              {/* Software Subcategories */}
-              {activeMenu === 'software' && softwareCategories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategoryHover(category.id)}
-                  className={`w-full flex items-center gap-2 px-3 py-2.5 pl-9 rounded-lg transition-all duration-200 ${
-                    activeCategory === category.id
-                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600'
-                      : 'hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  <category.icon className={`w-4 h-4 flex-shrink-0 transition-colors duration-200 ${
-                    activeCategory === category.id ? 'text-blue-600' : 'text-gray-500'
-                  }`} />
-                  <span className={`font-medium text-sm text-left transition-colors duration-200 ${
-                    activeCategory === category.id ? 'text-blue-600' : 'text-gray-700 dark:text-gray-300'
-                  }`}>
-                    {category.title}
-                  </span>
-                </button>
-              ))}
+              {/* Dynamic Tabs from menuTree */}
+              {menuTree.map((category) => {
+                const Icon = getCategoryIcon(category.slug);
+                const isActive = activeTab === category.id.toString();
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => setActiveTab(category.id.toString())}
+                    className={`p-4 flex flex-col items-center gap-1 transition-all border-b border-gray-100 dark:border-gray-800 ${
+                      isActive 
+                        ? "bg-white dark:bg-[#1E1E1E] text-indigo-600 border-r-2 border-r-indigo-600" 
+                        : "text-gray-500"
+                    }`}
+                  >
+                    <Icon className="w-6 h-6" />
+                    <span className="text-[10px] font-black uppercase text-center leading-tight truncate w-full">
+                      {category.name.split(' ')[0]}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Right Side - Options */}
-          <div className="flex-1 overflow-y-auto">
-            {activeCategory ? (
-              <div className="p-4">
-                <div className="space-y-1">
-                  {isBestDealsCategory(activeCategory) ? (
-                    (getActiveCategoryData() as BestDealsCategory)?.items.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="block px-4 py-2.5 text-sm text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
-                        onClick={onClose}
-                      >
-                        {item.name}
-                      </Link>
-                    ))
-                  ) : (
-                    (getActiveCategoryData() as Category)?.submenu.map((submenuItem) => (
-                      <a
-                        key={submenuItem}
-                        href="#"
-                        className="block px-4 py-2.5 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
-                        onClick={onClose}
-                      >
-                        {submenuItem}
-                      </a>
-                    ))
-                  )}
-                </div>
+          {/* Right Content */}
+          <div className="flex-1 overflow-y-auto pb-20 p-4">
+            
+            {activeTab === 'best-deals' ? (
+              <div className="space-y-6">
+                {bestDealsCategories.map(section => (
+                  <div key={section.id}>
+                    <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <section.icon className="w-3 h-3" /> {section.title}
+                    </h3>
+                    <div className="grid grid-cols-1 gap-2">
+                      {section.items.map(item => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={onClose}
+                          className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-orange-50 dark:hover:bg-orange-900/20 text-sm font-semibold transition-colors"
+                        >
+                          {item.name}
+                          <ChevronRight className="w-4 h-4 text-gray-300" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : (
-              <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400 text-sm">
-                Select a category
+              <div className="space-y-6">
+                {(() => {
+                  const parentId = parseInt(activeTab);
+                  const parent = menuTree.find(p => p.id === parentId);
+                  if (!parent) return null;
+                  return (
+                    <>
+                      <div className="mb-6">
+                        <Link 
+                          href={parent.href} 
+                          onClick={onClose}
+                          className="flex items-center justify-between p-4 rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none"
+                        >
+                          <div>
+                            <p className="text-[10px] font-black uppercase opacity-60">View All</p>
+                            <p className="text-lg font-black">{parent.name}</p>
+                          </div>
+                          <LayoutGrid className="w-6 h-6 opacity-40" />
+                        </Link>
+                      </div>
+
+                      <div>
+                        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-3">Sub-Categories</h3>
+                        <div className="grid grid-cols-1 gap-2">
+                          {parent.children.length > 0 ? (
+                            parent.children.map(child => (
+                              <Link
+                                key={child.id}
+                                href={child.href}
+                                onClick={onClose}
+                                className="flex items-center justify-between p-3 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-indigo-200 dark:hover:border-indigo-900 text-sm font-semibold transition-colors"
+                              >
+                                <span>{child.name}</span>
+                                <span className="text-[10px] bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-gray-500">{child.count}</span>
+                              </Link>
+                            ))
+                          ) : (
+                            <p className="text-xs text-gray-400 italic text-center py-10">No sub-categories available.</p>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
             )}
           </div>
