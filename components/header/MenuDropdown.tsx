@@ -255,25 +255,6 @@ export default function MenuDropdown({ isOpen, onClose, buttonRef, menuTree }: M
                   </div>
                 </Link>
 
-                {/* Help Widget Area matching screenshot */}
-                <div className="mt-8 flex flex-col items-end">
-                  {/* Help Bubble */}
-                  <div className="w-full p-4 mb-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#1A1A1A] flex items-center gap-3 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)]">
-                    <span className="text-xl">👋</span>
-                    <span className="text-[14px] font-medium text-gray-800 dark:text-gray-200">Hi! How can we help?</span>
-                  </div>
-                  
-                  {/* Help Buttons */}
-                  <div className="flex flex-col items-end gap-2.5 w-full pr-1">
-                    <button onClick={onClose} className="px-5 py-2.5 bg-white dark:bg-transparent border border-indigo-200 dark:border-indigo-800 rounded-lg text-[13px] font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors flex justify-between items-center w-3/4">
-                      I have a question
-                    </button>
-                    <button onClick={onClose} className="px-5 py-2.5 bg-white dark:bg-transparent border border-indigo-200 dark:border-indigo-800 rounded-lg text-[13px] font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors flex justify-between items-center w-3/4">
-                      Tell me more
-                    </button>
-                  </div>
-                </div>
-
               </div>
             </div>
 

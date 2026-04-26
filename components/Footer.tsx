@@ -84,7 +84,7 @@ export default function Footer() {
                 alt="CDkeyDeals Logo"
                 width={190}
                 height={65}
-                className="dark:invert"
+                className="" // ❌ removed dark:invert
               />
             </div>
             <p className="text-[#666666] dark:text-gray-400 text-sm leading-relaxed max-w-xs">

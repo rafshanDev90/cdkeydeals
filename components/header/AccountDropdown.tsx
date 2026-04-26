@@ -32,7 +32,7 @@ export default function AccountDropdown() {
       {/* Login Button */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded-lg transition-all duration-200 font-medium"
+        className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium"
       >
         <User className="w-4 h-4" />
         <span>Login</span>
@@ -40,13 +40,13 @@ export default function AccountDropdown() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800 overflow-hidden z-50">
           {/* Dropdown Content */}
           <div className="p-6">
             {/* Account Header */}
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Account</h3>
-              <p className="text-sm text-gray-500">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Account</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 Sign In or Create an Account to Unlock All Access
               </p>
             </div>

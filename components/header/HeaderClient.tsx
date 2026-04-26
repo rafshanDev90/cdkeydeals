@@ -102,11 +102,11 @@ export default function HeaderClient({ navData }: HeaderClientProps) {
           }`}
         style={{ animationDuration: "300ms" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto py-2">
           <div className="flex items-center justify-between h-16">
             {/* Logo + Hamburger */}
-            <div className="flex items-center gap-3">
-              <Logo />
+            <div className="flex items-center gap-8">
+              <Logo width={240} height={40} />
               <button
                 ref={menuButtonRef}
                 id="menu-toggle"
@@ -121,13 +121,13 @@ export default function HeaderClient({ navData }: HeaderClientProps) {
                 aria-label={(isMegaMenuOpen || isMenuDropdownOpen) ? "Close menu" : "Toggle menu"}
                 aria-expanded={isMegaMenuOpen || isMenuDropdownOpen}
               >
-                {(isMegaMenuOpen || isMenuDropdownOpen) ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                {(isMegaMenuOpen || isMenuDropdownOpen) ? <X className="w-4 h-8" /> : <Menu className="w-4 h-8" />}
                 <span>{(isMegaMenuOpen || isMenuDropdownOpen) ? "Close" : "Menu"}</span>
               </button>
             </div>
 
             {/* Search */}
-            <div className="hidden md:block flex-1 max-w-3xl mx-8">
+            <div className="hidden md:block flex-1 max-w-4xl mx-8">
               <SearchBar />
             </div>
 
@@ -159,7 +159,7 @@ export default function HeaderClient({ navData }: HeaderClientProps) {
         className={`hidden lg:block w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1E1E1E] relative transition-all duration-300 ${isSticky ? "opacity-0 pointer-events-none h-0 overflow-hidden border-0" : ""
           }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto py-2">
           <div className="flex items-center justify-between h-[52px]">
             {/* Nav Links */}
             <nav className="flex items-center gap-6" aria-label="Main navigation">

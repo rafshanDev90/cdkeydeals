@@ -9,7 +9,7 @@ export default function CartIcon() {
   return (
     <button
       onClick={() => toggleCart(true)}
-      className="relative p-2 text-gray-700 hover:text-gray-900 transition-colors group"
+      className="relative p-2 text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-gray-200 transition-colors group"
       aria-label="Shopping cart"
     >
       <ShoppingCart className="w-6 h-6 transition-transform group-hover:scale-110" />
