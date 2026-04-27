@@ -17,7 +17,7 @@ interface CollectionsProductGridProps {
 // Loading skeleton component
 function ProductCardSkeleton() {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div className="bg-card rounded-xl border border-border overflow-hidden">
       <Skeleton className="h-40 w-full" />
       <div className="p-3 space-y-2">
         <Skeleton className="h-3 w-16" />
@@ -38,11 +38,11 @@ function EmptyState() {
       animate={{ opacity: 1, y: 0 }}
       className="flex flex-col items-center justify-center py-16 px-4"
     >
-      <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-        <Package className="w-10 h-10 text-gray-400" />
+      <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mb-4">
+        <Package className="w-10 h-10 text-muted-foreground" />
       </div>
-      <h3 className="text-lg font-semibold text-gray-900 mb-2">No products found</h3>
-      <p className="text-gray-500 text-center max-w-md">
+      <h3 className="text-lg font-semibold text-foreground mb-2">No products found</h3>
+      <p className="text-muted-foreground text-center max-w-md">
         We couldn't find any products matching your criteria. Try adjusting your filters or search terms.
       </p>
     </motion.div>
@@ -97,11 +97,11 @@ export default function CollectionsProductGrid({
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: index * 0.03 }}
-          className="bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 overflow-hidden"
+          className="bg-card rounded-xl border border-border hover:border-border hover:shadow-lg transition-all duration-300 overflow-hidden"
         >
           <div className="flex gap-4 p-4">
             {/* Product Image */}
-            <div className="w-32 h-32 flex-shrink-0 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="w-32 h-32 flex-shrink-0 bg-muted rounded-lg flex items-center justify-center overflow-hidden">
               {product.image ? (
                 <img
                   src={product.image}
@@ -109,7 +109,7 @@ export default function CollectionsProductGrid({
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                 />
               ) : (
-                <Package className="w-12 h-12 text-gray-400" />
+                <Package className="w-12 h-12 text-muted-foreground" />
               )}
             </div>
 
@@ -120,19 +120,19 @@ export default function CollectionsProductGrid({
                   {/* Category & Platform */}
                   <div className="flex items-center gap-2 mb-1">
                     {product.platform && (
-                      <span className="text-xs text-blue-600 font-medium">
+                      <span className="text-xs text-primary font-medium">
                         {product.platform}
                       </span>
                     )}
                     {product.category && (
-                      <span className="text-xs text-gray-500 uppercase tracking-wide">
+                      <span className="text-xs text-muted-foreground uppercase tracking-wide">
                         {product.category}
                       </span>
                     )}
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-base font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors line-clamp-1">
+                  <h3 className="text-base font-bold text-foreground mb-2 hover:text-primary transition-colors line-clamp-1">
                     <a href={`/product/${product.slug || product.id.toString()}`}>
                       {product.title}
                     </a>
@@ -148,17 +148,17 @@ export default function CollectionsProductGrid({
                             className={`text-sm ${
                               i < Math.floor(product.rating || 0)
                                 ? "text-yellow-400"
-                                : "text-gray-300"
+                                : "text-muted-foreground"
                             }`}
                           >
                             ★
                           </span>
                         ))}
                       </div>
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-muted-foreground">
                         {product.rating.toFixed(1)}
                         {product.reviewCount && (
-                          <span className="text-gray-400 ml-1">
+                          <span className="text-muted-foreground ml-1">
                             ({product.reviewCount.toLocaleString()} reviews)
                           </span>
                         )}
@@ -194,11 +194,11 @@ export default function CollectionsProductGrid({
                 {/* Price & Action */}
                 <div className="flex flex-col items-end justify-between h-full">
                   <div className="text-right">
-                    <div className="text-xl font-bold text-gray-900">
+                    <div className="text-xl font-bold text-foreground">
                       ${(product.price).toFixed(2)}
                     </div>
                     {product.originalPrice && product.originalPrice > product.price && (
-                      <div className="text-sm text-gray-400 line-through">
+                      <div className="text-sm text-muted-foreground line-through">
                         ${product.originalPrice.toFixed(2)}
                       </div>
                     )}
@@ -206,7 +206,7 @@ export default function CollectionsProductGrid({
 
                   <button
                     onClick={() => onQuickView?.(product)}
-                    className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                    className="mt-2 text-sm text-primary hover:text-primary/80 font-medium"
                   >
                     Quick View
                   </button>

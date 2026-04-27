@@ -78,10 +78,10 @@ export default function ShopByCategory({ categories = defaultCategories }: ShopB
   return (
     <section className="py-8">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-gray-900">Shop by Category</h2>
+        <h2 className="text-xl font-bold text-foreground">Shop by Category</h2>
         <Link 
           href="/categories" 
-          className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+          className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1"
         >
           View All
           <ChevronRight className="w-4 h-4" />
@@ -141,9 +141,9 @@ export default function ShopByCategory({ categories = defaultCategories }: ShopB
 
         {/* Scroll Indicators */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-full 
-          bg-gradient-to-r from-white to-transparent pointer-events-none hidden sm:block" />
+          bg-gradient-to-r from-background to-transparent pointer-events-none hidden sm:block" />
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-full 
-          bg-gradient-to-l from-white to-transparent pointer-events-none hidden sm:block" />
+          bg-gradient-to-l from-background to-transparent pointer-events-none hidden sm:block" />
       </motion.div>
     </section>
   );

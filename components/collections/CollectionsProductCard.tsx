@@ -144,7 +144,7 @@ export default function CollectionsProductCard({
         );
       } else {
         stars.push(
-          <Star key={i} className="w-3 h-3 text-gray-300" />
+          <Star key={i} className="w-3 h-3 text-muted-foreground" />
         );
       }
     }
@@ -156,7 +156,7 @@ export default function CollectionsProductCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group relative bg-transparent dark:bg-transparent rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] font-['Inter',system-ui,sans-serif] min-h-[320px] flex flex-col"
+      className="group relative bg-card rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] font-['Inter',system-ui,sans-serif] min-h-[320px] flex flex-col border border-border"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -193,7 +193,7 @@ export default function CollectionsProductCard({
           className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 shadow-md backdrop-blur-sm ${
             inWishlist
               ? "bg-red-500 text-white"
-              : "bg-white/90 hover:bg-gray-900 hover:text-white text-gray-700"
+              : "bg-card hover:bg-foreground hover:text-background text-muted-foreground border border-border"
           }`}
           aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
@@ -206,7 +206,7 @@ export default function CollectionsProductCard({
           animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -10 }}
           transition={{ duration: 0.2 }}
           onClick={handleQuickView}
-          className="w-8 h-8 bg-white/90 hover:bg-gray-900 hover:text-white text-gray-700 rounded-full flex items-center justify-center transition-all duration-300 shadow-md backdrop-blur-sm"
+          className="w-8 h-8 bg-card hover:bg-foreground hover:text-background text-muted-foreground rounded-full flex items-center justify-center transition-all duration-300 shadow-md backdrop-blur-sm border border-border"
           aria-label="Quick view"
         >
           <Eye className="w-4 h-4" />
@@ -215,7 +215,7 @@ export default function CollectionsProductCard({
 
       {/* Product Image Container */}
       <Link href={productUrl} className="block">
-        <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 overflow-hidden">
+        <div className="relative h-48 bg-muted flex items-center justify-center p-4 overflow-hidden">
           {/* Default Image */}
           <div className="absolute inset-0">
             {defaultImage && !imageError ? (
@@ -230,11 +230,11 @@ export default function CollectionsProductCard({
               />
             ) : (
               <div className="relative w-full h-full flex items-center justify-center">
-                <div className="w-20 h-24 bg-gradient-to-br from-gray-200 to-gray-300 rounded-sm shadow-lg transform rotate-3 group-hover:rotate-6 transition-transform duration-300">
+                <div className="w-20 h-24 bg-gradient-to-br from-muted to-muted-foreground/20 rounded-sm shadow-lg transform rotate-3 group-hover:rotate-6 transition-transform duration-300">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <Package className="w-10 h-12 text-gray-400" />
+                    <Package className="w-10 h-12 text-muted-foreground" />
                   </div>
-                  <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-r from-gray-300 to-gray-400 rounded-l-sm" />
+                  <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-r from-muted-foreground/30 to-muted-foreground/40 rounded-l-sm" />
                   <div className="absolute top-1 left-1 right-1 h-1 bg-white/30 rounded-sm" />
                 </div>
               </div>
@@ -273,15 +273,15 @@ export default function CollectionsProductCard({
           {/* Platform & Category */}
           <div className="flex items-center gap-2 mb-1">
             {platform && (
-              <span className="text-xs text-blue-600 font-medium">
+              <span className="text-xs text-primary font-medium">
                 {platform}
               </span>
             )}
             {platform && category && (
-              <span className="text-gray-300">|</span>
+              <span className="text-muted-foreground">|</span>
             )}
             {category && (
-              <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+              <span className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
                 {category}
               </span>
             )}
@@ -289,7 +289,7 @@ export default function CollectionsProductCard({
 
           {/* Title */}
           <Link href={productUrl}>
-            <h3 className="text-sm font-bold text-gray-900 line-clamp-2 min-h-[2.5rem] hover:text-blue-600 transition-colors leading-tight">
+            <h3 className="text-sm font-bold text-foreground line-clamp-2 min-h-[2.5rem] hover:text-primary transition-colors leading-tight">
               {title}
             </h3>
           </Link>
@@ -300,11 +300,11 @@ export default function CollectionsProductCard({
               <div className="flex items-center">
                 {renderRating()}
               </div>
-              <span className="text-xs text-gray-600 font-medium">
+              <span className="text-xs text-muted-foreground font-medium">
                 {rating.toFixed(1)}
               </span>
               {reviewCount && (
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-muted-foreground">
                   ({reviewCount.toLocaleString()})
                 </span>
               )}
@@ -313,12 +313,12 @@ export default function CollectionsProductCard({
 
           {/* Price */}
           <div className="mt-2 flex items-center gap-2">
-            <span className="text-lg font-bold text-gray-900">
+            <span className="text-lg font-bold text-foreground">
               {currencySymbol}
               {price.toFixed(2)}
             </span>
             {originalPrice && originalPrice > price && (
-              <span className="text-sm text-gray-400 line-through">
+              <span className="text-sm text-muted-foreground line-through">
                 {currencySymbol}
                 {originalPrice.toFixed(2)}
               </span>
@@ -344,7 +344,7 @@ export default function CollectionsProductCard({
           <Button
             variant={isOutOfStock ? "secondary" : "default"}
             size="sm"
-            className="w-full bg-gray-900 hover:bg-gray-800 text-white shadow-md text-xs py-2 px-3 h-8"
+            className="w-full bg-foreground hover:bg-foreground/90 text-background shadow-md text-xs py-2 px-3 h-8"
             disabled={isOutOfStock}
             onClick={handleAddToCart}
           >

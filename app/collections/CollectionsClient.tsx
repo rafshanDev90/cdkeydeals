@@ -24,16 +24,16 @@ import {
 // Breadcrumb component
 function Breadcrumb() {
   return (
-    <nav className="flex items-center gap-2 text-sm text-gray-600 dark:text-muted-foreground mb-4">
+    <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
       <Link
         href="/"
-        className="flex items-center gap-1 hover:text-gray-900 dark:hover:text-foreground transition-colors"
+        className="flex items-center gap-1 hover:text-foreground transition-colors"
       >
         <Home className="w-4 h-4" />
         Home
       </Link>
-      <ChevronRight className="w-4 h-4 text-gray-400 dark:text-muted-foreground" />
-      <span className="text-gray-900 dark:text-foreground font-medium">All Products</span>
+      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+      <span className="text-foreground font-medium">All Products</span>
     </nav>
   );
 }
@@ -238,9 +238,9 @@ export default function CollectionsClient({ initialProducts = [] }: { initialPro
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-muted">
+    <div className="min-h-screen bg-background">
       {/* Header Section */}
-      <div className="bg-white dark:bg-card border-b border-gray-200 dark:border-border">
+      <div className="bg-card border-b border-border">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           <Breadcrumb />
 
@@ -250,10 +250,10 @@ export default function CollectionsClient({ initialProducts = [] }: { initialPro
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground mb-4">
+            <h1 className="text-3xl font-bold text-foreground mb-4">
               All Products
             </h1>
-            <p className="text-gray-600 dark:text-muted-foreground max-w-3xl">
+            <p className="text-muted-foreground max-w-3xl">
               Explore our complete collection of digital products. Find the best
               deals on game keys, software licenses, gift cards, and
               subscriptions. All products are delivered instantly to your email.

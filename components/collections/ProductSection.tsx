@@ -39,11 +39,11 @@ export default function ProductSection({
     <section className="py-8">
       {/* Section Header */}
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+        <h2 className="text-xl font-bold text-foreground">{title}</h2>
         {showViewAll && viewAllLink && (
           <Link
             href={viewAllLink}
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+            className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1"
           >
             View All
             <ChevronRight className="w-4 h-4" />
@@ -79,8 +79,8 @@ export default function ProductSection({
           </div>
 
           {/* Scroll Indicators */}
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-full bg-gradient-to-r from-gray-50 to-transparent pointer-events-none hidden lg:block" />
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-full bg-gradient-to-l from-gray-50 to-transparent pointer-events-none hidden lg:block" />
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-full bg-gradient-to-r from-background to-transparent pointer-events-none hidden lg:block" />
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-full bg-gradient-to-l from-background to-transparent pointer-events-none hidden lg:block" />
         </motion.div>
       ) : (
         /* Grid Layout */

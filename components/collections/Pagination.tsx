@@ -79,14 +79,14 @@ export default function Pagination({
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200"
+      className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-border"
     >
       {/* Items Info */}
-      <div className="flex items-center gap-4 text-sm text-gray-600">
+      <div className="flex items-center gap-4 text-sm text-muted-foreground">
         <span>
-          Showing <span className="font-medium text-gray-900">{startItem}</span> -{" "}
-          <span className="font-medium text-gray-900">{endItem}</span> of{" "}
-          <span className="font-medium text-gray-900">{totalItems}</span> products
+          Showing <span className="font-medium text-foreground">{startItem}</span> -{" "}
+          <span className="font-medium text-foreground">{endItem}</span> of{" "}
+          <span className="font-medium text-foreground">{totalItems}</span> products
         </span>
 
         {/* Items Per Page Selector */}
@@ -146,7 +146,7 @@ export default function Pagination({
               disabled={page === "..."}
               className={`h-8 w-8 p-0 ${
                 page === currentPage
-                  ? "bg-gray-900 text-white hover:bg-gray-800"
+                  ? "bg-foreground text-background hover:bg-foreground/90"
                   : page === "..."
                   ? "cursor-default border-none"
                   : ""

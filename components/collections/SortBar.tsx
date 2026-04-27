@@ -51,7 +51,7 @@ export default function SortBar({
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-white rounded-xl border border-gray-200 p-4"
+      className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-card rounded-xl border border-border p-4"
     >
       {/* Left Section - Product Count & Mobile Filter */}
       <div className="flex items-center gap-4 w-full sm:w-auto">
@@ -67,8 +67,8 @@ export default function SortBar({
         </Button>
 
         {/* Product Count */}
-        <div className="text-sm text-gray-600">
-          <span className="font-semibold text-gray-900">{totalProducts}</span>{" "}
+        <div className="text-sm text-muted-foreground">
+          <span className="font-semibold text-foreground">{totalProducts}</span> {" "}
           {totalProducts === 1 ? "product" : "products"} found
         </div>
       </div>
@@ -92,15 +92,15 @@ export default function SortBar({
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+        <div className="flex items-center border border-border rounded-lg overflow-hidden">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => onViewChange("grid")}
             className={`rounded-none h-9 px-3 ${
               currentView === "grid"
-                ? "bg-gray-900 text-white hover:bg-gray-800 hover:text-white"
-                : "bg-white text-gray-600 hover:bg-gray-100"
+                ? "bg-foreground text-background hover:bg-foreground/90 hover:text-background"
+                : "bg-card text-muted-foreground hover:bg-muted"
             }`}
           >
             <LayoutGrid className="w-4 h-4" />
@@ -111,8 +111,8 @@ export default function SortBar({
             onClick={() => onViewChange("list")}
             className={`rounded-none h-9 px-3 ${
               currentView === "list"
-                ? "bg-gray-900 text-white hover:bg-gray-800 hover:text-white"
-                : "bg-white text-gray-600 hover:bg-gray-100"
+                ? "bg-foreground text-background hover:bg-foreground/90 hover:text-background"
+                : "bg-card text-muted-foreground hover:bg-muted"
             }`}
           >
             <List className="w-4 h-4" />

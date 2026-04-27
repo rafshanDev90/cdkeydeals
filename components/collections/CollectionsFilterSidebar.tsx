@@ -173,13 +173,13 @@ export default function CollectionsFilterSidebar({
       onClick={() => toggleSection(section)}
       className="flex items-center justify-between w-full py-2 text-left group"
     >
-      <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
         {title}
       </h3>
       {expandedSections.includes(section) ? (
-        <ChevronUp className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+        <ChevronUp className="w-4 h-4 text-muted-foreground" />
       ) : (
-        <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+        <ChevronDown className="w-4 h-4 text-muted-foreground" />
       )}
     </button>
   );
@@ -188,12 +188,12 @@ export default function CollectionsFilterSidebar({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white">Filters</h2>
+        <h2 className="text-lg font-bold text-foreground">Filters</h2>
         <div className="flex items-center gap-2">
           {activeFiltersCount > 0 && (
             <button
               onClick={clearAllFilters}
-              className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+              className="text-sm text-primary hover:text-primary/80 font-medium"
             >
               Clear All
             </button>
@@ -201,9 +201,9 @@ export default function CollectionsFilterSidebar({
           {isMobile && onClose && (
             <button
               onClick={onClose}
-              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+              className="p-1 hover:bg-muted rounded-lg"
             >
-              <X className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              <X className="w-5 h-5 text-muted-foreground" />
             </button>
           )}
         </div>
@@ -211,8 +211,8 @@ export default function CollectionsFilterSidebar({
 
       {/* Active Filters Count */}
       {activeFiltersCount > 0 && (
-        <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-          <div className="text-sm text-blue-700 dark:text-blue-400">
+        <div className="p-3 bg-primary/10 rounded-lg">
+          <div className="text-sm text-primary">
             {activeFiltersCount} filter{activeFiltersCount > 1 ? "s" : ""} applied
           </div>
         </div>
@@ -242,9 +242,9 @@ export default function CollectionsFilterSidebar({
                       onChange={(e) =>
                         handleCategoryChange(category, e.target.checked)
                       }
-                      className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500"
+                      className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
+                    <span className="text-sm text-foreground group-hover:text-foreground transition-colors">
                       {category}
                     </span>
                   </label>
@@ -275,7 +275,7 @@ export default function CollectionsFilterSidebar({
                   step={10}
                   className="mb-4"
                 />
-                <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center justify-between text-sm text-muted-foreground">
                   <span>${filters.priceRange.min}</span>
                   <span>${filters.priceRange.max}</span>
                 </div>
@@ -309,9 +309,9 @@ export default function CollectionsFilterSidebar({
                       onChange={(e) =>
                         handlePlatformChange(platform, e.target.checked)
                       }
-                      className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500"
+                      className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
+                    <span className="text-sm text-foreground group-hover:text-foreground transition-colors">
                       {platform}
                     </span>
                   </label>
@@ -346,11 +346,11 @@ export default function CollectionsFilterSidebar({
                       onChange={(e) =>
                         handleRatingChange(option.value, e.target.checked)
                       }
-                      className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500"
+                      className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
                     />
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
+                      <span className="text-sm text-foreground group-hover:text-foreground transition-colors">
                         {option.label}
                       </span>
                     </div>
@@ -386,9 +386,9 @@ export default function CollectionsFilterSidebar({
                       onChange={(e) =>
                         handleBadgeChange(badge, e.target.checked)
                       }
-                      className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500"
+                      className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
+                    <span className="text-sm text-foreground group-hover:text-foreground transition-colors">
                       {badge}
                     </span>
                   </label>
@@ -401,10 +401,10 @@ export default function CollectionsFilterSidebar({
 
       {/* Apply Filters Button (Mobile) */}
       {isMobile && (
-        <div className="pt-4 border-t border-gray-200">
+        <div className="pt-4 border-t border-border">
           <Button
             onClick={onClose}
-            className="w-full bg-gray-900 hover:bg-gray-800 text-white"
+            className="w-full bg-foreground hover:bg-foreground/90 text-background"
           >
             Apply Filters ({activeFiltersCount})
           </Button>
@@ -418,7 +418,7 @@ export default function CollectionsFilterSidebar({
     return (
       <Drawer open={isOpen} onOpenChange={(open) => !open && onClose?.()}>
         <DrawerContent className="max-h-[85vh]">
-          <DrawerHeader className="border-b border-gray-200 px-6">
+          <DrawerHeader className="border-b border-border px-6">
             <DrawerTitle className="flex items-center gap-2">
               <SlidersHorizontal className="w-5 h-5" />
               Filters
