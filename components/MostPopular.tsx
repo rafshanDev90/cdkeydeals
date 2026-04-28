@@ -14,7 +14,7 @@ interface MostPopularProps {
   title?: string;
   products: Product[];
   viewAllLink?: string;
-  limit?: number; // Optional limit for number of products to display
+  limit?: number;
 }
 
 // ─── Individual Product Card ──────────────────────────────────────────────────
@@ -53,38 +53,36 @@ function PopularCard({ product, onQuickView }: { product: Product; onQuickView: 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Image Container */}
+      {/* ✅ Image Container — flex/justify wrapper সরানো হয়েছে */}
       <Link href={href} className="relative block aspect-4/5 overflow-hidden rounded-xl border border-border shadow-sm">
-        <div className="w-full h-full bg-muted/50 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
-          {showImage ? (
-            <img
-              src={product.image!}
-              alt={product.title}
-              className={`w-full h-full object-cover transition-transform duration-500 ${
-                isHovered ? "scale-110" : "scale-100"
-              }`}
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            // Professional fallback: styled box icon
-            <div className="flex flex-col items-center justify-center w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
-              <div className="relative w-14 h-16 bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-500 dark:to-gray-600 rounded-sm shadow-md">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Package className="w-7 h-9 text-white/70" />
-                </div>
-                <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-r from-gray-400 to-gray-500 dark:from-gray-600 dark:to-gray-700 rounded-l-sm" />
-                <div className="absolute top-1 left-1 right-1 h-0.5 bg-white/20 rounded-sm" />
+        {showImage ? (
+          <img
+            src={product.image!}
+            alt={product.title}
+            className={`w-full h-full object-cover transition-transform duration-500 ${
+              isHovered ? "scale-110" : "scale-100"
+            }`}
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          // Professional fallback
+          <div className="flex flex-col items-center justify-center w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
+            <div className="relative w-14 h-16 bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-500 dark:to-gray-600 rounded-sm shadow-md">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Package className="w-7 h-9 text-white/70" />
               </div>
-              <span className="mt-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                CdkeyDeals
-              </span>
+              <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-r from-gray-400 to-gray-500 dark:from-gray-600 dark:to-gray-700 rounded-l-sm" />
+              <div className="absolute top-1 left-1 right-1 h-0.5 bg-white/20 rounded-sm" />
             </div>
-          )}
-        </div>
+            <span className="mt-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+              CdkeyDeals
+            </span>
+          </div>
+        )}
 
         {/* Hover overlay */}
         <div
-          className={`absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -195,7 +193,6 @@ export default function MostPopular({ title = "Most Popular", products, viewAllL
 
   if (!products || products.length === 0) return null;
 
-  // Apply limit if specified (for homepage display)
   const displayProducts = limit ? products.slice(0, limit) : products;
 
   return (

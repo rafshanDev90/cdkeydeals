@@ -187,12 +187,12 @@ export default function FAQClient() {
       {/* Breadcrumb */}
       <SectionContainer background="white" padding="sm">
         <div className="-mt-6">
-          <nav className="flex items-center space-x-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-[#00d4aa] transition-colors">
+          <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 transition-colors">
+            <Link href="/" className="hover:text-[#00d4aa] dark:hover:text-[#00d4aa] transition-colors">
               Home
             </Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">FAQ</span>
+            <span className="text-gray-400 dark:text-gray-600">/</span>
+            <span className="text-gray-900 dark:text-gray-100 font-medium transition-colors">FAQ</span>
           </nav>
         </div>
       </SectionContainer>
@@ -205,10 +205,10 @@ export default function FAQClient() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all transition-colors ${
                   selectedCategory === category
-                    ? 'bg-[#00d4aa] text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-[#00d4aa] text-white shadow-sm'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
                 }`}
               >
                 {category}
@@ -222,31 +222,31 @@ export default function FAQClient() {
       <SectionContainer background="white" maxWidth="2xl">
         <div className="space-y-4">
           {filteredFAQs.map((item) => (
-            <div key={item.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+            <div key={item.id} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-md transition-all transition-colors">
               <button
                 onClick={() => toggleItem(item.id)}
-                className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               >
                 <div className="flex items-center space-x-3 flex-1">
-                  <div className="flex-shrink-0 w-10 h-10 bg-[#00d4aa]/10 rounded-full flex items-center justify-center text-[#00d4aa]">
+                  <div className="flex-shrink-0 w-10 h-10 bg-[#00d4aa]/10 dark:bg-[#00d4aa]/20 rounded-full flex items-center justify-center text-[#00d4aa] transition-colors">
                     {item.icon}
                   </div>
                   <div className="flex-1">
-                    <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded mb-2">
+                    <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 rounded mb-2 transition-colors">
                       {item.category}
                     </span>
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 transition-colors">
                       {item.question}
                     </h3>
                   </div>
                 </div>
-                {openItems.has(item.id) ? <ChevronUp className="w-5 h-5 text-gray-500" /> : <ChevronDown className="w-5 h-5 text-gray-500" />}
+                {openItems.has(item.id) ? <ChevronUp className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" /> : <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400 transition-colors" />}
               </button>
 
               {openItems.has(item.id) && (
-                <div className="px-6 pb-4 border-t border-gray-100">
+                <div className="px-6 pb-4 border-t border-gray-100 dark:border-gray-700 transition-colors">
                   <div className="pt-4 pl-13">
-                    <p className="text-gray-700 leading-relaxed">{item.answer}</p>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed transition-colors">{item.answer}</p>
                   </div>
                 </div>
               )}

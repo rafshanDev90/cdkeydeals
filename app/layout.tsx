@@ -5,6 +5,7 @@ import Script from 'next/script'
 import './globals.css'
 import DynamicHeader from '@/components/header/DynamicHeader'
 import Footer from '@/components/Footer'
+import TopAnnouncementBar from '@/components/TopAnnouncementBar'
 import { AuthProvider } from '@/context/AuthContext'
 import { CartProvider } from '@/context/CartContext'
 import { WishlistProvider } from '@/context/WishlistContext'
@@ -61,6 +62,7 @@ export default function RootLayout({
               <WishlistProvider>
                 <CartProvider>
                   <div className="min-h-screen flex flex-col">
+                    <TopAnnouncementBar />
                     <DynamicHeader />
                     <main className="flex-1">
                       {children}

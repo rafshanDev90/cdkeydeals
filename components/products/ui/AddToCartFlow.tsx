@@ -88,11 +88,11 @@ export default function AddToCartFlow({ product }: AddToCartFlowProps) {
     <div className="space-y-5">
       {/* Price Block */}
       <div className="flex items-baseline gap-3 flex-wrap">
-        <span className="text-3xl lg:text-4xl font-bold text-foreground">{currentPrice}</span>
+        <span className="text-3xl lg:text-4xl font-bold text-zinc-50 dark:text-zinc-50">{currentPrice}</span>
         {hasDiscount && originalPriceFormatted && (
           <>
-            <span className="text-xl text-muted-foreground line-through">{originalPriceFormatted}</span>
-            <span className="text-sm font-bold text-red-500 bg-red-50 dark:bg-red-950 px-2 py-1 rounded">
+            <span className="text-xl text-zinc-500 dark:text-zinc-500 line-through">{originalPriceFormatted}</span>
+            <span className="text-sm font-bold text-red-500 bg-red-950/50 dark:bg-red-950/50 border border-red-800/50 dark:border-red-800/50 px-2 py-1 rounded">
               Save {discountPercentage}%
             </span>
           </>
@@ -109,20 +109,20 @@ export default function AddToCartFlow({ product }: AddToCartFlowProps) {
 
       {/* Quantity Picker */}
       <div className="flex items-center gap-4">
-        <span className="font-medium text-foreground">Quantity:</span>
-        <div className="flex items-center border border-border rounded-lg overflow-hidden">
+        <span className="font-medium text-zinc-50 dark:text-zinc-50">Quantity:</span>
+        <div className="flex items-center border border-zinc-700 dark:border-zinc-700 rounded-lg overflow-hidden bg-[#1a1a1a] dark:bg-[#1a1a1a]">
           <button
             onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-            className="p-3 hover:bg-muted transition-colors disabled:opacity-40"
+            className="p-3 hover:bg-zinc-800 dark:hover:bg-zinc-800 transition-colors disabled:opacity-40 text-zinc-50 dark:text-zinc-50"
             disabled={quantity <= 1}
             aria-label="Decrease quantity"
           >
             <Minus className="w-4 h-4" />
           </button>
-          <span className="px-6 py-3 font-medium min-w-[4rem] text-center">{quantity}</span>
+          <span className="px-6 py-3 font-medium min-w-[4rem] text-center text-zinc-50 dark:text-zinc-50">{quantity}</span>
           <button
             onClick={() => setQuantity((prev) => (stock !== undefined ? Math.min(prev + 1, stock) : prev + 1))}
-            className="p-3 hover:bg-muted transition-colors disabled:opacity-40"
+            className="p-3 hover:bg-zinc-800 dark:hover:bg-zinc-800 transition-colors disabled:opacity-40 text-zinc-50 dark:text-zinc-50"
             disabled={isOutOfStock || (stock !== undefined && quantity >= stock)}
             aria-label="Increase quantity"
           >
@@ -132,9 +132,9 @@ export default function AddToCartFlow({ product }: AddToCartFlowProps) {
       </div>
 
       {/* Total Price */}
-      <div className="flex items-center justify-between p-4 bg-primary/10 rounded-xl">
-        <span className="font-medium text-foreground">Total:</span>
-        <span className="text-2xl font-bold text-foreground">
+      <div className="flex items-center justify-between p-4 bg-[#1a1a1a] dark:bg-[#1a1a1a] border border-zinc-800 dark:border-zinc-700 rounded-xl">
+        <span className="font-medium text-zinc-50 dark:text-zinc-50">Total:</span>
+        <span className="text-2xl font-bold text-zinc-50 dark:text-zinc-50">
           {new Intl.NumberFormat(selectedCurrency.locale, {
             style: "currency",
             currency: selectedCurrency.code,
@@ -174,7 +174,7 @@ export default function AddToCartFlow({ product }: AddToCartFlowProps) {
       </div>
 
       {/* SSL Badge */}
-      <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+      <div className="flex items-center justify-center gap-2 text-sm text-zinc-500 dark:text-zinc-500">
         <ShieldCheck className="w-4 h-4" />
         <span>256-bit SSL Encrypted Secure Checkout</span>
       </div>

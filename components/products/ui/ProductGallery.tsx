@@ -62,7 +62,7 @@ export default function ProductGallery({
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <div className="relative bg-gradient-to-br from-muted to-muted/80 rounded-2xl p-8 flex items-center justify-center min-h-[400px] lg:min-h-[500px]">
+      <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] dark:from-[#1a1a1a] dark:to-[#0f0f0f] rounded-2xl p-8 flex items-center justify-center min-h-[400px] lg:min-h-[500px] border border-zinc-800 dark:border-zinc-700">
         {/* Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
           {badge && (
@@ -88,13 +88,13 @@ export default function ProductGallery({
             onClick={onWishlistToggle}
             aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
             className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-md ${
-              inWishlist ? "bg-red-500 text-white" : "bg-background hover:bg-muted text-foreground"
+              inWishlist ? "bg-red-500 text-white" : "bg-[#1a1a1a] dark:bg-[#1a1a1a] hover:bg-zinc-800 dark:hover:bg-zinc-800 text-zinc-50 dark:text-zinc-50 border border-zinc-700 dark:border-zinc-600"
             }`}
           >
             <Heart className={`w-5 h-5 ${inWishlist ? "fill-current" : ""}`} />
           </button>
           <button
-            className="w-10 h-10 rounded-full bg-background hover:bg-muted text-foreground flex items-center justify-center transition-all duration-300 shadow-md"
+            className="w-10 h-10 rounded-full bg-[#1a1a1a] dark:bg-[#1a1a1a] hover:bg-zinc-800 dark:hover:bg-zinc-800 text-zinc-50 dark:text-zinc-50 flex items-center justify-center transition-all duration-300 shadow-md border border-zinc-700 dark:border-zinc-600"
             aria-label="Share product"
             onClick={() => {
               if (typeof window !== "undefined") {
@@ -115,8 +115,8 @@ export default function ProductGallery({
             onError={handleImageError}
           />
         ) : (
-          <div className="w-48 h-60 bg-gradient-to-br from-muted to-muted/60 rounded-lg shadow-xl flex items-center justify-center">
-            <Package className="w-20 h-24 text-muted-foreground" />
+          <div className="w-48 h-60 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] dark:from-[#1a1a1a] dark:to-[#0f0f0f] rounded-lg shadow-xl flex items-center justify-center border border-zinc-800 dark:border-zinc-700">
+            <Package className="w-20 h-24 text-zinc-600 dark:text-zinc-600" />
           </div>
         )}
       </div>
@@ -131,8 +131,8 @@ export default function ProductGallery({
                 setActiveImage(img);
                 setImageError(false);
               }}
-              className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
-                activeImage === img ? "border-primary" : "border-transparent hover:border-muted-foreground/40"
+              className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors bg-[#1a1a1a] dark:bg-[#1a1a1a] ${
+                activeImage === img ? "border-primary" : "border-zinc-700 dark:border-zinc-700 hover:border-zinc-600 dark:hover:border-zinc-600"
               }`}
               aria-label={`View image ${idx + 1}`}
             >

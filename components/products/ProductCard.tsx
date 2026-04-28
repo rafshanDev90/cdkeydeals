@@ -129,8 +129,8 @@ export default function ProductCard({
         <Eye className="w-3 h-3" />
       </button>
 
-      {/* Product Image */}
-      <div className="relative h-36 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center p-4 overflow-hidden">
+      {/* ✅ Product Image — p-4 সরানো হয়েছে, overflow-hidden যোগ করা হয়েছে */}
+      <div className="relative h-36 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 overflow-hidden">
         <Link href={`/product/${productIdentifier}`} className="block w-full h-full">
           {image && !imageError ? (
             <img

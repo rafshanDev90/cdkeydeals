@@ -36,16 +36,16 @@ export default function CartPage() {
   // Empty cart state
   if (state.items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-card">
+      <div className="min-h-screen bg-gray-50 dark:bg-neutral-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <ShoppingBag className="w-12 h-12 text-gray-400" />
             </div>
-            <h1 className="text-2xl font-semibold text-gray-900 dark:text-foreground mb-4">
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Your cart is empty
             </h1>
-            <p className="text-gray-600 dark:text-muted-foreground mb-8 max-w-md mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
               Looks like you haven&apos;t added anything to your cart yet. Start shopping to fill it up!
             </p>
             <Link
@@ -62,22 +62,22 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-card">
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-950">
       {/* Header */}
-      <header className="bg-white dark:bg-card border-b border-gray-200 dark:border-border">
+      <header className="bg-white dark:bg-neutral-900 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link
               href="/"
-              className="flex items-center text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:text-foreground transition-colors"
+              className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100"
             >
               <ChevronLeft className="w-5 h-5 mr-1" />
               <span className="text-sm">Continue Shopping</span>
             </Link>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-foreground">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
               Shopping Cart
             </h1>
-            <div className="flex items-center text-gray-600 dark:text-muted-foreground">
+            <div className="flex items-center text-gray-600 dark:text-gray-400">
               <ShoppingBag className="w-4 h-4 mr-1" />
               <span className="text-sm">{state.totalItems} items</span>
             </div>
@@ -98,9 +98,9 @@ export default function CartPage() {
             </div>
 
             {/* Cart Items List */}
-            <div className="bg-white dark:bg-card rounded-xl shadow-sm border border-gray-200 dark:border-border overflow-hidden">
+            <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
               {/* Header Row - Desktop */}
-              <div className="hidden md:grid grid-cols-12 gap-4 p-4 bg-gray-50 dark:bg-muted text-sm font-medium text-gray-600 dark:text-muted-foreground">
+              <div className="hidden md:grid grid-cols-12 gap-4 p-4 bg-gray-50 dark:bg-neutral-800 text-sm font-medium text-gray-600 dark:text-gray-300">
                 <div className="col-span-6">Product</div>
                 <div className="col-span-2 text-center">Price</div>
                 <div className="col-span-2 text-center">Quantity</div>
@@ -131,11 +131,11 @@ export default function CartPage() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-gray-900 dark:text-foreground line-clamp-2">
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100 line-clamp-2">
                           {item.title}
                         </h3>
                         {item.category && (
-                          <p className="text-sm text-gray-500 dark:text-muted-foreground mt-0.5">
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                             {item.category}
                           </p>
                         )}
@@ -145,7 +145,7 @@ export default function CartPage() {
                           </span>
                         )}
                         {/* Mobile Price */}
-                        <p className="md:hidden text-sm font-medium text-gray-900 dark:text-foreground mt-2">
+                        <p className="md:hidden text-sm font-medium text-gray-900 dark:text-gray-100 mt-2">
                           {currencySymbol}{item.price.toFixed(2)}
                         </p>
                       </div>
@@ -153,7 +153,7 @@ export default function CartPage() {
 
                     {/* Price - Desktop */}
                     <div className="hidden md:block col-span-2 text-center">
-                      <span className="text-gray-900 dark:text-foreground font-medium">
+                      <span className="text-gray-900 dark:text-gray-100 font-medium">
                         {currencySymbol}{item.price.toFixed(2)}
                       </span>
                       {item.originalPrice && item.originalPrice > item.price && (
@@ -167,17 +167,17 @@ export default function CartPage() {
                     <div className="col-span-2 flex items-center justify-center gap-2 mb-4 md:mb-0">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-8 h-8 rounded-lg border border-gray-300 dark:border-border flex items-center justify-center text-gray-600 dark:text-muted-foreground hover:bg-gray-100 dark:hover:bg-muted transition-colors"
+                        className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-muted transition-colors"
                         aria-label="Decrease quantity"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
-                      <span className="w-12 text-center font-medium text-gray-900 dark:text-foreground">
+                      <span className="w-12 text-center font-medium text-gray-900 dark:text-gray-100">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-8 h-8 rounded-lg border border-gray-300 dark:border-border flex items-center justify-center text-gray-600 dark:text-muted-foreground hover:bg-gray-100 dark:hover:bg-muted transition-colors"
+                        className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-muted transition-colors"
                         aria-label="Increase quantity"
                       >
                         <Plus className="w-4 h-4" />
@@ -187,7 +187,7 @@ export default function CartPage() {
                     {/* Total & Remove */}
                     <div className="col-span-2 flex items-center justify-between md:justify-end gap-4">
                       <div className="text-right">
-                        <span className="font-semibold text-gray-900 dark:text-foreground">
+                        <span className="font-semibold text-gray-900 dark:text-gray-100">
                           {currencySymbol}{(item.price * item.quantity).toFixed(2)}
                         </span>
                       </div>
@@ -218,21 +218,21 @@ export default function CartPage() {
 
           {/* Right Column - Order Summary */}
           <div className="lg:col-span-4 mt-8 lg:mt-0">
-            <div className="bg-white dark:bg-card rounded-xl shadow-sm border border-gray-200 dark:border-border p-6 lg:sticky lg:top-8">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-foreground mb-6">
+            <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 lg:sticky lg:top-8">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">
                 Order Summary
               </h2>
 
               {/* Summary Lines */}
-              <div className="space-y-3 pb-6 border-b border-gray-200 dark:border-border">
+              <div className="space-y-3 pb-6 border-b border-gray-200 dark:border-gray-700">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-muted-foreground">Subtotal</span>
-                  <span className="font-medium text-gray-900 dark:text-foreground">
+                  <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
                     {currencySymbol}{subtotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-muted-foreground">Shipping</span>
+                  <span className="text-gray-600 dark:text-gray-400">Shipping</span>
                   <span className="font-medium text-green-600">
                     {shipping === 0 ? "Free" : `${currencySymbol}${shipping.toFixed(2)}`}
                   </span>
@@ -240,24 +240,24 @@ export default function CartPage() {
               </div>
 
               {/* Total */}
-              <div className="flex justify-between items-center py-6 border-b border-gray-200 dark:border-border">
-                <span className="text-base font-semibold text-gray-900 dark:text-foreground">Total</span>
-                <span className="text-2xl font-bold text-gray-900 dark:text-foreground">
+              <div className="flex justify-between items-center py-6 border-b border-gray-200 dark:border-gray-700">
+                <span className="text-base font-semibold text-gray-900 dark:text-gray-100">Total</span>
+                <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                   {currencySymbol}{total.toFixed(2)}
                 </span>
               </div>
 
               {/* Benefits */}
-              <div className="py-6 space-y-3 border-b border-gray-200 dark:border-border">
-                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-muted-foreground">
+              <div className="py-6 space-y-3 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                   <Shield className="w-4 h-4 text-purple-600" />
                   <span>Secure Payment</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-muted-foreground">
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                   <Truck className="w-4 h-4 text-purple-600" />
                   <span>Free Shipping</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-muted-foreground">
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                   <Clock className="w-4 h-4 text-purple-600" />
                   <span>Instant Delivery</span>
                 </div>

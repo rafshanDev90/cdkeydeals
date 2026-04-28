@@ -10,14 +10,14 @@
  * ✅ No functions ever cross the Server→Client boundary.
  */
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Menu, X, Moon, Sun, Flame } from "lucide-react";
-import { useTheme } from "next-themes";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X, Flame } from "lucide-react";
 import Link from "next/link";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import AccountDropdown from "./AccountDropdown";
 import CartIcon from "@/components/cart/CartIcon";
+import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
 import GiftCardsDropdown from "./GiftCardsDropdown";
 import BestDealsDropdown from "./BestDealsDropdown";
 import BlogDropdown from "./BlogDropdown";
@@ -42,11 +42,7 @@ interface HeaderClientProps {
 export default function HeaderClient({ navData }: HeaderClientProps) {
   const { gameItems, softwareItems, giftCardItems } = navData;
 
-  // ── Theme ──────────────────────────────────────────────────────────────────
-  const { setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-
+  
   // ── Sticky header ──────────────────────────────────────────────────────────
   const [isSticky, setIsSticky] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -82,12 +78,6 @@ export default function HeaderClient({ navData }: HeaderClientProps) {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
-
-  // ── Handlers (defined once, stable references via useCallback) ─────────────
-  const handleDarkModeToggle = useCallback(
-    () => setTheme(resolvedTheme === "dark" ? "light" : "dark"),
-    [resolvedTheme, setTheme],
-  );
 
   // Closing all dropdowns when clicking outside or pressing Escape is handled
   // inside each child dropdown component using their own useEffect hooks.
@@ -239,21 +229,7 @@ export default function HeaderClient({ navData }: HeaderClientProps) {
             <div className="flex items-center gap-8">
               <CurrencyDropdown />
 
-              {mounted && (
-                <button
-                  id="dark-mode-toggle"
-                  onClick={handleDarkModeToggle}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
-                  aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
-                >
-                  <span>{resolvedTheme === "dark" ? "Light Mode" : "Dark Mode"}</span>
-                  {resolvedTheme === "dark" ? (
-                    <Sun className="w-4 h-4 text-amber-500" />
-                  ) : (
-                    <Moon className="w-4 h-4 text-gray-600" />
-                  )}
-                </button>
-              )}
+              <ThemeSwitcher />
             </div>
           </div>
         </div>
