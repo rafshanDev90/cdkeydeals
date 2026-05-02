@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronRight, ChevronLeft } from "lucide-react";
-import { useRef } from "react";
+import { ChevronRight } from "lucide-react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -39,7 +39,11 @@ const itemVariants = {
 
 export default function BrandCarousel({ brands }: BrandCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  
+  // Duplicate brands for seamless infinite loop
+  const duplicatedBrands = [...brands, ...brands];
 
+  // manual scroll buttons (optional future use)
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const scrollAmount = 400;
@@ -49,6 +53,57 @@ export default function BrandCarousel({ brands }: BrandCarouselProps) {
       });
     }
   };
+
+  // 🔥 AUTO SCROLL (RIGHT → LEFT LOOP)
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) {
+      console.log('❌ Container ref is null');
+      return;
+    }
+
+    console.log('✅ Container found:', container);
+    console.log('📏 scrollWidth:', container.scrollWidth, 'clientWidth:', container.clientWidth);
+
+    let scrollSpeed = 0.5; // pixels per frame
+    let animationId: number;
+    let isScrolling = true;
+
+    const scroll = () => {
+      if (!container || !isScrolling) return;
+
+      // Check if we have content to scroll
+      if (container.scrollWidth <= container.clientWidth) {
+        console.log('⚠️ Not enough content to scroll');
+        return;
+      }
+
+      // When reaching halfway point, reset to start for seamless loop
+      if (container.scrollLeft >= container.scrollWidth / 2) {
+        container.scrollLeft = 0;
+        console.log('🔄 Reset to start');
+      } else {
+        container.scrollLeft += scrollSpeed;
+      }
+
+      animationId = requestAnimationFrame(scroll);
+    };
+
+    // Wait for content to load and measurements to be available
+    const timeoutId = setTimeout(() => {
+      console.log('🚀 Starting scroll animation');
+      console.log('📐 Final measurements - scrollWidth:', container.scrollWidth, 'clientWidth:', container.clientWidth);
+      scroll();
+    }, 500);
+
+    return () => {
+      isScrolling = false;
+      clearTimeout(timeoutId);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [duplicatedBrands.length]); // Add dependency to re-run when brands change
 
   if (!brands || brands.length === 0) return null;
 
@@ -73,22 +128,23 @@ export default function BrandCarousel({ brands }: BrandCarouselProps) {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="flex gap-6 overflow-x-auto pb-10 scrollbar-hide snap-x snap-mandatory"
+        className="flex gap-6 overflow-x-auto pb-10 scrollbar-hide flex-nowrap"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {brands.map((brand) => (
+        {duplicatedBrands.map((brand, index) => (
           <motion.div
-            key={brand.id}
+            key={`${brand.id}-${index}`}
             variants={itemVariants}
-            className="shrink-0 snap-start"
+            className="shrink-0"
           >
             <div className="block outline-none">
-              {/* Brand Card - No Hover Effects */}
-              <div className="relative w-36 h-28 sm:w-44 sm:h-32 bg-white dark:bg-[#242424]
-                            border border-gray-100 dark:border-zinc-800
-                            rounded-2xl flex items-center justify-center p-6
-                            shadow-none transition-none">
-                
+              {/* Brand Card */}
+              <div
+                className="relative w-36 h-28 sm:w-44 sm:h-32 bg-white dark:bg-[#242424]
+              border border-gray-100 dark:border-zinc-800
+              rounded-2xl flex items-center justify-center p-6
+              shadow-none transition-none"
+              >
                 {brand.image ? (
                   <div className="relative w-full h-full">
                     <Image
