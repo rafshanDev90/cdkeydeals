@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingCart, Eye, Package } from "lucide-react";
+import { ShoppingCart, Eye, Package, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
@@ -46,15 +46,13 @@ function PopularCard({ product, onQuickView }: { product: Product; onQuickView: 
 
   return (
     <div
-      className="group flex flex-col relative rounded-xl bg-card dark:bg-muted p-3
-        hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]
-        dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.08)]
-        transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+      className="group relative bg-white dark:bg-[#2A2A2A] rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden
+        hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-300 ease-out hover:-translate-y-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* ✅ Image Container — flex/justify wrapper সরানো হয়েছে */}
-      <Link href={href} className="relative block aspect-4/5 overflow-hidden rounded-xl border border-border shadow-sm">
+      {/* Image */}
+      <Link href={href} className="relative block aspect-4/5 overflow-hidden">
         {showImage ? (
           <img
             src={product.image!}
@@ -65,8 +63,7 @@ function PopularCard({ product, onQuickView }: { product: Product; onQuickView: 
             onError={() => setImageError(true)}
           />
         ) : (
-          // Professional fallback
-          <div className="flex flex-col items-center justify-center w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
+          <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
             <div className="relative w-14 h-16 bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-500 dark:to-gray-600 rounded-sm shadow-md">
               <div className="absolute inset-0 flex items-center justify-center">
                 <Package className="w-7 h-9 text-white/70" />
@@ -80,84 +77,69 @@ function PopularCard({ product, onQuickView }: { product: Product; onQuickView: 
           </div>
         )}
 
-        {/* Hover overlay */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-0"
-          }`}
-        />
-
         {/* Discount badge */}
         {product.discount && (
-          <div className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow-sm z-10">
+          <span className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-md shadow-sm z-10">
             -{product.discount}%
-          </div>
+          </span>
         )}
 
-        {/* Quick View */}
+        {/* Quick View overlay */}
         <button
           type="button"
           onClick={(e) => { e.preventDefault(); onQuickView(); }}
-          className={`absolute top-2 right-2 z-20 w-8 h-8
-            bg-white/90 dark:bg-gray-800/90 hover:bg-gray-900 hover:text-white
-            text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center
-            transition-all duration-300 shadow-md backdrop-blur-sm ${
-            isHovered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+          className={`absolute top-2 right-2 z-20 w-8 h-8 bg-black/80 text-white rounded-full
+            flex items-center justify-center transition-all duration-300 ${
+            isHovered ? "opacity-100" : "opacity-0"
           }`}
           aria-label="Quick view"
         >
-          <Eye className="w-3.5 h-3.5" />
+          <Eye className="w-4 h-4" />
         </button>
       </Link>
 
-      {/* Product Info */}
-      <div className="mt-4 flex flex-col flex-1 justify-between">
-        <div className="space-y-1">
-          <span className="text-xs text-muted-foreground font-medium">{product.category}</span>
+      {/* Info */}
+      <div className="p-3 space-y-2">
+        <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-semibold tracking-wider">
+          {product.category}
+        </span>
 
-          <Link href={href}>
-            <h3 className="text-[14px] font-bold text-foreground leading-snug hover:text-blue-600 dark:hover:text-blue-400 line-clamp-2 min-h-[40px] transition-colors">
-              {product.title}
-            </h3>
-          </Link>
+        <Link href={href}>
+          <h3 className="text-sm font-semibold text-foreground hover:text-blue-500 dark:hover:text-blue-400 line-clamp-2 leading-snug min-h-[40px]">
+            {product.title}
+          </h3>
+        </Link>
 
-          <div className="flex items-center gap-2 pt-1">
-            <span className="text-base font-extrabold text-foreground">
-              ${product.price.toFixed(2)}
-            </span>
-            {product.originalPrice && (
-              <span className="text-xs text-muted-foreground line-through">
-                ${product.originalPrice.toFixed(2)}
-              </span>
-            )}
-          </div>
-
-          {/* Stock Status */}
-          <div className="flex items-center gap-1.5 mt-1">
-            <span className={`w-2 h-2 rounded-full ${
-              isOutOfStock ? "bg-red-500" : isLowStock ? "bg-orange-500" : "bg-green-500"
-            }`} />
-            <span className={`text-xs font-semibold ${
-              isOutOfStock
-                ? "text-red-600 dark:text-red-400"
-                : isLowStock
-                ? "text-orange-600 dark:text-orange-400"
-                : "text-green-600 dark:text-green-400"
-            }`}>
-              {product.stockLabel || "In Stock"}
-            </span>
-          </div>
+        <div className="flex items-baseline gap-2">
+          <span className="text-base font-bold text-foreground">${product.price.toFixed(2)}</span>
+          {product.originalPrice && (
+            <span className="text-xs text-gray-400 line-through">${product.originalPrice.toFixed(2)}</span>
+          )}
         </div>
 
-        {/* Action Buttons — revealed on hover */}
-        <div
-          className={`mt-3 space-y-1.5 transition-all duration-300 ${
-            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
-          }`}
-        >
+        {/* Stock */}
+        <div className="flex items-center gap-1.5">
+          <span className={`w-2 h-2 rounded-full ${
+            isOutOfStock ? "bg-red-500" : isLowStock ? "bg-orange-500" : "bg-green-500"
+          }`} />
+          <span className={`text-xs font-semibold ${
+            isOutOfStock
+              ? "text-red-600 dark:text-red-400"
+              : isLowStock
+              ? "text-orange-600 dark:text-orange-400"
+              : "text-green-600 dark:text-green-400"
+          }`}>
+            {product.stockLabel || "In Stock"}
+          </span>
+        </div>
+
+        {/* Actions — hover reveal */}
+        <div className={`space-y-1.5 transition-all duration-300 pt-1 ${
+          isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
+        }`}>
           <Button
             size="sm"
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-black shadow-md text-xs py-1.5 px-3 h-8 border-none"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-black shadow-sm text-xs h-8 border-none"
             disabled={isOutOfStock}
             onClick={handleAddToCart}
           >
@@ -168,7 +150,7 @@ function PopularCard({ product, onQuickView }: { product: Product; onQuickView: 
           <Button
             variant="outline"
             size="sm"
-            className="w-full text-xs py-1.5 px-3 h-8"
+            className="w-full text-xs h-8"
             onClick={onQuickView}
           >
             <Eye className="w-3.5 h-3.5 mr-1" />
@@ -196,23 +178,26 @@ export default function MostPopular({ title = "Most Popular", products, viewAllL
   const displayProducts = limit ? products.slice(0, limit) : products;
 
   return (
-    <section className="py-12 bg-background">
+    <section className="py-12 bg-white dark:bg-[#1E1E1E]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+          <div>
+            <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+            <p className="text-sm text-muted-foreground mt-1">Products that are gaining popularity</p>
+          </div>
           {viewAllLink && (
             <Link
               href={viewAllLink}
               className="flex items-center gap-1 text-[#00d4aa] hover:text-[#00b894] font-medium text-sm transition-colors"
             >
-              View All →
+              View All <ChevronRight className="w-4 h-4" />
             </Link>
           )}
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-8">
+        {/* Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {displayProducts.map((product) => (
             <PopularCard
               key={product.id}

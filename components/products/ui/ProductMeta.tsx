@@ -50,7 +50,7 @@ export default function ProductMeta({
       </div>
 
       {/* Title */}
-      <h1 className="text-2xl lg:text-3xl font-bold text-zinc-50 dark:text-zinc-50 leading-tight">
+      <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-zinc-50 leading-tight">
         {title}
       </h1>
 
@@ -59,16 +59,16 @@ export default function ProductMeta({
         {rating && (
           <div className="flex items-center gap-2">
             <div className="flex items-center">{renderRating(rating)}</div>
-            <span className="font-medium text-zinc-50 dark:text-zinc-50">{rating.toFixed(1)}</span>
+            <span className="font-medium text-gray-700 dark:text-zinc-50">{rating.toFixed(1)}</span>
             {reviewCount && (
-              <span className="text-sm text-zinc-400 dark:text-zinc-400">
+              <span className="text-sm text-gray-500 dark:text-zinc-400">
                 ({reviewCount.toLocaleString()} reviews)
               </span>
             )}
           </div>
         )}
         {soldCount && (
-          <div className="flex items-center gap-1 text-sm text-zinc-400 dark:text-zinc-400">
+          <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-zinc-400">
             <Zap className="w-4 h-4 text-orange-500" />
             <span>{soldCount.toLocaleString()} sold</span>
           </div>

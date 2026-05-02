@@ -51,32 +51,32 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
   ];
 
   return (
-    <div className="pb-24 lg:pb-8 bg-[#0b0b0b] dark:bg-[#0b0b0b]">
+    <div className="pb-24 lg:pb-8 bg-white dark:bg-[#0b0b0b]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* ───────── Breadcrumb ───────── */}
-        <nav className="flex items-center text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-6 space-x-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide">
-          <Link href="/" className="hover:text-zinc-50 dark:hover:text-zinc-50 transition-colors shrink-0">Home</Link>
-          <ChevronRight className="w-3 h-3 shrink-0 text-zinc-600 dark:text-zinc-600" />
-          <Link href="/collections" className="hover:text-zinc-50 dark:hover:text-zinc-50 transition-colors shrink-0">Shop</Link>
+        <nav className="flex items-center text-xs font-medium text-gray-500 dark:text-zinc-500 mb-6 space-x-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide">
+          <Link href="/" className="hover:text-gray-900 dark:hover:text-zinc-50 transition-colors shrink-0">Home</Link>
+          <ChevronRight className="w-3 h-3 shrink-0 text-gray-400 dark:text-zinc-600" />
+          <Link href="/collections" className="hover:text-gray-900 dark:hover:text-zinc-50 transition-colors shrink-0">Shop</Link>
           {product.category && (
             <>
-              <ChevronRight className="w-3 h-3 shrink-0 text-zinc-600 dark:text-zinc-600" />
+              <ChevronRight className="w-3 h-3 shrink-0 text-gray-400 dark:text-zinc-600" />
               <Link
                 href={`/collections?category=${encodeURIComponent(product.category)}`}
-                className="hover:text-zinc-50 dark:hover:text-zinc-50 transition-colors shrink-0"
+                className="hover:text-gray-900 dark:hover:text-zinc-50 transition-colors shrink-0"
               >
                 {product.category}
               </Link>
             </>
           )}
-          <ChevronRight className="w-3 h-3 shrink-0 text-zinc-600 dark:text-zinc-600" />
-          <span className="text-primary font-bold truncate max-w-[200px]">{product.title}</span>
+          <ChevronRight className="w-3 h-3 shrink-0 text-gray-400 dark:text-zinc-600" />
+          <span className="text-blue-600 dark:text-primary font-bold truncate max-w-[200px]">{product.title}</span>
         </nav>
 
         {/* Mobile Back */}
         <Link
           href="/collections"
-          className="inline-flex items-center text-sm text-zinc-500 dark:text-zinc-500 hover:text-zinc-50 dark:hover:text-zinc-50 mb-4 lg:hidden transition-colors"
+          className="inline-flex items-center text-sm text-gray-500 dark:text-zinc-500 hover:text-gray-900 dark:hover:text-zinc-50 mb-4 lg:hidden transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-1" />
           Back to Products
@@ -91,7 +91,7 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
             image={product.image}
             images={product.images}
             badge={product.badge}
-            badgeColor={product.badgeColor}
+            badgeColor={product.badgeColor as any}
             discountPercent={product.discount}
             isNew={product.isNew}
             inWishlist={isInWishlist(product.id)}
@@ -104,11 +104,11 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
             {/* Badges */}
             <div className="flex gap-2 flex-wrap">
               {product.category && (
-                <span className="bg-[#1a1a1a] dark:bg-[#1a1a1a] text-zinc-300 dark:text-zinc-300 border border-zinc-800 dark:border-zinc-700 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                <span className="bg-gray-100 dark:bg-[#1a1a1a] text-gray-800 dark:text-zinc-300 border border-gray-300 dark:border-zinc-700 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
                   {product.category}
                 </span>
               )}
-              <span className="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary border border-primary/20 dark:border-primary/30 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+              <span className="bg-blue-50 dark:bg-primary/20 text-blue-600 dark:text-primary border border-blue-200 dark:border-primary/30 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
                 Lifetime License
               </span>
             </div>
@@ -127,18 +127,18 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
             <AddToCartFlow product={product} />
 
             {/* Brand / Category / Status strip */}
-            <div className="grid grid-cols-3 gap-2 py-4 border-y border-zinc-800 dark:border-zinc-700 bg-[#1a1a1a] dark:bg-[#1a1a1a] rounded-lg px-4">
+            <div className="grid grid-cols-3 gap-2 py-4 border-y border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg px-4">
               <div className="text-center">
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-1">Brand</p>
-                <p className="font-bold text-sm text-zinc-50 dark:text-zinc-50">{product.platform || "CDKeyDeals"}</p>
+                <p className="text-[10px] uppercase tracking-widest text-gray-500 dark:text-zinc-400 mb-1">Brand</p>
+                <p className="font-bold text-sm text-gray-900 dark:text-zinc-50">{product.platform || "CDKeyDeals"}</p>
               </div>
               <div className="text-center">
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-1">Category</p>
-                <p className="font-bold text-sm text-zinc-50 dark:text-zinc-50">{product.category || "General"}</p>
+                <p className="text-[10px] uppercase tracking-widest text-gray-500 dark:text-zinc-400 mb-1">Category</p>
+                <p className="font-bold text-sm text-gray-900 dark:text-zinc-50">{product.category || "General"}</p>
               </div>
               <div className="text-center">
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-1">Status</p>
-                <p className={`font-bold text-sm ${product.stock === 0 ? "text-red-500" : "text-green-500 dark:text-green-500"}`}>
+                <p className="text-[10px] uppercase tracking-widest text-gray-500 dark:text-zinc-400 mb-1">Status</p>
+                <p className={`font-bold text-sm ${product.stock === 0 ? "text-red-500" : "text-green-600 dark:text-green-500"}`}>
                   {product.stock === 0 ? "Out of Stock" : "In Stock"}
                 </p>
               </div>
@@ -151,13 +151,13 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
           {metaItems.map((item, i) => (
             <div
               key={i}
-              className={`bg-[#1a1a1a] dark:bg-[#1a1a1a] border border-zinc-800 dark:border-zinc-700 p-4 rounded-xl text-center ${
+              className={`bg-gray-50 dark:bg-[#1a1a1a] border border-gray-200 dark:border-zinc-700 p-4 rounded-xl text-center ${
                 i === metaItems.length - 1 ? "col-span-2 md:col-span-1" : ""
               }`}
             >
-              <div className="flex justify-center text-primary mb-2">{item.icon}</div>
-              <p className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-tighter">{item.label}</p>
-              <p className="text-sm font-bold text-zinc-50 dark:text-zinc-50">{item.value}</p>
+              <div className="flex justify-center text-blue-600 dark:text-primary mb-2">{item.icon}</div>
+              <p className="text-[10px] text-gray-500 dark:text-zinc-400 uppercase tracking-tighter">{item.label}</p>
+              <p className="text-sm font-bold text-gray-900 dark:text-zinc-50">{item.value}</p>
             </div>
           ))}
         </section>
@@ -175,8 +175,8 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
         {relatedProducts.length > 0 && (
           <section className="mb-16">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-zinc-50 dark:text-zinc-50 font-headline">You May Also Like</h2>
-              <Link href="/collections" className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-zinc-50 font-headline">You May Also Like</h2>
+              <Link href="/collections" className="text-sm text-blue-600 dark:text-primary hover:text-blue-700 dark:hover:text-primary/80 font-medium flex items-center gap-1">
                 View All
                 <ChevronRight className="w-4 h-4" />
               </Link>
@@ -186,9 +186,9 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
                 <Link
                   key={relatedProduct.id}
                   href={`/product/${relatedProduct.slug || relatedProduct.id}`}
-                  className="bg-[#1a1a1a] dark:bg-[#1a1a1a] border border-zinc-800 dark:border-zinc-700 rounded-xl overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-200 cursor-pointer group"
+                  className="bg-gray-50 dark:bg-[#1a1a1a] border border-gray-200 dark:border-zinc-700 rounded-xl overflow-hidden hover:shadow-lg hover:border-blue-300 dark:hover:border-primary/30 transition-all duration-200 cursor-pointer group"
                 >
-                  <div className="relative h-32 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] flex items-center justify-center p-3 overflow-hidden">
+                  <div className="relative h-32 bg-white dark:bg-gradient-to-br dark:from-[#1a1a1a] dark:to-[#0f0f0f] flex items-center justify-center p-3 overflow-hidden">
                     {relatedProduct.image ? (
                       <img
                         src={relatedProduct.image}
@@ -196,19 +196,19 @@ export default function ProductDetails({ product, relatedProducts = [] }: Produc
                         className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
                       />
                     ) : (
-                      <div className="w-10 h-12 bg-[#1a1a1a] rounded animate-pulse" />
+                      <div className="w-10 h-12 bg-gray-200 dark:bg-[#1a1a1a] rounded animate-pulse" />
                     )}
                   </div>
                   <div className="p-3">
-                    <h4 className="text-xs font-bold text-zinc-50 dark:text-zinc-50 line-clamp-2 min-h-[2rem] group-hover:text-primary transition-colors">
+                    <h4 className="text-xs font-bold text-gray-900 dark:text-zinc-50 line-clamp-2 min-h-[2rem] group-hover:text-blue-600 dark:group-hover:text-primary transition-colors">
                       {relatedProduct.title}
                     </h4>
                     <div className="mt-2 flex items-baseline gap-1">
-                      <span className="text-sm font-bold text-zinc-50 dark:text-zinc-50">
+                      <span className="text-sm font-bold text-gray-900 dark:text-zinc-50">
                         ${relatedProduct.price.toFixed(2)}
                       </span>
                       {relatedProduct.originalPrice && relatedProduct.originalPrice > relatedProduct.price && (
-                        <span className="text-xs text-zinc-500 dark:text-zinc-500 line-through">
+                        <span className="text-xs text-gray-500 dark:text-zinc-500 line-through">
                           ${relatedProduct.originalPrice.toFixed(2)}
                         </span>
                       )}

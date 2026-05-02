@@ -7,6 +7,7 @@
  */
 
 import { useState } from "react";
+import Image from "next/image";
 import { Package, Heart, Share2 } from "lucide-react";
 import { BadgeColor } from "@/types/product";
 import logger from "@/lib/logger";
@@ -62,7 +63,7 @@ export default function ProductGallery({
   return (
     <div className="space-y-4">
       {/* Main Image */}
-      <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] dark:from-[#1a1a1a] dark:to-[#0f0f0f] rounded-2xl p-8 flex items-center justify-center min-h-[400px] lg:min-h-[500px] border border-zinc-800 dark:border-zinc-700">
+      <div className="relative bg-white dark:bg-gradient-to-br dark:from-[#1a1a1a] dark:to-[#0f0f0f] rounded-2xl overflow-hidden border border-gray-200 dark:border-zinc-700" style={{ aspectRatio: '1/1' }}>
         {/* Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
           {badge && (
@@ -88,13 +89,13 @@ export default function ProductGallery({
             onClick={onWishlistToggle}
             aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
             className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-md ${
-              inWishlist ? "bg-red-500 text-white" : "bg-[#1a1a1a] dark:bg-[#1a1a1a] hover:bg-zinc-800 dark:hover:bg-zinc-800 text-zinc-50 dark:text-zinc-50 border border-zinc-700 dark:border-zinc-600"
+              inWishlist ? "bg-red-500 text-white" : "bg-white dark:bg-[#1a1a1a] hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-700 dark:text-zinc-50 border border-gray-300 dark:border-zinc-600"
             }`}
           >
             <Heart className={`w-5 h-5 ${inWishlist ? "fill-current" : ""}`} />
           </button>
           <button
-            className="w-10 h-10 rounded-full bg-[#1a1a1a] dark:bg-[#1a1a1a] hover:bg-zinc-800 dark:hover:bg-zinc-800 text-zinc-50 dark:text-zinc-50 flex items-center justify-center transition-all duration-300 shadow-md border border-zinc-700 dark:border-zinc-600"
+            className="w-10 h-10 rounded-full bg-white dark:bg-[#1a1a1a] hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-700 dark:text-zinc-50 flex items-center justify-center transition-all duration-300 shadow-md border border-gray-300 dark:border-zinc-600"
             aria-label="Share product"
             onClick={() => {
               if (typeof window !== "undefined") {
@@ -108,15 +109,19 @@ export default function ProductGallery({
 
         {/* Main image or fallback */}
         {activeImage && !imageError ? (
-          <img
-            src={activeImage}
-            alt={title}
-            className="max-w-full max-h-[400px] lg:max-h-[450px] object-contain"
-            onError={handleImageError}
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src={activeImage}
+              alt={title}
+              fill
+              className="object-cover"
+              onError={handleImageError}
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
         ) : (
-          <div className="w-48 h-60 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] dark:from-[#1a1a1a] dark:to-[#0f0f0f] rounded-lg shadow-xl flex items-center justify-center border border-zinc-800 dark:border-zinc-700">
-            <Package className="w-20 h-24 text-zinc-600 dark:text-zinc-600" />
+          <div className="w-full h-full bg-white dark:bg-gradient-to-br dark:from-[#1a1a1a] dark:to-[#0f0f0f] flex items-center justify-center">
+            <Package className="w-20 h-24 text-gray-400 dark:text-zinc-600" />
           </div>
         )}
       </div>
@@ -131,8 +136,8 @@ export default function ProductGallery({
                 setActiveImage(img);
                 setImageError(false);
               }}
-              className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors bg-[#1a1a1a] dark:bg-[#1a1a1a] ${
-                activeImage === img ? "border-primary" : "border-zinc-700 dark:border-zinc-700 hover:border-zinc-600 dark:hover:border-zinc-600"
+              className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors bg-white dark:bg-[#1a1a1a] ${
+                activeImage === img ? "border-blue-500 dark:border-primary" : "border-gray-300 dark:border-zinc-700 hover:border-gray-400 dark:hover:border-zinc-600"
               }`}
               aria-label={`View image ${idx + 1}`}
             >
