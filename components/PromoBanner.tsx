@@ -153,7 +153,7 @@ function BannerCard({ banner }: BannerCardProps) {
 
         {/* Shop Now Button */}
         <ShopNowButton
-          slug={banner.productSlug}
+          slug=""
           variant="custom"
           className="group text-white transition-all duration-300 transform hover:translate-x-1 hover:shadow-lg active:scale-95"
           style={{ backgroundColor: gradient.accent }}

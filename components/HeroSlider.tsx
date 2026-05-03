@@ -206,7 +206,7 @@ export default function HeroSlider({ products = [] }: { products?: Product[] }) 
           <p className="text-sm sm:text-base text-gray-300">{slide.subtitle}</p>
 
           <ShopNowButton
-            slug={slide.productSlug}
+            slug=""
             variant={slide.buttonVariant || "primary"}
             className="group"
           >

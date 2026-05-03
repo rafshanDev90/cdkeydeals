@@ -103,7 +103,7 @@ const defaultPromoCards: BestDealsPromoCard[] = [
     subtitle: "Office 2024",
     description: "Limited stock available",
     buttonText: "Shop Now →",
-    buttonHref: "/deals/office-2024",
+    buttonHref: "/collections",
     gradient: "bg-gradient-to-br from-orange-500 via-red-500 to-pink-500",
     textColor: "text-white",
     buttonTextColor: "text-white hover:text-orange-200 transition-colors",

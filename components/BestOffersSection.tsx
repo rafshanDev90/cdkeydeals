@@ -84,7 +84,7 @@ export default function BestOffersSection({ products = [] }: BestOffersSectionPr
                 </div>
 
                 <Link 
-                  href={getProductLink(p1?.slug || p1?.id.toString())}
+                  href="/collections"
                   className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-8 py-4 rounded-xl transition-transform hover:scale-105"
                   aria-label={`Shop now for ${p1?.title || 'Product'}`}
                 >
@@ -106,7 +106,7 @@ export default function BestOffersSection({ products = [] }: BestOffersSectionPr
               
               {/* Product 2 Card */}
               <Link 
-                href={getProductLink(p2?.slug || p2?.id?.toString())}
+                href="/collections"
                 className="bg-gradient-to-br from-purple-800 to-indigo-900 rounded-2xl p-6 relative overflow-hidden min-h-[200px] flex flex-col justify-end group cursor-pointer"
               >
                 {p2?.discount && <div className="absolute top-4 left-4 bg-yellow-400 text-black text-[10px] font-bold px-1.5 py-0.5 rounded">{p2.discount}% OFF</div>}
@@ -125,7 +125,7 @@ export default function BestOffersSection({ products = [] }: BestOffersSectionPr
 
               {/* Product 3 Card */}
               <Link 
-                href={getProductLink(p3?.slug || p3?.id?.toString())}
+                href="/collections"
                 className="bg-[#001b3d] rounded-2xl p-6 relative overflow-hidden min-h-[200px] flex flex-col justify-end group border border-blue-500/30 cursor-pointer"
               >
                 {p3?.badge && <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">{p3.badge}</div>}
@@ -143,7 +143,7 @@ export default function BestOffersSection({ products = [] }: BestOffersSectionPr
 
             {/* Bottom Horizontal Banner */}
             <Link 
-              href={getProductLink(p4?.slug || p4?.id?.toString())}
+              href="/collections"
               className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-6 relative overflow-hidden flex items-center justify-between border border-blue-100 cursor-pointer group"
             >
                <div className="flex items-center gap-6 z-10">

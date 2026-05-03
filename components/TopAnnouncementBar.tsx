@@ -37,7 +37,7 @@ const TopAnnouncementBar: React.FC = () => {
             </span>
 
             <Link
-              href="/shop"
+              href="/collections"
               className="inline-flex items-center space-x-1 text-yellow-300 text-xs sm:text-sm font-semibold hover:text-yellow-100 transition-colors duration-200 focus:outline-none"
               aria-label="Shop now for 26% discount"
             >

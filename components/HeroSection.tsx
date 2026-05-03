@@ -34,7 +34,7 @@ const slides: SlideData[] = [
     title: "Call of Duty: Modern Warfare II",
     subtitle: "Experience the ultimate blockbuster action. Get instant delivery on all platforms.",
     cta: "Shop Now",
-    href: "/product/call-of-duty-modern-warfare-ii",
+    href: "/collections",
     badge: "New Release",
     discount: "30% OFF",
     image: "/images/Call Of Duty 2.jpg",

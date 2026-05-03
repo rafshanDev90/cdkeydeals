@@ -87,7 +87,7 @@ const defaultPromoCards: BestDealsDropdownPromoCard[] = [
     title: "Professional Plus",
     subtitle: "Office 2024",
     buttonText: "Shop Now →",
-    buttonHref: "/collections/software",
+    buttonHref: "/collections",
     gradient:
       "bg-gradient-to-br from-gray-100 to-purple-200 dark:from-gray-800 dark:to-purple-900",
     textColor: "text-purple-700 dark:text-purple-300",
